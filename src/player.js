@@ -13,9 +13,7 @@ var player = [
     0.2,    // 11: shooter cadence
 ];
 
-var turrets = [
-    -90, 90, 0, 180
-]; // Turret angles
+
 
 function updatePlayer(){
     // Go where forces say
@@ -60,10 +58,10 @@ function drawPlayer(){
     ctx.fill();
 
     ctx.strokeStyle = '#c0392b';
-    drawLine(px, py - r, turrets[0], 18, 6);
-    drawLine(px, py + r, turrets[1], 18, 6);
-    drawLine(px - r, py, turrets[2], 18, 6);
-    drawLine(px + r, py, turrets[3], 18, 6);
+    drawLine(px, py - r, turretsAngles[0], 18, 6);
+    drawLine(px, py + r, turretsAngles[1], 18, 6);
+    drawLine(px - r, py, turretsAngles[2], 18, 6);
+    drawLine(px + r, py, turretsAngles[3], 18, 6);
 
     // Draw ship
     setContextAtrribute(41, 1);
@@ -106,26 +104,24 @@ function drawPlayer(){
         drawCircleArm(rudderCenterX, rudderCenterY, i * 45, 12);
     }
     // Draw Character
-    /*var pos = 0;
-    if(player[6] == 0){
-        pos = r;
-    }
-    if(player[6] == 1){
-        pos = -r;
-    }
-    var chx = px - 6 + pos,           // Player position - half character w
-        chy = py - 6;
-    // Body
-    setContextAtrribute(42, 1);
-    ctx.roundRect(chx, chy, 12, 12, 3).fill();
-    // Eyes
-    setContextAtrribute(43, 1);
-    ctx.fillRect(chx + 3, chy + 2, 3, 3);
-    ctx.fillRect(chx + 7, chy + 2, 3, 3);
+    ctx.fillStyle = "#2c3e50";
+    var bounceY = Math.sin(t * 4);
+    var chx = player[0] - cam[0]        + shipPositions[player[8]][0];
+    var chy = player[1] + 10 - cam[1]   + shipPositions[player[8]][1] + 9;
     // Legs
+    ctx.fillRect(chx + 2, chy + 10, 3, 6);
+    ctx.fillRect(chx + 7, chy + 10, 3, 6);
+    // Arms
     ctx.fillRect(chx + 2, chy + 12, 3, 2);
     ctx.fillRect(chx + 7, chy + 12, 3, 2);
-    */
+    // Body
+    ctx.fillRect(chx, chy + bounceY, 12, 12);
+    // Head
+    ctx.fillRect(chx + 2, chy - 7 + bounceY, 9, 8);
+    // Eyes
+    setContextAtrribute(46, 1);
+    ctx.fillRect(chx + 3, chy  - 6 + bounceY, 3, 3);
+    ctx.fillRect(chx + 7, chy  - 6 + bounceY, 3, 3);
 
     ctx.restore();
 }

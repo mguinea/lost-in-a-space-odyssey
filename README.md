@@ -18,13 +18,8 @@
 ### Requirements
 
 #### Building for source
-For production release:
 ```sh
-$ gulp build --prod
-```
-For testing release:
-```sh
-$ gulp build --test
+$ gulp build
 ```
 
 ### Todos

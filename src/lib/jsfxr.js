@@ -259,7 +259,7 @@ function SfxrSynth() {
       _phaserBuffer[i] = 0;
     }
     for (var i = _noiseBuffer.length; i--; ) {
-      _noiseBuffer[i] = getRandomValue(2,-1);
+      _noiseBuffer[i] = random(2,-1);
     }
 
     for (var i = 0; i < length; i++) {
@@ -378,7 +378,7 @@ function SfxrSynth() {
           // Generates new random noise for this period
           if (_waveType == 3) {
             for (var n = _noiseBuffer.length; n--; ) {
-              _noiseBuffer[n] = getRandomValue(2,-1);
+              _noiseBuffer[n] = random(2,-1);
             }
           }
         }
@@ -461,11 +461,11 @@ function jsfxr (settings, audioCtx, cb) {
 
   var dv = new Uint32Array(data.buffer, 0, 44);
   // Initialize header
-  dv[0] = 0x46464952; // "RIFF" 
+  dv[0] = 0x46464952; // "RIFF"
   dv[1] = used + 36;  // put total size here
   dv[2] = 0x45564157; // "WAVE"
   dv[3] = 0x20746D66; // "fmt "
-  dv[4] = 0x00000010; // size of the following 
+  dv[4] = 0x00000010; // size of the following
   dv[5] = 0x00010001; // Mono: 1 channel, PCM format
   dv[6] = 0x0000AC44; // 44,100 samples per second
   dv[7] = 0x00015888; // byte rate: two bytes per sample

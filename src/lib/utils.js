@@ -77,3 +77,10 @@ function distanceTo( e1, e2 ){
         dy = e1[1] - e2[1];
     return ( Math.sqrt( dx * dx + dy * dy ) ) - ( e1[2] + e2[2] );
 }
+
+function angleTo ( e1, e2 ) {
+    return Math.atan2(
+        (e2[1]) - (e1[1]),
+        (e2[0]) - (e1[0])
+    );
+}

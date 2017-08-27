@@ -23,6 +23,12 @@ var // Core
     playerBullets = [],
     enemies = [],
 
+    // Other
+    enemiesWaveCounter = 0,
+    dialogs = [
+        [0, [0, "Hi captain. My name is HAL", 0.5]], // 0: dialog index, 1: contents // 0: who is talking (0 Hal, 1 Player), 1: Message, 2: time
+    ],
+
     timer           = 0,
     timers          = [],
     clearColor      = '#000',
@@ -54,7 +60,6 @@ var gl = c.getContext('webgl',glprops) || c.getContext('experimental-webgl', glp
   shakeScreen=[0,0],
   glitchTime = 0,
   frame=0,
-  GLITCHS=[0,0,0,0,0,0,0],
   godMode = false,
   godModeAvailable = !!storage.getItem('agar3sjs13k-gm'),
   startFromGodMode = false;

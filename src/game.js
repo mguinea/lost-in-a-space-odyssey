@@ -28,13 +28,21 @@ function update(){
             inputsInMenu();
         break;
         case 1:
+            turretSelected = player[8];
             // Manage input
             inputsInGame();
+            // If there are no enemies, and enemies timer > some time (in seconds), instantiate multiple enemies (random from 2 to 5)
+            if( enemies.length <= 0 && enemiesWaveCounter >= 10){
+                enemiesWaveCounter = 0;
+                createEnemies(random(3, 5));
+            }
+            enemiesWaveCounter += t;
             // Update groups
             processGroup( backStars, updateBackStars );
             processGroup( stars, updateStar );
             processGroup( playerBullets, updatePlayerBullet );
             processGroup( enemies, updateEnemy );
+            // Update HAL
             updateHal();
             // Update player
             updatePlayer();
@@ -78,9 +86,9 @@ function draw(){
             ctx.fillRect(0, 0, 128, 128);
             ctx.restore();
             */
-            ctx.fillStyle = '#ecf0f1';
+            /*ctx.fillStyle = '#ecf0f1';
             ctx.font="30px sans-serif";
-            ctx.fillText("Hello World",W/2,64);
+            ctx.fillText("Hello World",W/2,64);*/
             /*ctx.save();
             setContextAtrribute(8,1);  //fillstyle
             setContextAtrribute(2, 1);    //stroke style
@@ -118,6 +126,10 @@ function draw(){
             drawPlayer();
             processGroup( playerBullets, drawPlayerBullet );
             drawHal();
+
+
+            // Draw dialogs
+            //showDialog(0);
         break;
     }
     // Draw shader effects
@@ -127,42 +139,49 @@ function draw(){
 function inputsInMenu(){
     if(pressing[13]){ // Enter
         gameState = 1;
+        // Reset game timer
+        t = 0;
     }
 }
 
 function inputsInGame(){
     if(pressing[32] && t > player[10]){ // Key SPACE
+        // SFX
+        play(Ashot);
         // Update shooter timer
         player[10] = t + player[11];
+
+        var turretSelected = player[8];
         // calculate x y position, turret 0 (top) and add some random angle
-        var x = -Math.cos(turrets[0].toRad()) * 18,
-            y = Math.sin(turrets[0].toRad()) * 18;
+        var x = -Math.cos(turretsAngles[turretSelected].toRad()) * 18,
+            y =  Math.sin(turretsAngles[turretSelected].toRad()) * 18;
         playerBullets.push([
-            player[0] + x,
-            player[1] - player[2] + y,
+            player[0] + turretsPositions[turretSelected][0] + x,
+            player[1] + turretsPositions[turretSelected][1] + y,
             12,
-            random(turrets[0]-7, turrets[0]+7),
+            random(turretsAngles[turretSelected] - 7, turretsAngles[turretSelected] + 7),
             200,
             t + 1.5,
             t + 0.05]); // 0 x, 1 y, 2 radius, 3 angle, 4 vel, 5 timer end, 6 timer resize
     }
-
     if(pressing[65]){ // Key A
-        player[3] += 64 * dt;
+        //player[3] += 64 * dt;
+        //turretsAngles[turretSelected] += 64 * dt;
 
-        if(turrets[0] < -30){
-            turrets[0] += 256 * dt;
-        }
-    }
+        //if(turretsAngles[turretSelected] < -30){
+            turretsAngles[player[8]] += 100 * dt;
+        //}
+    } else
     if(pressing[68]){ // Key D
-        player[3] -= 64 * dt;
+        //player[3] -= 64 * dt;
+        //turretsAngles[turretSelected] -= 64 * dt;
 
-        if(turrets[0] > -150){
-            turrets[0] -= 256 * dt;
-        }
+        //if(turretsAngles[turretSelected] > -150){
+            turretsAngles[player[8]] -= 100 * dt;
+        //}
     }
     if(pressing[87]){ // Key W
-        var maxVel = 75;
+        var maxVel = 25;
         var forceX = player[4];
         var forceY = player[5];
         if(Math.abs(forceX) <= maxVel){
@@ -193,6 +212,7 @@ function inputsInGame(){
         }
     }
 */
+    // Move player controls
     if(pressing[38]){ // Up arrow
         player[8] = 0;
     }else
@@ -200,9 +220,15 @@ function inputsInGame(){
         player[8] = 1;
     }else
     if(pressing[37]){ // Left arrow
+        /*if(player[8] > 0){
+            player[8] -=1;
+        }*/
         player[8] = 2;
     }else
     if(pressing[39]){ // Right arrow
+        /*if(player[8] < shipPositions.length - 1){
+            player[8] +=1;
+        }*/
         player[8] = 3;
     }
 
@@ -230,14 +256,16 @@ function createStars(){
     stars.push( star );
 }
 
-function createEnemies(){
-    var enemy = [
-        0,      // 0: x
-        -256,   // 1: y
-        32,     // 2: radius
-        0,      // 3: rotation
-    ];
-    enemies.push( enemy );
+function createEnemies( number ){
+    for( var i = number - 1; i >= 0; --i){
+        var enemy = [
+            random(player[0] - 1000, player[0] + 1000),      // 0: x
+            random(player[1] - 1000, player[1] + 1000),   // 1: y
+            24,     // 2: radius
+            0,      // 3: rotation
+        ];
+        enemies.push( enemy );
+    }
 }
 // ------------------
 // Core
