@@ -17,6 +17,8 @@ function updateEnemyBullet(e, i){
 			e[2] = 24;
 		}
 	    if(distanceToPlayer <= 0){
+            // SFX
+            play(Aexplosion1);
 	        enemyBullets.splice(i--, 1);
 	        player[12] -= 10;
 	    }

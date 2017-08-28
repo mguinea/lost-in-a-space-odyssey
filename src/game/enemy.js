@@ -57,6 +57,9 @@ function updateEnemy(e, params, j){
 
     // Shoot if timer and distance
     if(distanceToPlayer < 110 && e[6] < t){
+        // SFX
+        play(AeShot);
+
         e[6] = t + random(1, 7); // timer  + cadence
         enemyBullets.push(
             [
@@ -132,11 +135,13 @@ function drawEnemy(e){
 
 function createEnemies( number ){
     for( var i = number - 1; i >= 0; --i){
+        var angle       = random(0, 360).toRad();
+        var distance    = W/2;
         var enemy = [
-            //random(player[0] - 128, player[0] + 128),   // 0: x
-            //random(player[1] - 128, player[1] + 128),   // 1: y
-            player[0] + 64,
-            player[1] - 12,
+            Math.cos(angle) * distance,// random(player[0] - 128, player[0] + 128),   // 0: x
+            Math.sin(angle) * distance,// random(player[1] - 128, player[1] + 128),   // 1: y
+            // player[0] + 64,
+            // player[1] - 12,
             24,     // 2: radius
             0,      // 3: angle
             0,      // 4: force X

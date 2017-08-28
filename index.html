@@ -5,8 +5,10 @@
         body {background:#000;margin:0;padding:0;}
         canvas {display:none;}
         #c{height:100vh;margin:auto;display:block;}
-        #f{font-family:monospace;position:absolute;bottom:10px;left:10px;font-size:21px;color:#993;text-decoration:none;}
-        #f:hover{color:#9aa;}
+        .button { background-color: #2c3e50;border: none;padding: 12px 18px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px; }
+        .button:hover{ background-color:#ecf0f1; }
+        #f{font-family:sans-serif;position:absolute;bottom:10px;left:10px;font-size:18px;color:#ecf0f1;text-decoration:none;}
+        #f:hover{color:#2c3e50;}
     </style>
 
     <script id="vertex-shader-static" type="x-shader/x-vertex">
@@ -78,13 +80,12 @@
         <canvas id="g" moz-opaque></canvas>
     </div>
 
-    <a href='#' id='f' title='fullscreen'>FullScreen</a>
+    <a href='#' id='f' class='button' title='fullscreen'>FullScreen</a>
 
     <!-- Lib scripts -->
     <script src="src/lib/jsfxr.js"></script>
     <script src="src/lib/audio.js"></script>
     <script src="src/lib/native.object.extension.js"></script>
-
     <script src="src/lib/utils.js"></script>
     <<script src="src/lib/stats.min.js"></script>
     <script src="src/lib/path.js"></script>
@@ -93,6 +94,7 @@
     <!-- Game assets -->
     <script src="src/assets/sounds.js"></script>
     <script src="src/assets/colors.js"></script>
+    <script src="src/assets/font.js"></script>
     <!-- Game scripts -->
     <script src="src/game/minimap.js"></script>
     <script src="src/game/enemy.js"></script>

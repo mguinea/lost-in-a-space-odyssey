@@ -61,17 +61,32 @@ function draw(){
         case 0:
             processGroup( backStarsMenu, drawBackStarsMenu );
             // Draw title
+            /*
             ctx.fillStyle   = '#ecf0f1';
             ctx.font        = "64px sans-serif";
             ctx.textAlign   = "center";
             ctx.fillText("Lost in a Space Odyssey", W/2, 128);
+            //*/
+            ctx.save();
+            var colorIndex = (~~(t * 24) % colors.length);
+            ctx.strokeStyle = colors[colorIndex];
+            ctx.globalAlpha = 0.3;
+            ctx.globalAlpha = 1;
+            ctx.translate(W/2, 140);
+            font("LOST IN A SPACE ODYSSEY", 2.5);
+            ctx.restore();
 
             // Draw press enter to start
             // (~~(elapsedTime * framesPerSecond) % totalFrames);
             var c = (~~(t * 2) % 2);
             if(c == 1){
-                ctx.font        = "32px sans-serif";
-                ctx.fillText("Press enter", W/2, 256);
+                ctx.save();
+                ctx.strokeStyle = '#ecf0f1';
+                ctx.globalAlpha = 0.3;
+                ctx.globalAlpha = 1;
+                ctx.translate(W / 2, H /2 + 64);
+                font("PRESS ENTER", 1);
+                ctx.restore();
             }
         break;
         case 1:
@@ -149,7 +164,7 @@ function inputsInMenu(){
 function inputsInGame(){
     if(pressing[32] && t > player[10]){ // Key SPACE
         // SFX
-        play(Ashot);
+        play(Amusic1);
         // Update shooter timer
         player[10] = t + player[11];
 
@@ -183,6 +198,7 @@ function inputsInGame(){
         //}
     }
     if(pressing[87]){ // Key W
+
         var maxVel = 25;
         var forceX = player[4];
         var forceY = player[5];

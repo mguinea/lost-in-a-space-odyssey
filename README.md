@@ -6,7 +6,17 @@
 ### Inspiration
 # The Game
 
+## Data Structures
+To save space I have used tuples with commented indexes.
+
+For an entity, the main structure is:
+- 0 position x
+- 1 position y
+- 2 angle (expressed in radians)
+- 3 radius
+
 ### Tools I used
+- http://www.superflashbros.net/as3sfxr/
 
 ### References
 - https://coderwall.com/p/iygcpa/gameloop-the-correct-way
