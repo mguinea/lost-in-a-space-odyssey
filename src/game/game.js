@@ -204,14 +204,6 @@ function inputsInGame(){
         }
     }
 
-    // Move HAL
-    /*if(player[6] === 0){ // move to right
-        var dest = px + r;
-        if(hal[0] < dest){
-            hal[0] += 150 * dt;
-        }
-    }
-*/
     // Move player controls
     if(pressing[38]){ // Up arrow
         player[8] = 0;
@@ -267,47 +259,3 @@ function createEnemies( number ){
         enemies.push( enemy );
     }
 }
-// ------------------
-// Core
-// ------------------
-function gameLoop(){
-    // Debug stats
-    if(DEBUG === true) _fps_.begin();
-    // Regulating the time using delta
-    currentTime = (new Date()).getTime();
-    dt          = (currentTime - lastTime) / 1000;
-    frame++;
-    t           += dt;
-    // Call update game
-    update();
-    // Call draw game
-    draw();
-    // Loop game...
-    lastTime = currentTime;
-    // Debug stats
-    if(DEBUG === true) _fps_.end();
-
-    requestAnimationFrame(gameLoop);
-}
-
-function processGroup( group, func, params ) {
-    for ( var i = group.length - 1; i >= 0; --i ) {
-        func( group[i], params, i );
-    }
-}
-
-function camFocus( e ){
-    cam[0] = e[0] - W / 2;
-    cam[1] = e[1] - H / 2;
-}
-
-// Request animation frame setup
-window.requestAnimationFrame = (function(){
-    return  window.requestAnimationFrame        ||
-            window.webkitRequestAnimationFrame  ||
-            window.mozRequestAnimationFrame     ||
-            function(callback){window.setTimeout(callback, 17);};
-})();
-
-// Run game
-init();
