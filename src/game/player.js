@@ -11,6 +11,7 @@ var player = [
     10,     // 9: shooter delay
     0,      // 10: value of current shooter delay
     0.2,    // 11: shooter cadence
+    100,    // 12: Life
 ];
 
 

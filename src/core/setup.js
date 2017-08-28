@@ -21,6 +21,7 @@ var // Core
     backStars   = [],
     backStarsMenu   = [],
     playerBullets = [],
+    enemyBullets = [],
     enemies = [],
 
     // Other

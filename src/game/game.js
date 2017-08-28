@@ -3,7 +3,7 @@
 // ------------------
 function init(){
     createStars();
-    createEnemies();
+    createEnemies(1);
     ctx.scale(scal, scal);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
@@ -41,6 +41,7 @@ function update(){
             processGroup( backStars, updateBackStars );
             processGroup( stars, updateStar );
             processGroup( playerBullets, updatePlayerBullet );
+            processGroup( enemyBullets, updateEnemyBullet );
             processGroup( enemies, updateEnemy );
             // Update HAL
             updateHal();
@@ -80,6 +81,8 @@ function draw(){
             processGroup( backStars, drawBackStar );
             processGroup( stars, drawStar );
             processGroup( enemies, drawEnemy );
+            processGroup( playerBullets, drawPlayerBullet );
+            processGroup( enemyBullets, drawEnemyBullet );
 
             /*ctx.save();
             ctx.fillStyle = '#00f';
@@ -124,7 +127,6 @@ function draw(){
             drawMinimap();
             // Draw player
             drawPlayer();
-            processGroup( playerBullets, drawPlayerBullet );
             drawHal();
 
 
@@ -246,16 +248,4 @@ function createStars(){
         5,     // 6: rotation velocity
     ];
     stars.push( star );
-}
-
-function createEnemies( number ){
-    for( var i = number - 1; i >= 0; --i){
-        var enemy = [
-            random(player[0] - 1000, player[0] + 1000),      // 0: x
-            random(player[1] - 1000, player[1] + 1000),   // 1: y
-            24,     // 2: radius
-            0,      // 3: rotation
-        ];
-        enemies.push( enemy );
-    }
 }
