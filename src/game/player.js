@@ -97,10 +97,10 @@ function drawPlayer(){
     playerDrawCog(-38, -24, 12, 8, 8, 1);
     // Draw controls
     ctx.fillStyle   = "#7f8c8d";
-    for(var i = shipPositions.length - 1; i >= 0; --i){
-        //ctx.fillRect(player[0] - cam[0] + shipPositions[i][0], player[1] - cam[1] + shipPositions[i][1], 12, 18);
-        drawControlCross(player[0] - cam[0] + shipPositions[i][0], player[1] - cam[1] + shipPositions[i][1]);
-    }
+    drawControlCross(player[0] + shipPositions[0][0], player[1] + shipPositions[0][1], turretsAngles[0]);
+    drawControlCross(player[0] + shipPositions[1][0], player[1] + shipPositions[1][1], turretsAngles[1]);
+    drawControlCross(player[0] + shipPositions[2][0], player[1] + shipPositions[2][1], turretsAngles[2]);
+    drawControlCross(player[0] + shipPositions[3][0], player[1] + shipPositions[3][1], turretsAngles[3]);
     // Draw rudder
     //ctx.lineWidth = 2;
     var rudderCenterX = player[0] + 3;
@@ -149,23 +149,28 @@ function playerDrawCog(x, y, angularOffset, size, arms, reverse){
     ctx.restore();
 }
 
-function drawControlCross(x, y){
+function drawControlCross(x, y, angle){
     ctx.save();
+    translateTo([x, y]);
+    ctx.rotate(angle.toRad());
+
     ctx.fillStyle = "#2c3e50";
-    ctx.roundRect(x+1, y+1, 10, 10, 5).fill();
+    ctx.beginPath();
+    ctx.arc(0, 0, 6, 0, Math.PI * 2, true);
+    ctx.fill();
 
     ctx.strokeStyle	= "#f00";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(x+6, y+3);
-    ctx.lineTo(x+6, y+9);
+    ctx.moveTo(-6, 0);
+    ctx.lineTo(6, 0);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(x+3, y+6);
-    ctx.lineTo(x+9, y+6);
+    ctx.moveTo(0, -6);
+    ctx.lineTo(0, 6);
     ctx.stroke();
 
     ctx.fillStyle = "#2c3e50";
-    ctx.fillRect(x+5, y+5, 2, 2);
+    ctx.fillRect(-2, -2, 4, 4);
     ctx.restore();
 }
