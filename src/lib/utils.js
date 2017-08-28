@@ -28,7 +28,7 @@ function random(min, max){
 function drawLine(x, y, r, l, w){
     ctx.beginPath();
     ctx.lineWidth = w;
-    var rpx = x - Math.cos( (r).toRad() ) * l,
+    var rpx = x + Math.cos( (r).toRad() ) * l,
         rpy = y + Math.sin( (r).toRad() ) * l;
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -83,4 +83,8 @@ function angleTo ( e1, e2 ) {
         (e2[1]) - (e1[1]),
         (e2[0]) - (e1[0])
     );
+}
+
+function translateTo (p) {
+    ctx.translate(p[0] - cam[0], p[1] - cam[1]);
 }

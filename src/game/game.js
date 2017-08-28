@@ -32,10 +32,10 @@ function update(){
             // Manage input
             inputsInGame();
             // If there are no enemies, and enemies timer > some time (in seconds), instantiate multiple enemies (random from 2 to 5)
-            if( enemies.length <= 0 && enemiesWaveCounter >= 10){
+            /*if( enemies.length <= 0 && enemiesWaveCounter >= 10){
                 enemiesWaveCounter = 0;
                 createEnemies(random(3, 5));
-            }
+            }*/
             enemiesWaveCounter += t;
             // Update groups
             processGroup( backStars, updateBackStars );

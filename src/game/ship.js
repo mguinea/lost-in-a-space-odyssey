@@ -20,5 +20,5 @@ ctx.arc(px + r, py, 12, 0, Math.PI * 2, true);
 */
 
 var turretsAngles = [
-    -90, 90, 0, 180
+    -90, 90, 180, 0
 ]; // Turret angles

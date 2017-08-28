@@ -12,7 +12,7 @@ var enemy = [
 ];
 //*/
 
-function updateEnemy(e, j){
+function updateEnemy(e, params, j){
     e[3]                    = angleTo(e, player);
     var distanceToPlayer    = distanceTo(e, player);
     // Go where forces say
@@ -72,9 +72,10 @@ function updateEnemy(e, j){
     }
 
     // If collides with player bullet, destroy
-    /*
+    //*
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
-        if(distanceTo(e, playerBullets[i]) <= 0){
+        var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
+        if(distanceToPlayerBullet <= 0){
             playerBullets.splice(i--, 1);
             enemies.splice(j--, 1);
         }
@@ -82,18 +83,51 @@ function updateEnemy(e, j){
 }
 
 function drawEnemy(e){
-    // Draw body
-    ctx.fillStyle	= "#e74c3c";
-    ctx.beginPath();
-    ctx.arc( e[0] - cam[0], e[1] - cam[1], e[2], 0, Math.PI * 2, true );
-    ctx.fill();
-    // Draw propeller
+    ctx.fillStyle	= "#d35400";
+    ctx.strokeStyle	= "#d35400";
+    // Draw cannon
     var tx = e[0] + Math.cos( (e[3]) ) * e[2];
     var ty = e[1] + Math.sin( (e[3]) ) * e[2];
-    ctx.fillStyle	= "#fff";
     ctx.beginPath();
     ctx.arc( tx - cam[0], ty - cam[1], 8, 0, Math.PI * 2, true );
     ctx.fill();
+
+    drawLine(e[0] - cam[0], e[1] - cam[1], e[3].toDeg(), 38, 6);
+    // Draw body
+    ctx.beginPath();
+    ctx.arc( e[0] - cam[0], e[1] - cam[1], e[2], 0, Math.PI * 2, true );
+    ctx.fill();
+    // Draw some external lines
+    ctx.strokeStyle	= "#ecf0f1";
+    ctx.lineWidth	= 2;
+    ctx.beginPath();
+    ctx.arc(e[0] - cam[0], e[1] - cam[1], e[2], 0, Math.PI * 2, true);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(e[0] - cam[0], e[1] - cam[1], e[2] - 3, 0, Math.PI * 2, true);
+    ctx.stroke();
+
+    // Draw inside cabin
+    ctx.save();
+    ctx.fillStyle	= "#bdc3c7";
+    translateTo(e);
+    //ctx.rotate((t*50).toRad());
+    ctx.fillRect(0 - 16, -8, 32, 16);
+    ctx.restore();
+    // Draw alien inside
+    ctx.save();
+    ctx.fillStyle	= "#27ae60";
+    translateTo(e);
+    // Body
+    ctx.fillRect(- 4, 0, 8, 8);
+    // Aerials
+    ctx.fillRect(-4, -4, 2, 4);
+    ctx.fillRect(2,  -4, 2, 4);
+    // Eyes
+    ctx.fillStyle	= "#2c3e50";
+    ctx.fillRect(-3, 2, 2, 2);
+    ctx.fillRect(0,  2, 2, 2);
+    ctx.restore();
 }
 
 function createEnemies( number ){

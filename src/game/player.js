@@ -76,6 +76,14 @@ function drawPlayer(){
     // Draw room
     setContextAtrribute(49, 1);
     ctx.roundRect(px - r + 12, py - r / 6, r * 2 - 24, 38, 8).fill();
+    // Draw life UI
+    ctx.lineWidth   = "1";
+    ctx.strokeStyle	= "#ecf0f1";
+    ctx.roundRect(px - r + 24, py + 36, 80, 6, 8).stroke();
+    ctx.fillStyle	= "#c0392b";
+    ctx.roundRect(px - r + 24, py + 36, 80, 6, 8).fill();
+    ctx.fillStyle	= "#3498db";
+    ctx.roundRect(px - r + 24, py + 36, player[12] / 100 * 80, 6, 8).fill();
     // Draw external lines
     ctx.strokeStyle	= "#FA751E";
     ctx.lineWidth	= 2;
