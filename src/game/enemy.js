@@ -61,10 +61,13 @@ function updateEnemy(e, params, j){
         play(AeShot);
 
         e[6] = t + random(1, 7); // timer  + cadence
+        /*
+        var x = -Math.cos(turretsAngles[turretSelected].toRad()) * 18,
+            y =  Math.sin(turretsAngles[turretSelected].toRad()) * 18;*/
         enemyBullets.push(
             [
-                e[0],
-                e[1],
+                e[0] + Math.cos( (e[3]) ) * (e[2]+12),
+                e[1] + Math.sin( (e[3]) ) * (e[2]+12),
                 12,
                 random(e[3] - (7).toRad(), e[3] + (7).toRad()),
                 64,
