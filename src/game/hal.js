@@ -13,7 +13,7 @@ function updateHal(){
 }
 
 function drawHal(){
-    var bounceY = Math.sin(t * 10);
+    /*var bounceY = Math.sin(t * 10);
     // Body
     ctx.fillStyle   = '#0C2032';
     ctx.fillRect(hal[0], hal[1] + bounceY, hal[2], hal[3]);
@@ -39,5 +39,5 @@ function drawHal(){
     ctx.fillStyle   = '#f1c40f';
     ctx.beginPath();
     ctx.arc(hal[0] + 8, hal[1] + 12 + bounceY, 1, 0, Math.PI * 2, true);
-    ctx.fill();
+    ctx.fill();*/
 }

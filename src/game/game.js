@@ -90,8 +90,6 @@ function draw(){
             }
         break;
         case 1:
-            // Scale game
-            ctx.scale(scale, scale);
             // Draw groups
             processGroup( backStars, drawBackStar );
             processGroup( stars, drawStar );
@@ -139,7 +137,6 @@ function draw(){
             font("CONTINUE ?", 3);
             ctx.restore();
             //*/
-            drawMinimap();
             // Draw player
             drawPlayer();
             drawHal();
@@ -162,6 +159,9 @@ function inputsInMenu(){
 }
 
 function inputsInGame(){
+    if(pressing[90]){ // Key Z
+        scale = 2;
+    }
     if(pressing[32] && t > player[10]){ // Key SPACE
         // SFX
         play(Amusic1);
@@ -182,7 +182,7 @@ function inputsInGame(){
             t + 0.05]); // 0 x, 1 y, 2 radius, 3 angle, 4 vel, 5 timer end, 6 timer resize
     }
     if(pressing[65]){ // Key A
-        //player[3] += 64 * dt;
+        player[3] += 64 * dt;
         //turretsAngles[turretSelected] += 64 * dt;
 
         //if(turretsAngles[turretSelected] < -30){
@@ -190,7 +190,7 @@ function inputsInGame(){
         //}
     } else
     if(pressing[68]){ // Key D
-        //player[3] -= 64 * dt;
+        player[3] -= 64 * dt;
         //turretsAngles[turretSelected] -= 64 * dt;
 
         //if(turretsAngles[turretSelected] > -150){
