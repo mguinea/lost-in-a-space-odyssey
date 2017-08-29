@@ -12,23 +12,22 @@ function drawStar(e){
 }
 
 function updateBackStars(e){
-    if(e[0] - cam[0] > W){
-        e[0] = random(cam[0], cam[0]-128);
-        e[1] = random(-H, H/2);
+    if(getScreenPositionX(e[0]) < 0){
+        e[0] = W + cam[0];
+    }else if(getScreenPositionX(e[0]) > W){
+        //e[0] = getScreenPositionX(0) - cam[0];
     }
-    else if(e[0] - cam[0] < 0){
-        e[0] = random(W + cam[0], W + cam[0] + 128);
-        e[1] = random(-H, H/2);
+
+    if(getScreenPositionY(e[1]) < 0){
+        e[1] = H + cam[1];
+    }else if(getScreenPositionX(e[0]) > W){
+        //e[0] = getScreenPositionX(0) - cam[0];
     }
 }
 
 function drawBackStar(e){
-    ctx.save();
-    setContextAtrribute(0, 1);
-    ctx.beginPath();
-    ctx.arc(e[0] - cam[0], e[1] - cam[1], e[2], 0, Math.PI * 2, true);
-    ctx.fill();
-    ctx.restore();
+    setContextAtrribute(17, 1);
+    fillCircle( e[0], e[1], e[2]);
 }
 
 function updateBackStarsMenu(e){

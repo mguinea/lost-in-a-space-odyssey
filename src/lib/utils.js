@@ -17,6 +17,12 @@ function font (txt, fontSize, align) { // eslint-disable-line
 function random(min, max){
     return (Math.random() * (max - min) + min);
 }
+function getScreenPositionX(x){
+    return x-cam[0];
+}
+function getScreenPositionY(y){
+    return y-cam[1];
+}
 /*
 function drawLine(x, y, r, l, w){
     ctx.beginPath();

@@ -2,7 +2,7 @@ var player = [
     0,      // 0: x
     0,      // 1: y
     64,     // 2: radius
-    45,     // 3: angle
+    -180,     // 3: angle
     0,      // 4: force X
     0,      // 5: force Y
     0,      // 6: Control index for HAL
@@ -66,6 +66,8 @@ function drawPlayer(){
     // Draw Character
     drawCharacter();
     // Draw HAL
+    // Draw minimap
+    drawMinimap();
 }
 
 function drawControl(x, y, a){
@@ -76,4 +78,13 @@ function drawControl(x, y, a){
     for(var i = 4; i >= 0; --i){
         drawLine(x, y, a + i * 90, 4, 2);
     }
+}
+
+function drawMinimap(){
+    ctx.lineWidth = 2;
+    setContextAtrribute(5, 0);
+    strokeCircle(player[0], player[1] - 33, 22);
+    fillCircle(player[0], player[1] - 33, 21);
+    // Draw enemies
+    // Draw passengers
 }

@@ -7,7 +7,7 @@ function init(){
     ctx.scale(scale, scale);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
-        backStars.push( [random(-W/2, W/2), random(-H, H/2), random(1, 3)] );
+        backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
     }
     // Create backStars menu
     for(var i = 128; i > 0; --i){
@@ -47,6 +47,8 @@ function update(){
             updateHal();
             // Update player
             updatePlayer();
+
+            //console.log(backStars[0][0]);
             // Cam focus on player
             camFocus( player );
         break;
@@ -56,7 +58,7 @@ function update(){
 function draw(){
     // Clear screen
     setContextAtrribute(0, 1);
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0, 0, W + W * scale, H + H * scale);
     switch(gameState){
         case 0:
             processGroup( backStarsMenu, drawBackStarsMenu );
@@ -158,7 +160,7 @@ function inputsInGame(){
     }
     if(pressing[87]){ // Key W
 
-        var maxVel = 25;
+        var maxVel = 200; // 25
         var forceX = player[4];
         var forceY = player[5];
         if(Math.abs(forceX) <= maxVel){
@@ -222,5 +224,5 @@ function createStars(){
         "#f1c40f",   // 4: color
         5,     // 6: rotation velocity
     ];
-    stars.push( star );
+    //stars.push( star );
 }
