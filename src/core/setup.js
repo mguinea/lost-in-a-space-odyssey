@@ -6,7 +6,6 @@ var // Core
     frame           = 0,
     cam             = [],
     scale           = 1,
-    scal            = 1,
     t               = 0,    // Acummulate time
     gameState       = 1,    // 0: main menu 1: game play 2: pause 3: game over
     DEBUG           = true,
@@ -64,16 +63,17 @@ var gl = c.getContext('webgl',glprops) || c.getContext('experimental-webgl', glp
   godMode = false,
   godModeAvailable = !!storage.getItem('agar3sjs13k-gm'),
   startFromGodMode = false;
-// DOM setup
-d.style.webkitTransformOrigin = d.style.transformOrigin = "0 0";
+  // DOM setup
+  d.style.webkitTransformOrigin = d.style.transformOrigin = "0 0";
 
-g.width = c.width = W;
-g.height = c.height = H;
-c.style.top = GAME_Y_MARGIN + "px";
-c.style.left = GAME_MARGIN + "px";
-document.oncontextmenu = function (e) {
-  e.preventDefault();
-};
+  g.width = c.width = W;
+  g.height = c.height = H;
+  c.style.top = GAME_Y_MARGIN + "px";
+  c.style.left = GAME_MARGIN + "px";
+  document.oncontextmenu = function (e) {
+    e.preventDefault();
+  };
+
 
 document.getElementById('f').onclick=toggleFullscreen;
 function toggleFullscreen(evt){

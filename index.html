@@ -1,3 +1,4 @@
+<html>
 <head>
     <title>WebGL</title>
     <meta charset="UTF-8">
@@ -10,7 +11,6 @@
         #f{font-family:sans-serif;position:absolute;bottom:10px;left:10px;font-size:18px;color:#ecf0f1;text-decoration:none;}
         #f:hover{color:#2c3e50;}
     </style>
-
     <script id="vertex-shader-static" type="x-shader/x-vertex">
         attribute vec2 p;
         varying vec2 uv;
@@ -81,13 +81,13 @@
     </div>
 
     <a href='#' id='f' class='button' title='fullscreen'>FullScreen</a>
-
     <!-- Lib scripts -->
     <script src="src/lib/jsfxr.js"></script>
     <script src="src/lib/audio.js"></script>
     <script src="src/lib/native.object.extension.js"></script>
     <script src="src/lib/utils.js"></script>
-    <<script src="src/lib/stats.min.js"></script>
+    <script src="src/lib/drawUtils.js"></script>
+    <script src="src/lib/stats.min.js"></script>
     <script src="src/lib/path.js"></script>
     <script src="src/lib/webgl.js"></script>
     <script src="src/lib/dialogs.js"></script>
@@ -112,3 +112,4 @@
     <script src="src/core/effects.js"></script>
     <script src="src/core/core.js"></script>
 </body>
+</html>

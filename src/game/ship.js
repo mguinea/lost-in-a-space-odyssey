@@ -12,12 +12,6 @@ var turretsPositions = [
     [-64, 0], // Left
     [64, 0], // Right
 ];
-/*
-ctx.arc(px, py - r, 12, 0, Math.PI * 2, true);
-ctx.arc(px, py + r, 12, 0, Math.PI * 2, true);
-ctx.arc(px - r, py, 12, 0, Math.PI * 2, true);
-ctx.arc(px + r, py, 12, 0, Math.PI * 2, true);
-*/
 
 var turretsAngles = [
     -90, 90, 180, 0

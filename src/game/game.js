@@ -4,7 +4,7 @@
 function init(){
     createStars();
     createEnemies(1);
-    ctx.scale(scal, scal);
+    ctx.scale(scale, scale);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W/2), random(-H, H/2), random(1, 3)] );
@@ -55,7 +55,7 @@ function update(){
 
 function draw(){
     // Clear screen
-    setContextAtrribute(7, 1);
+    setContextAtrribute(0, 1);
     ctx.fillRect(0, 0, W, H);
     switch(gameState){
         case 0:

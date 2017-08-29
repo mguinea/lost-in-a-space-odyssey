@@ -28,8 +28,8 @@ function processGroup( group, func, params ) {
 }
 
 function camFocus( e ){
-    cam[0] = e[0] - W / 2;
-    cam[1] = e[1] - H / 2;
+    cam[0] = e[0] - W / 2 / scale;
+	cam[1] = e[1] - H / 2 / scale;
 }
 
 // Request animation frame setup

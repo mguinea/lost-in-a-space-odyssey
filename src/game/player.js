@@ -14,29 +14,39 @@ var player = [
     100,    // 12: Life
 ];
 
-
-
 function updatePlayer(){
     // Go where forces say
-    var angle  = player[3];
-    var forceX = player[4];
-    var forceY = player[5];
-
-    player[0] += forceX * dt;
-    player[1] += forceY * dt;
-
-    //var speed = dt * player[3];
-    /*if(keyMap&keys[65]){
-      hero[0]-=speed;
-      if(hero[0]<hero[2]) hero[0] = hero[2]; // hero limit on x left
-      if(hero[0]>viewPort[2]&&hero[0]<mapPixels-viewPort[2]) viewPort[0]+=speed;
-      if(viewPort[0]>32)viewPort[0]=32;
-  } */
-    /*player[1] -= 10 * dt;
-    player[3] += 10 * dt;*/
+    player[0] += player[4] * dt;
+    player[1] += player[5] * dt;
 }
 
 function drawPlayer(){
+    // Draw propeller
+    setContextAtrribute(18, 1);
+    var op = getOrbitPosition(player, player[3], player[2]);
+    fillCircle(op[0], op[1], 8);
+    // Draw turrets
+    setContextAtrribute(16, 1);
+    setContextAtrribute(16, 0);
+    fillCircle( player[0],   player[1] - player[2], 8);
+    drawLine(   player[0],   player[1] - player[2], turretsAngles[0], 12, 6);
+    fillCircle( player[0],   player[1] + player[2], 8);
+    drawLine(   player[0],   player[1] + player[2], turretsAngles[1], 12, 6);
+    fillCircle( player[0] - player[2], player[1], 8);
+    drawLine(   player[0] - player[2], player[1], turretsAngles[2], 12, 6);
+    fillCircle( player[0] + player[2], player[1], 8);
+    drawLine(   player[0] + player[2], player[1], turretsAngles[3], 12, 6);
+    // Draw body
+    setContextAtrribute(8, 1);
+    fillCircle(player[0], player[1], player[2]);
+    // Draw some external lines
+    setContextAtrribute(17, 0);
+    strokeCircle(player[0], player[1], player[2] - 2);
+    strokeCircle(player[0], player[1], player[2] - 5);
+    // Draw room
+    setContextAtrribute(14, 1);
+    fillRoundRect(player[0] - player[2] / 2 + 6, player[1] - 6, player[2] * 2 - 24, 38, 8).fill();
+    /*
     var px  = player[0] - cam[0],
         py  = player[1] - cam[1];
         r   = player[2]
@@ -69,10 +79,6 @@ function drawPlayer(){
     ctx.beginPath();
     ctx.arc(px, py, r, 0, Math.PI * 2, true);
     ctx.fill();
-    // Draw corridors
-    /*setContextAtrribute(49, 1);
-    ctx.roundRect(px - r,       py - r / 6, r * 2, r / 3, 8).fill();
-    ctx.roundRect(px - r / 6,   py - r,     r / 3, r * 2, 8).fill();*/
     // Draw room
     setContextAtrribute(49, 1);
     ctx.roundRect(px - r + 12, py - r / 6, r * 2 - 24, 38, 8).fill();
@@ -132,7 +138,7 @@ function drawPlayer(){
     ctx.fillRect(chx + 3, chy  - 6 + bounceY, 3, 3);
     ctx.fillRect(chx + 7, chy  - 6 + bounceY, 3, 3);
 
-    ctx.restore();
+    ctx.restore();*/
 }
 
 function playerDrawCog(x, y, angularOffset, size, arms, reverse){

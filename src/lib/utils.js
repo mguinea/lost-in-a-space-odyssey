@@ -1,10 +1,3 @@
-
-function setContextAtrribute(index, attribute, custom){
-  ctx[['strokeStyle','fillStyle','lineWidth'][attribute||0]] = custom||colors[index];
-
-}
-
-
 // oO ASTEROIDS font with fontSize and align (-1:right, 0:center, 1:left)
 // will side effect some ctx.translate() (that you could benefit to make text follow)
 function font (txt, fontSize, align) { // eslint-disable-line
@@ -24,7 +17,7 @@ function font (txt, fontSize, align) { // eslint-disable-line
 function random(min, max){
     return (Math.random() * (max - min) + min);
 }
-
+/*
 function drawLine(x, y, r, l, w){
     ctx.beginPath();
     ctx.lineWidth = w;
@@ -34,7 +27,7 @@ function drawLine(x, y, r, l, w){
     ctx.moveTo(x, y);
     ctx.lineTo(rpx, rpy);
     ctx.stroke();
-}
+}*/
 
 function drawCircleArm(x, y, angularOffset, length, reverse){
     if(!reverse) reverse = 1;
@@ -44,11 +37,6 @@ function drawCircleArm(x, y, angularOffset, length, reverse){
     ctx.moveTo(x - cam[0], y - cam[1]);
     ctx.lineTo(rpx - cam[0], rpy - cam[1]);
     ctx.stroke();
-}
-
-
-function lerp(v0, v1, t) {
-    return v0 * (1 - t) + v1 * t;
 }
 
 function AABBCollides(e1, e2){ // x, y, r
@@ -87,4 +75,14 @@ function angleTo ( e1, e2 ) {
 
 function translateTo (p) {
     ctx.translate(p[0] - cam[0], p[1] - cam[1]);
+}
+
+// lerp method and lerp cam position
+function lerp(v0, v1, t) {
+    return v0 * (1 - t) + v1 * t;
+}
+
+// Get position x y from another x y with angle
+function getOrbitPosition(origin, angle, distance){
+	return [origin[0] + Math.cos((angle).toRad()) * distance, origin[1] + Math.sin((angle).toRad()) * distance];
 }
