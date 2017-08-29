@@ -1,0 +1,44 @@
+/* Tuple structure */
+// 0: x
+// 1: y
+// 2: radius
+// 3: angle (in degrees)
+
+function updateJumpPoint(e){
+	e[1] += Math.sin(t*10)*0.2;
+}
+
+function drawJumpPoint(e){
+	var pts = [
+		[0,0],
+		[0,3],
+		[-2,5],
+		[-1,6],
+		[-1,8],
+		[-2,9],
+		[0,11],
+		[0,14],
+		[0,11],
+		[2,9],
+		[1,8],
+		[1,6],
+		[2,5],
+		[0,3],
+		[0,0]
+	];
+	setContextAtrribute(6, 1);
+	setContextAtrribute(17, 0);
+	ctx.lineWidth = 3;
+	strokePath(e[0], e[1], e[3], pts, 3).fill();
+}
+
+function createJumpPoints(n){
+	for(var i = n - 1; i >= 0; --i){
+		jumpPoints.push([
+			-128,
+			-128,
+			20,
+			random(0, 360)
+		]);
+	}
+}

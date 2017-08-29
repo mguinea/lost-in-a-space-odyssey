@@ -22,6 +22,8 @@ var // Core
     playerBullets = [],
     enemyBullets = [],
     enemies = [],
+    passengers = [],
+    jumpPoints = [],
 
     // Other
     enemiesWaveCounter = 0,

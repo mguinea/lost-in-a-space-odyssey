@@ -63,7 +63,7 @@ function strokeCircle(x, y, r){
 	ctx.restore();
 }
 
-function strokePath (x, y, r, pts) {
+function strokePath (x, y, r, pts, d) {
 	ctx.save();
 	ctx.beginPath();
 	ctx.translate(x-cam[0], y-cam[1]);
@@ -73,8 +73,8 @@ function strokePath (x, y, r, pts) {
 	for (var i = 0; pts && i<pts.length; ++i) {
 		var p = pts[i];
 		if (p) {
-			if (mv) ctx.moveTo(p[0], p[1]);
-			else ctx.lineTo(p[0], p[1]);
+			if (mv) ctx.moveTo(p[0] * d, p[1] * d);
+			else ctx.lineTo(p[0] * d, p[1] * d);
 			mv = 0;
 		}
 		else mv = 1;
@@ -82,4 +82,5 @@ function strokePath (x, y, r, pts) {
 	ctx.stroke();
 	ctx.closePath();
 	ctx.restore();
+	return ctx;
 }

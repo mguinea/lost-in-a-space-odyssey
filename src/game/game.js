@@ -3,7 +3,9 @@
 // ------------------
 function init(){
     createStars();
-    createEnemies(6);
+    createEnemies(1);
+    createPassengers(1);
+    createJumpPoints(1);
     ctx.scale(scale, scale);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
@@ -43,6 +45,8 @@ function update(){
             processGroup( playerBullets, updatePlayerBullet );
             processGroup( enemyBullets, updateEnemyBullet );
             processGroup( enemies, updateEnemy );
+            processGroup( passengers, updatePassenger );
+            processGroup( jumpPoints, updateJumpPoint );
             // Update HAL
             updateHal();
             // Update player
@@ -98,7 +102,8 @@ function draw(){
             processGroup( enemies, drawEnemy );
             processGroup( playerBullets, drawPlayerBullet );
             processGroup( enemyBullets, drawEnemyBullet );
-
+            processGroup( passengers, drawPassenger );
+            processGroup( jumpPoints, drawJumpPoint );
             // Draw player
             drawPlayer();
             drawHal();
@@ -159,8 +164,7 @@ function inputsInGame(){
         //}
     }
     if(pressing[87]){ // Key W
-
-        var maxVel = 200; // 25
+        var maxVel = 25;
         var forceX = player[4];
         var forceY = player[5];
         if(Math.abs(forceX) <= maxVel){

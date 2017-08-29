@@ -89,6 +89,7 @@ function drawEnemy(e){
     // Draw body
     fillCircle(e[0], e[1], e[2]);
     // Draw some external lines
+    ctx.lineWidth = 1;
     setContextAtrribute(17, 0);
     strokeCircle(e[0], e[1], e[2] - 2);
     strokeCircle(e[0], e[1], e[2] - 5);

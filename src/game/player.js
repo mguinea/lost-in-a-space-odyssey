@@ -81,10 +81,29 @@ function drawControl(x, y, a){
 }
 
 function drawMinimap(){
-    ctx.lineWidth = 2;
-    setContextAtrribute(5, 0);
-    strokeCircle(player[0], player[1] - 33, 22);
-    fillCircle(player[0], player[1] - 33, 21);
+    var mmapx   = player[0],
+        mmapy   = player[1] - 33,
+        mmapr   = 22;
+    setContextAtrribute(10, 1);
+    fillCircle(mmapx, mmapy, mmapr);
+    var ptsArrow = [
+        [0, 0],
+        [-5, -3],
+        [-5, 3],
+        [0, 0]
+    ];
+    drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, enemies, 16);
+    drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, passengers, 4);
+    drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, jumpPoints, 6);
+}
+
+function drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, items, color){
     // Draw enemies
-    // Draw passengers
+    for(var i = items.length - 1; i >= 0; --i){
+        var angle       = angleTo([mmapx, mmapy], items[i]).toDeg(),
+            orbitPos    = getOrbitPosition([mmapx, mmapy], angle, mmapr);
+        setContextAtrribute(color, 1);
+        setContextAtrribute(color, 0);
+        strokePath(orbitPos[0], orbitPos[1], angle, ptsArrow, 1).fill();
+    }
 }
