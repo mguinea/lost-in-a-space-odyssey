@@ -3,7 +3,7 @@
 // ------------------
 function init(){
     createStars();
-    createEnemies(1);
+    createEnemies(6);
     ctx.scale(scale, scale);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
@@ -97,50 +97,9 @@ function draw(){
             processGroup( playerBullets, drawPlayerBullet );
             processGroup( enemyBullets, drawEnemyBullet );
 
-            /*ctx.save();
-            ctx.fillStyle = '#00f';
-            ctx.fillRect(0, 0, 128, 128);
-            ctx.restore();
-            */
-            /*ctx.fillStyle = '#ecf0f1';
-            ctx.font="30px sans-serif";
-            ctx.fillText("Hello World",W/2,64);*/
-            /*ctx.save();
-            setContextAtrribute(8,1);  //fillstyle
-            setContextAtrribute(2, 1);    //stroke style
-            ctx.translate(128, 256);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "#f00";
-            ctx.globalAlpha = 1.0;
-            path([
-              [-6, -6 - 0.5],
-              [3, -3 - 0.9],
-              [7, -7]
-            ]);
-            ctx.stroke();
-            ctx.fill();
-            ctx.restore();*/
-            //ctx.save();
-            // Esto funciona
-            //setContextAtrribute(8,1);  //fillstyle
-            //setContextAtrribute(2);    //stroke style
-            //setContextAtrribute(39,1);//fill
-            //ctx.fillRect(128, 128, 128, 128);
-            //ctx.restore();
-
-            /* DRAW TEXT
-            ctx.save();
-            ctx.strokeStyle = "#fff";
-            ctx.globalAlpha = 0.3;
-            ctx.globalAlpha = 1;
-            ctx.translate(W/2, 140);
-            font("CONTINUE ?", 3);
-            ctx.restore();
-            //*/
             // Draw player
             drawPlayer();
             drawHal();
-
 
             // Draw dialogs
             //showDialog(0);

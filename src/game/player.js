@@ -39,73 +39,41 @@ function drawPlayer(){
     // Draw body
     setContextAtrribute(8, 1);
     fillCircle(player[0], player[1], player[2]);
-    // Draw some external lines
-    setContextAtrribute(17, 0);
-    strokeCircle(player[0], player[1], player[2] - 2);
-    strokeCircle(player[0], player[1], player[2] - 5);
     // Draw room
     setContextAtrribute(14, 1);
-    fillRoundRect(player[0] - player[2] / 2 + 6, player[1] - 6, player[2] * 2 - 24, 38, 8).fill();
+    fillRectangle(player[0] - 50, player[1] - 8, 100, 38);
     // Draw life UI
-    setContextAtrribute(17, 0);
-    fillRoundRect(player[0] - 20, player[1] + 16, 80, 6, 8).stroke();
     setContextAtrribute(16, 1);
-    fillRoundRect(player[0] - 20, player[1] + 16, 80, 6, 8).fill();
-    setContextAtrribute(6, 1);
-    fillRoundRect(player[0] - 20, player[1] + 16, player[12] / 100 * 80, 6, 8).fill();
-    // Draw controls
-    /*ctx.fillStyle   = "#7f8c8d";
-    drawControlCross(player[0] + shipPositions[0][0], player[1] + shipPositions[0][1], turretsAngles[0]);
-    drawControlCross(player[0] + shipPositions[1][0], player[1] + shipPositions[1][1], turretsAngles[1]);
-    drawControlCross(player[0] + shipPositions[2][0], player[1] + shipPositions[2][1], turretsAngles[2]);
-    drawControlCross(player[0] + shipPositions[3][0], player[1] + shipPositions[3][1], turretsAngles[3]);*/
+    fillRectangle(player[0] - 35, player[1] + 36, 70, 6);
+    setContextAtrribute(3, 1);
+    fillRectangle(player[0] - 35, player[1] + 36, player[12] / 100 * 70, 6);
     // Draw rudder
-    //ctx.lineWidth = 2;
     setContextAtrribute(10, 0);
-	ctx.lineWidth = "2";
+    ctx.lineWidth = 2;
     strokeCircle(player[0], player[1] + 12, 8)
     for(var i = 8; i >= 0; --i){
         drawLine(player[0], player[1] + 12, (i * 45 + player[3] * 10), 12, 2);
     }
-}
-/*
-function playerDrawCog(x, y, angularOffset, size, arms, reverse){
-    ctx.save();
-    ctx.fillStyle	= "#2c3e50";
-    ctx.strokeStyle	= "#2c3e50";
-    ctx.beginPath();
-    ctx.arc( player[0] - cam[0] + x , player[1] - cam[1] + y, size, 0, Math.PI * 2, true );
-    ctx.fill();
-    var distanceBetweenArms = 360 / arms;
-    for(var i = 0; i < arms; ++i){
-        drawCircleArm(player[0] + x, player[1] + y, i * distanceBetweenArms, size + 3, reverse);
+    // Draw controls
+    for(var i = turretsAngles.length - 1; i >= 0; --i){
+        drawControl(player[0] + shipPositions[i][0], player[1], turretsAngles[i]);
     }
-    ctx.restore();
-}*/
-/*
-function drawControlCross(x, y, angle){
-    ctx.save();
-    translateTo([x, y]);
-    ctx.rotate(angle.toRad());
-
-    ctx.fillStyle = "#2c3e50";
-    ctx.beginPath();
-    ctx.arc(0, 0, 6, 0, Math.PI * 2, true);
-    ctx.fill();
-
-    ctx.strokeStyle	= "#f00";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(-6, 0);
-    ctx.lineTo(6, 0);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, -6);
-    ctx.lineTo(0, 6);
-    ctx.stroke();
-
-    ctx.fillStyle = "#2c3e50";
-    ctx.fillRect(-2, -2, 4, 4);
-    ctx.restore();
+    // Draw some external lines
+    setContextAtrribute(17, 0);
+    ctx.lineWidth = 1;
+    strokeCircle(player[0], player[1], player[2] - 2);
+    strokeCircle(player[0], player[1], player[2] - 5);
+    // Draw Character
+    drawCharacter();
+    // Draw HAL
 }
-*/
+
+function drawControl(x, y, a){
+	ctx.lineWidth = "2";
+    setContextAtrribute(9, 1);
+    fillCircle(x, y, 6);
+    setContextAtrribute(16, 0);
+    for(var i = 4; i >= 0; --i){
+        drawLine(x, y, a + i * 90, 4, 2);
+    }
+}

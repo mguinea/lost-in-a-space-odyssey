@@ -27,22 +27,6 @@ function drawLine(x, y, r, l, w){
 	ctx.restore();
 }
 
-function fillRoundRect(x, y, w, h, r){
-	if (w < 2 * r) r = w / 2;
-    if (h < 2 * r) r = h / 2;
-	ctx.save();
-    ctx.beginPath();
-	ctx.translate(x-cam[0], y-cam[1]);
-    ctx.moveTo(x+r, y);
-    ctx.arcTo(x+w, y,   x+w, y+h, r);
-    ctx.arcTo(x+w, y+h, x,   y+h, r);
-    ctx.arcTo(x,   y+h, x,   y,   r);
-    ctx.arcTo(x,   y,   x+w, y,   r);
-    ctx.closePath();
-	ctx.restore();
-    return ctx;
-}
-
 function fillRectangle(x, y, w, h, r, p){ // x, y, width, height, rotation, pivot[x, y]
 	ctx.save();
 	ctx.translate(x-cam[0], y-cam[1]);

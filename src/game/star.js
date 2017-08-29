@@ -20,15 +20,6 @@ function updateBackStars(e){
         e[0] = random(W + cam[0], W + cam[0] + 128);
         e[1] = random(-H, H/2);
     }
-
-    /*if(e[1] - cam[1] > H){
-        e[0] = random(-W, W/2);
-        e[1] = random(cam[1], cam[1]-128);
-    }*/
-    /*else if(e[1] - cam[1] < 0){
-        e[0] = random(-W, W/2);
-        e[1] = random(H + cam[1], H + cam[0] + 128);
-    }*/
 }
 
 function drawBackStar(e){

@@ -1,7 +1,7 @@
 /*
 // Draw Character
 ctx.fillStyle = "#2c3e50";
-var bounceY = Math.sin(t * 4);
+
 var chx = player[0] - cam[0]        + shipPositions[player[8]][0];
 var chy = player[1] + 10 - cam[1]   + shipPositions[player[8]][1] + 9;
 // Legs
@@ -20,3 +20,6 @@ ctx.fillRect(chx + 3, chy  - 6 + bounceY, 3, 3);
 ctx.fillRect(chx + 7, chy  - 6 + bounceY, 3, 3);
 
 ctx.restore();*/
+function drawCharacter(){
+	var bounceY = Math.sin(t * 4);
+}
