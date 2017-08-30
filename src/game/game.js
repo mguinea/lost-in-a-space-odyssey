@@ -3,7 +3,7 @@
 // ------------------
 function init(){
     createStars();
-    createEnemies(1);
+    createEnemies(6);
     createPassengers(1);
     createJumpPoints(1);
     initParticles();
@@ -133,7 +133,7 @@ function inputsInGame(){
     }*/
     if(pressing[32] && t > player[10] && player[8] != 4){ // Key SPACE
         // SFX
-        play(Amusic1);
+        play(ApShot);
         // Update shooter timer
         player[10] = t + player[11];
 

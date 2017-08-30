@@ -13,7 +13,7 @@ function updateEnemy(e, params, j){
     e[3] = angleTo(e, player).toDeg();
     // Set forces depending on distance to player
     var distanceToPlayer = distanceTo(e, player),
-        maxVel = 35;
+        maxVel = 25;
     // If too far... accelerate to ship
     if(distanceToPlayer > 100){
         if(Math.abs(e[4]) <= maxVel){
@@ -73,6 +73,24 @@ function updateEnemy(e, params, j){
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
         if(distanceToPlayerBullet <= 0){
+            // Sound
+            play(Aexplosion2);
+            // Particles when die
+            for(var i = 8; i >= 0; --i){
+                var particle = [
+                        e[0],
+                        e[1],
+                        random(e[2] / 2, e[2]),
+                        random(0, 360),
+                        random(7, 25),
+                        t + random(0.6, 1.0),
+                        1,
+                        [14],
+                        2
+                    ];
+                spawnParticle(particle);
+            }
+            // Remove
             playerBullets.splice(i--, 1);
             enemies.splice(j--, 1);
         }
@@ -111,7 +129,8 @@ function drawEnemy(e){
 
 function createEnemies( number ){
     for(var i = number - 1; i >= 0; --i){
-        var randomPosition = getOrbitPosition(player, random(0, 360), 128),
+        //var randomPosition = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
+        var randomPosition = getOrbitPosition(player, random(0, 360), random(128, 128)),
         enemy = [
             randomPosition[0],
             randomPosition[1],

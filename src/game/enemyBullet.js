@@ -20,7 +20,7 @@ function updateEnemyBullet(e, i){
             // SFX
             play(Aexplosion1);
 	        enemyBullets.splice(i--, 1);
-	        player[12] -= 10;
+	        player[12] -= 5;
 	    }
 	}
 }
