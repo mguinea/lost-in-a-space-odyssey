@@ -24,6 +24,7 @@ var // Core
     enemies = [],
     passengers = [],
     jumpPoints = [],
+    particles = [],
 
     // Other
     enemiesWaveCounter = 0,

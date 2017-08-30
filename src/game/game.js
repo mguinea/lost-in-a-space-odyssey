@@ -6,6 +6,7 @@ function init(){
     createEnemies(1);
     createPassengers(1);
     createJumpPoints(1);
+    initParticles();
     ctx.scale(scale, scale);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
@@ -47,6 +48,7 @@ function update(){
             processGroup( enemies, updateEnemy );
             processGroup( passengers, updatePassenger );
             processGroup( jumpPoints, updateJumpPoint );
+            processGroup( particles, updateParticle );
             // Update HAL
             updateHal();
             // Update player
@@ -91,7 +93,7 @@ function draw(){
                 ctx.globalAlpha = 0.3;
                 ctx.globalAlpha = 1;
                 ctx.translate(W / 2, H /2 + 64);
-                font("PRESS ENTER", 1);
+                font("PRESS SPACE BAR", 1);
                 ctx.restore();
             }
         break;
@@ -104,6 +106,7 @@ function draw(){
             processGroup( enemyBullets, drawEnemyBullet );
             processGroup( passengers, drawPassenger );
             processGroup( jumpPoints, drawJumpPoint );
+            processGroup( particles, drawParticle );
             // Draw player
             drawPlayer();
             drawHal();
@@ -117,7 +120,7 @@ function draw(){
 }
 
 function inputsInMenu(){
-    if(pressing[13]){ // Enter
+    if(pressing[32]){ // Enter
         gameState = 1;
         // Reset game timer
         t = 0;
@@ -172,6 +175,23 @@ function inputsInGame(){
         }
         if(Math.abs(forceY) <= maxVel){
             player[5] += player[7] * Math.sin(player[3] * Math.PI / 180) * dt;
+        }
+        // Add particles
+        // (~~(elapsedTime * framesPerSecond) % totalFrames)
+        if((~~(t * 60) % 10) == 0){
+            var propellerPos = getOrbitPosition(player, player[3] + 182, player[2]),
+                particle = [
+                    propellerPos[0],
+                    propellerPos[1],
+                    random(5, 9),
+                    player[3] + 180 + random(-7, 7),
+                    12,
+                    t + random(0.6, 1.0),
+                    0.8,
+                    [15, 16, 11, 12],
+                    0
+                ];
+            spawnParticle(particle);
         }
 
         // Max forces correction

@@ -2,7 +2,7 @@ var player = [
     0,      // 0: x
     0,      // 1: y
     64,     // 2: radius
-    -180,     // 3: angle
+    45,     // 3: angle
     0,      // 4: force X
     0,      // 5: force Y
     0,      // 6: Control index for HAL
@@ -22,9 +22,9 @@ function updatePlayer(){
 
 function drawPlayer(){
     // Draw propeller
-    setContextAtrribute(18, 1);
-    var op = getOrbitPosition(player, player[3], player[2]);
-    fillCircle(op[0], op[1], 8);
+    setContextAtrribute(1, 1);
+    var op = getOrbitPosition(player, player[3] + 180, player[2]);
+    fillRectangle(op[0], op[1], 12, 18, player[3] + 180, [-4, -6]);
     // Draw turrets
     setContextAtrribute(16, 1);
     setContextAtrribute(16, 0);
