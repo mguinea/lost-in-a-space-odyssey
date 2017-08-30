@@ -25,6 +25,11 @@ function drawPlayer(){
     setContextAtrribute(1, 1);
     var op = getOrbitPosition(player, player[3] + 180, player[2]);
     fillRectangle(op[0], op[1], 12, 18, player[3] + 180, [-4, -6]);
+    // Draw turret selection by player
+    setContextAtrribute(17, 1);
+    if(player[8] < 4){
+        fillCircle( player[0] + turretsPositions[player[8]][0],   player[1] + turretsPositions[player[8]][1], 10);
+    }
     // Draw turrets
     setContextAtrribute(16, 1);
     setContextAtrribute(16, 0);
@@ -45,7 +50,7 @@ function drawPlayer(){
     // Draw life UI
     setContextAtrribute(16, 1);
     fillRectangle(player[0] - 35, player[1] + 36, 70, 6);
-    setContextAtrribute(3, 1);
+    setContextAtrribute(4, 1);
     fillRectangle(player[0] - 35, player[1] + 36, player[12] / 100 * 70, 6);
     // Draw rudder
     setContextAtrribute(10, 0);
@@ -53,6 +58,11 @@ function drawPlayer(){
     strokeCircle(player[0], player[1] + 12, 8)
     for(var i = 8; i >= 0; --i){
         drawLine(player[0], player[1] + 12, (i * 45 + player[3] * 10), 12, 2);
+    }
+    // Draw control selection by player
+    setContextAtrribute(17, 1);
+    if(player[8] < 4){
+        fillCircle( player[0] + shipPositions[player[8]][0], player[1], 7 );
     }
     // Draw controls
     for(var i = turretsAngles.length - 1; i >= 0; --i){

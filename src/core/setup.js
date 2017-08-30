@@ -27,6 +27,31 @@ var // Core
     particles = [],
 
     // Other
+    passengerPts = [
+		[0, 0],
+		[-2, 2],
+		[-1, 3],
+		[0, 2],
+		[0, 7],
+		[1, 7],
+		[1, 4],
+		[2, 4],
+		[2, 7],
+		[3, 7],
+		[3, 2],
+		[4, 3],
+		[5, 2],
+		[3, 0],
+		[2, 0],
+		[2,-1],
+		[3,-1],
+		[3,-4],
+		[0,-4],
+		[0,-1],
+		[1,-1],
+		[1, 0],
+		[0, 0]
+	],
     enemiesWaveCounter = 0,
     dialogs = [
         [0, [0, "Hi captain. My name is HAL", 0.5]], // 0: dialog index, 1: contents // 0: who is talking (0 Hal, 1 Player), 1: Message, 2: time

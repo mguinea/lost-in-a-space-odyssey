@@ -3,7 +3,7 @@ var shipPositions = [
     [-64 + 40, -8], // Down
     [64 - 40, -8], // Left
     [64 - 20, -8], // Right
-    //[64, 0]// Turret
+    [-6, 0]// Turret
 ];
 
 var turretsPositions = [
