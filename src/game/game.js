@@ -93,7 +93,7 @@ function draw(){
                 ctx.globalAlpha = 0.3;
                 ctx.globalAlpha = 1;
                 ctx.translate(W / 2, H /2 + 64);
-                font("PRESS SPACE BAR", 1);
+                font("PRESS ENTER", 1);
                 ctx.restore();
             }
         break;
@@ -120,7 +120,7 @@ function draw(){
 }
 
 function inputsInMenu(){
-    if(pressing[32]){ // Enter
+    if(pressing[13]){ // S
         gameState = 1;
         // Reset game timer
         t = 0;

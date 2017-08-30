@@ -129,8 +129,7 @@ function drawEnemy(e){
 
 function createEnemies( number ){
     for(var i = number - 1; i >= 0; --i){
-        //var randomPosition = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
-        var randomPosition = getOrbitPosition(player, random(0, 360), random(128, 128)),
+        var randomPosition = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
         enemy = [
             randomPosition[0],
             randomPosition[1],
