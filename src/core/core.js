@@ -2,6 +2,9 @@
 // Core
 // ------------------
 function gameLoop(){
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(scale, scale);
+    //scale -= 0.08 * dt;
     // Debug stats
     if(DEBUG === true) _fps_.begin();
     // Regulating the time using delta

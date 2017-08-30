@@ -7,7 +7,7 @@ function init(){
     createPassengers(1);
     createJumpPoints(1);
     initParticles();
-    ctx.scale(scale, scale);
+    
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
@@ -31,7 +31,12 @@ function update(){
             inputsInMenu();
         break;
         case 1:
-            turretSelected = player[8];
+            /*if(scale < 0.9995){
+                ctx.scale(1, 1);
+            }else{
+                scale -= .0001 * dt;
+                ctx.scale(scale, scale);
+            }*/
             // Manage input
             inputsInGame();
             // If there are no enemies, and enemies timer > some time (in seconds), instantiate multiple enemies (random from 2 to 5)
