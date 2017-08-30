@@ -137,14 +137,11 @@ function inputsInGame(){
         // Update shooter timer
         player[10] = t + player[11];
 
-        var turretSelected = player[8];
-        // calculate x y position, turret 0 (top) and add some random angle
-        var x = -Math.cos(turretsAngles[player[8]].toRad()) * 18,
-            y =  Math.sin(turretsAngles[player[8]].toRad()) * 18;
-        var op = getOrbitPosition(player, player[3] + 182, player[2]);
+        // origin, angle, distance
+        var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
         playerBullets.push([
-            player[0] + turretsPositions[player[8]][0] + x,
-            player[1] + turretsPositions[player[8]][1] + y,
+            player[0] + op[0],
+            player[1] + op[1],
             12,
             random(turretsAngles[player[8]] - 7, turretsAngles[player[8]] + 7),
             200,
@@ -155,20 +152,30 @@ function inputsInGame(){
         if(player[8] == 4){
             player[3] += 64 * dt;
         }else{
-            //turretsAngles[turretSelected] += 64 * dt;
-            //if(turretsAngles[turretSelected] < -30){
-                turretsAngles[player[8]] += 100 * dt;
-            //}
+            if(player[8] == 0 || player[8] == 3 || player[8] == 2){
+                if(turretsAngles[player[8]] > turretsAnglesInitial[player[8]] - 65){
+                    turretsAngles[player[8]] -= 100 * dt;
+                }
+            }else if(player[8] == 1){
+                if(turretsAngles[player[8]] < turretsAnglesInitial[player[8]] + 65){
+                    turretsAngles[player[8]] += 100 * dt;
+                }
+            }
         }
     } else
     if(pressing[68]){ // Key D
         if(player[8] == 4){
             player[3] -= 64 * dt;
         }else{
-            //turretsAngles[turretSelected] -= 64 * dt;
-            //if(turretsAngles[turretSelected] > -150){
-                turretsAngles[player[8]] -= 100 * dt;
-            //}
+            if(player[8] == 0 || player[8] == 3 || player[8] == 2){
+                if(turretsAngles[player[8]] < turretsAnglesInitial[player[8]] + 65){
+                    turretsAngles[player[8]] += 100 * dt;
+                }
+            }else if(player[8] == 1){
+                if(turretsAngles[player[8]] > turretsAnglesInitial[player[8]] - 65){
+                    turretsAngles[player[8]] -= 100 * dt;
+                }
+            }
         }
     }
     if(pressing[87]){ // Key W

@@ -16,3 +16,7 @@ var turretsPositions = [
 var turretsAngles = [
     -90, 90, 180, 0
 ]; // Turret angles
+
+var turretsAnglesInitial = [
+    -90, 90, 180, 0
+]; // Turret angles
