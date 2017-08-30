@@ -22,9 +22,11 @@ function updatePlayer(){
 
 function drawPlayer(){
     // Draw propeller
-    setContextAtrribute(1, 1);
-    var op = getOrbitPosition(player, player[3] + 180, player[2]);
-    fillRectangle(op[0], op[1], 12, 18, player[3] + 180, [-4, -6]);
+    setContextAtrribute(12, 0);
+    setContextAtrribute(12, 1);
+    var op = getOrbitPosition(player, player[3] + 180, player[2] + 2);
+    ctx.lineWidth = 2;
+	strokePath(op[0], op[1], player[3] + 180 + 90, propellerPts, 5).fill();
     // Draw turret selection by player
     setContextAtrribute(17, 1);
     if(player[8] < 4){

@@ -43,6 +43,7 @@ function update(){
             // Update groups
             processGroup( backStars, updateBackStars );
             processGroup( stars, updateStar );
+            processGroup( planets, updatePlanet );
             processGroup( playerBullets, updatePlayerBullet );
             processGroup( enemyBullets, updateEnemyBullet );
             processGroup( enemies, updateEnemy );
@@ -101,6 +102,7 @@ function draw(){
             // Draw groups
             processGroup( backStars, drawBackStar );
             processGroup( stars, drawStar );
+            processGroup( planets, drawPlanet );
             processGroup( enemies, drawEnemy );
             processGroup( playerBullets, drawPlayerBullet );
             processGroup( enemyBullets, drawEnemyBullet );
@@ -192,7 +194,7 @@ function inputsInGame(){
         // Add particles
         // (~~(elapsedTime * framesPerSecond) % totalFrames)
         if((~~(t * 60) % 10) == 0){
-            var propellerPos = getOrbitPosition(player, player[3] + 182, player[2]),
+            var propellerPos = getOrbitPosition(player, player[3] + 180, player[2]+12),
                 particle = [
                     propellerPos[0],
                     propellerPos[1],
@@ -248,12 +250,29 @@ function inputsInGame(){
 
 function createStars(){
     var star = [
-        -256,   // 0: x
-        64,   // 1: y
-        128,     // 2: radius
-        0,      // 3: rotation
-        "#f1c40f",   // 4: color
-        5,     // 6: rotation velocity
+        -512,       // 0: x
+        512,         // 1: y
+        512,        // 2: radius
+        0,          // 3: rotation
+        11,         // 4: color
+        120,          // 6: rotation velocity
     ];
-    //stars.push( star );
+    stars.push( star );
+
+    // 0: x
+    // 1: y
+    // 2: radius
+    // 3: angle (in degrees)
+    // 4: color
+    // 5: rotation velocity
+
+    var planet = [
+        0,
+        0,
+        256,
+        300,
+        20,
+        8
+    ];
+    planets.push( planet );
 }

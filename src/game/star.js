@@ -1,14 +1,10 @@
 function updateStar(e){
-    //e[3] += e[6] * dt;
+    e[3] += e[6] * dt;
 }
 
 function drawStar(e){
-    ctx.save();
-    setContextAtrribute(40, 1);
-    ctx.beginPath();
-    ctx.arc(e[0] - cam[0], e[1] - cam[1], e[2], 0, Math.PI * 2, true);
-    ctx.fill();
-    ctx.restore();
+    setContextAtrribute(e[4], 1);
+    fillCircle(e[0], e[1], e[2]);
 }
 
 function updateBackStars(e){

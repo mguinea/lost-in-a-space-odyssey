@@ -7,7 +7,7 @@ var // Core
     cam             = [],
     scale           = 1,
     t               = 0,    // Acummulate time
-    gameState       = 0,    // 0: main menu 1: game play 2: pause 3: game over
+    gameState       = 1,    // 0: main menu 1: game play 2: pause 3: game over
     DEBUG           = true,
     lastPress       = null,
     pressing        = [],
@@ -52,6 +52,14 @@ var // Core
 		[1, 0],
 		[0, 0]
 	],
+    propellerPts = [
+        [0, 0],
+        [-1,0],
+        [-3,-3],
+        [3,-3],
+        [1,0],
+        [0, 0]
+    ],
     enemiesWaveCounter = 0,
     dialogs = [
         [0, [0, "Hi captain. My name is HAL", 0.5]], // 0: dialog index, 1: contents // 0: who is talking (0 Hal, 1 Player), 1: Message, 2: time
