@@ -13,11 +13,42 @@ var player = [
     0.2,    // 11: shooter cadence
     100,    // 12: Life
 ];
+var lastPositionWithNoCollision = [];
 
 function updatePlayer(){
     // Go where forces say
     player[0] += player[4] * dt;
     player[1] += player[5] * dt;
+
+    // Check if collides with any asteroid
+    /*var prev = [];
+    prev[0] = player[0];
+    prev[1] = player[1];
+    for( var i = asteroids.length - 1 ; i >= 0; --i){
+        var distanceToAsteroid = distanceTo(player, asteroids[i]);
+        // If collides, inverse forces
+        if(distanceToAsteroid <= 0){
+            player[4] -= player[4];
+            player[5] -= player[5];
+
+            player[0] = prev[0];
+            player[1] = prev[1];
+        }
+    }*/
+    for( var i = asteroids.length - 1 ; i >= 0; --i){
+        distanceToAsteroid = distanceTo(player, asteroids[i]);
+        if( distanceToAsteroid <= 0){
+            var bounciness = 1;
+            player[4] = -player[4] * bounciness;
+            player[5] = -player[5] * bounciness;
+
+            player[0] = lastPositionWithNoCollision[0];
+            player[1] = lastPositionWithNoCollision[1];
+        }else{
+            lastPositionWithNoCollision[0] = player[0];
+            lastPositionWithNoCollision[1] = player[1];
+        }
+    }
 }
 
 function drawPlayer(){
