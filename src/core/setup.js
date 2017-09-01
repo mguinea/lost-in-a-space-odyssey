@@ -15,8 +15,6 @@ var // Core
 
     // Groups
     stars   = [],
-    planets = [],
-    moons   = [],
     backStars   = [],
     backStarsMenu   = [],
     playerBullets = [],
@@ -25,6 +23,7 @@ var // Core
     passengers = [],
     jumpPoints = [],
     particles = [],
+    asteroids = [],
 
     // Other
     passengerPts = [
@@ -52,6 +51,20 @@ var // Core
 		[1, 0],
 		[0, 0]
 	],
+    asteroidPts = [
+        [-4, 0],
+        [-2,-3],
+        [1,-4],
+        [4,-2],
+        [3,0],
+        [3,0],
+        [4,1],
+        [4,2],
+        [2,4],
+        [-1,4],
+        [-2,4],
+        [-4, 0]
+    ],
     propellerPts = [
         [0, 0],
         [-1,0],

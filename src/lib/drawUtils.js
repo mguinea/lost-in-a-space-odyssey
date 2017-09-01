@@ -84,3 +84,14 @@ function strokePath (x, y, r, pts, d) {
 	ctx.restore();
 	return ctx;
 }
+
+function scalePath(path, scale){
+	if(scale == 1){
+		return path;
+	}
+	var newPath = [];
+	for(var i = path.length - 1; i >= 0; --i){
+		newPath.push([path[i][0] * scale, path[i][1] * scale]);
+	}
+	return newPath;
+}

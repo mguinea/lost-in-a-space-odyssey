@@ -2,12 +2,12 @@
 // Game
 // ------------------
 function init(){
-    createStars();
+    //createStars();
     createEnemies(6);
     createPassengers(1);
     createJumpPoints(1);
     initParticles();
-    
+
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
@@ -15,6 +15,10 @@ function init(){
     // Create backStars menu
     for(var i = 128; i > 0; --i){
         backStarsMenu.push( [W/2, H/2, 1, random(0, 360).toRad()] );
+    }
+    // Create asteroids
+    for(var i = 1; i > 0; --i){
+        asteroids.push( [128, 64, 100, 0, 0, 0, 0, 1] );
     }
     // Call game loop for action!
     gameLoop();
@@ -48,13 +52,13 @@ function update(){
             // Update groups
             processGroup( backStars, updateBackStars );
             processGroup( stars, updateStar );
-            processGroup( planets, updatePlanet );
             processGroup( playerBullets, updatePlayerBullet );
             processGroup( enemyBullets, updateEnemyBullet );
             processGroup( enemies, updateEnemy );
             processGroup( passengers, updatePassenger );
             processGroup( jumpPoints, updateJumpPoint );
             processGroup( particles, updateParticle );
+            processGroup( asteroids, updateAsteroid );
             // Update HAL
             updateHal();
             // Update player
@@ -107,7 +111,7 @@ function draw(){
             // Draw groups
             processGroup( backStars, drawBackStar );
             processGroup( stars, drawStar );
-            processGroup( planets, drawPlanet );
+            processGroup( asteroids, drawAsteroid );
             processGroup( enemies, drawEnemy );
             processGroup( playerBullets, drawPlayerBullet );
             processGroup( enemyBullets, drawEnemyBullet );

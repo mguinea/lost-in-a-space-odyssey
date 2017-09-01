@@ -23,4 +23,6 @@ var colors = [
 '#ff0000',	// 21 RED
 '#00ff00',	// 22 GREEN
 '#0000ff',	// 23 BLUE
+'#B9650D',	// 24 Brown
+'#E68622',	// 25 Brown 2
 ];
