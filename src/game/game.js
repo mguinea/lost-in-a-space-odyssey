@@ -14,14 +14,17 @@ function init(){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
     }
     // Create backStars menu
-    for(var i = 128; i > 0; --i){
-        backStarsMenu.push( [W/2, H/2, 1, random(0, 360).toRad()] );
+    for(var i = 64; i > 0; --i){
+        var angle   = random(0, 360);
+        var op      = getOrbitPosition([W/2, H/2], angle, W);
+        var angleDirection = angleTo([W/2, H/2], [op[0], op[1]]);
+        backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
     //*/
     //backStars.push( [W/2 - 64, H/2-64, 5] );
     // Create asteroids
     for(var i = 5; i > 0; --i){
-        //asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
+        asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
     }
     // Call game loop for action!
     gameLoop();
@@ -31,11 +34,8 @@ function update(){
     switch(gameState){
         case 0:
             processGroup( backStarsMenu, updateBackStarsMenu );
-            // Spawn stars randomly
-            /*if(backStars.length < 128){
-                backStars.push( [W/2, H/2, 1, random(0, 360).toRad()] )
-            }*/
             inputsInMenu();
+            camFocus( [W/2, H/2] );
         break;
         case 1:
             /*if(scale < 0.9995){
@@ -75,19 +75,13 @@ function update(){
 }
 
 function draw(){
-    // Clear screen
-    setContextAtrribute(0, 1);
-    ctx.fillRect(0, 0, W + W * scale, H + H * scale);
     switch(gameState){
         case 0:
+            setContextAtrribute(0, 1);
+            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+
             processGroup( backStarsMenu, drawBackStarsMenu );
             // Draw title
-            /*
-            ctx.fillStyle   = '#ecf0f1';
-            ctx.font        = "64px sans-serif";
-            ctx.textAlign   = "center";
-            ctx.fillText("Lost in a Space Odyssey", W/2, 128);
-            //*/
             ctx.save();
             var colorIndex = (~~(t * 24) % colors.length);
             ctx.strokeStyle = colors[colorIndex];
@@ -111,6 +105,8 @@ function draw(){
             }
         break;
         case 1:
+            setContextAtrribute(27, 1);
+            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
             // Draw groups
             processGroup( backStars, drawBackStar );
             processGroup( stars, drawStar );

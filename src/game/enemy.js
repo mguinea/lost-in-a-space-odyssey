@@ -13,7 +13,7 @@ function updateEnemy(e, params, j){
     e[3] = angleTo(e, player).toDeg();
     // Set forces depending on distance to player
     var distanceToPlayer = distanceTo(e, player),
-        maxVel = 25;
+        maxVel = 36;
     // If too far... accelerate to ship
     if(distanceToPlayer > 100){
         if(Math.abs(e[4]) <= maxVel){

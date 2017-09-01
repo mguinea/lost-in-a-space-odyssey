@@ -1,5 +1,5 @@
 var colors = [
-'rgba(16,16,16,1.0)', // 0 screen cleaner
+'rgba(16,16,16,0.2)', // 0 screen cleaner
 '#1abc9c',	// 1 Turquoise
 '#16a085',	// 2 Green sea
 '#005F29',	// 3 Emerald
@@ -25,4 +25,7 @@ var colors = [
 '#0000ff',	// 23 BLUE
 '#B9650D',	// 24 Brown
 '#924B00',	// 25 Brown 2
+'#000000',	// 26 Black
+'rgba(16,16,16,1.0)', // 27 Normal screen cleaner
+
 ];

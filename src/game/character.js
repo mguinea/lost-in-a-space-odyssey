@@ -2,7 +2,7 @@ function drawCharacter(){
 	var bounceY = Math.sin(t * 4);
 
 
-	setContextAtrribute(3, 1);
+	setContextAtrribute(26, 1);
 	var chx = player[0] + shipPositions[player[8]][0] - 6;
 	var chy = player[1] + 14;
 	// Legs
