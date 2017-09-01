@@ -17,8 +17,8 @@ function init(){
         backStarsMenu.push( [W/2, H/2, 1, random(0, 360).toRad()] );
     }
     // Create asteroids
-    for(var i = 1; i > 0; --i){
-        asteroids.push( [128, 64, 100, 0, 0, 0, 0, 1] );
+    for(var i = 5; i > 0; --i){
+        asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
     }
     // Call game loop for action!
     gameLoop();

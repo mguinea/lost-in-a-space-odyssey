@@ -24,32 +24,53 @@ function updateAsteroid(e, params, j){
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
         if(distanceToPlayerBullet <= 0){
-            // Sound
-            play(Aexplosion2);
-            // Particles when die
-            for(var i = 3; i >= 0; --i){
-                var particle = [
-                        e[0],
-                        e[1],
-                        random(e[2] / 2, e[2]),
-                        random(0, 360),
-                        random(7, 25),
-                        t + random(0.6, 1.0),
-                        1,
-                        [14],
-                        2
-                    ];
-                spawnParticle(particle);
-            }
-			// Add new asteroids
-			var scale = e[7] / 2; // change scale
-			if(scale >= 0.5){
-				asteroids.push( [e[0] + random(e[2] * scale, e[2]), e[1] + random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 100, scale] );
-				asteroids.push( [e[0] - random(e[2] * scale, e[2]), e[1] - random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 100, scale] );
+			// Life
+			e[6] -= 50;
+			// Particles when collides
+			for(var k = 3; k >= 0; --k){
+				var particle = [
+						playerBullets[i][0],
+						playerBullets[i][1],
+						random(e[2] /  8, e[2] / 4),
+						random(0, 360),
+						random(7, 25),
+						t + random(0.6, 1.0),
+						1,
+						[14],
+						2
+					];
+				spawnParticle(particle);
 			}
-            // Remove
-            playerBullets.splice(i--, 1);
-            asteroids.splice(j--, 1);
+			// Remove bullet
+			playerBullets.splice(i--, 1);
+			// Life
+			if(e[6]<= 0){
+				// Sound
+	            play(Aexplosion2);
+	            // Particles when die
+	            for(var k = 3; k >= 0; --k){
+	                var particle = [
+	                        e[0],
+	                        e[1],
+	                        random(e[2] / 2, e[2]),
+	                        random(0, 360),
+	                        random(7, 25),
+	                        t + random(0.6, 1.0),
+	                        1,
+	                        [14],
+	                        2
+	                    ];
+	                spawnParticle(particle);
+	            }
+				// Add new asteroids
+				var scale = e[7] / 2; // change scale
+				if(scale >= 0.5){
+					asteroids.push( [e[0] + random(e[2] * scale, e[2]), e[1] + random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
+					asteroids.push( [e[0] - random(e[2] * scale, e[2]), e[1] - random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
+				}
+	            // Remove
+	            asteroids.splice(j--, 1);
+			}
         }
     }
 }
