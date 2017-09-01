@@ -1,19 +1,3 @@
-// oO ASTEROIDS font with fontSize and align (-1:right, 0:center, 1:left)
-// will side effect some ctx.translate() (that you could benefit to make text follow)
-function font (txt, fontSize, align) { // eslint-disable-line
-  var l = fontSize*11*txt.length;
-  ctx.translate(align ? (align>0 ? 0 : -l) : -l/2, 0);
-  for (var i=0; i<txt.length; i++) {
-    path(FONT[txt[i]] && FONT[txt[i]].map(function (o) {
-      return o && [4*fontSize*o[0], 5*fontSize*o[1]];
-    }), 1);
-    ctx.lineJoin = "round";
-    ctx.stroke();
-    ctx.translate(fontSize*11, 0);
-  }
-}
-
-
 function random(min, max){
     return (Math.random() * (max - min) + min);
 }
@@ -23,17 +7,6 @@ function getScreenPositionX(x){
 function getScreenPositionY(y){
     return y-cam[1];
 }
-/*
-function drawLine(x, y, r, l, w){
-    ctx.beginPath();
-    ctx.lineWidth = w;
-    var rpx = x + Math.cos( (r).toRad() ) * l,
-        rpy = y + Math.sin( (r).toRad() ) * l;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(rpx, rpy);
-    ctx.stroke();
-}*/
 
 function drawCircleArm(x, y, angularOffset, length, reverse){
     if(!reverse) reverse = 1;

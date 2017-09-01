@@ -65,6 +65,7 @@ function strokeCircle(x, y, r){
 
 function strokePath (x, y, r, pts, d) {
 	ctx.save();
+	ctx.lineJoin = "round";
 	ctx.beginPath();
 	ctx.translate(x-cam[0], y-cam[1]);
 	ctx.rotate((r).toRad());
