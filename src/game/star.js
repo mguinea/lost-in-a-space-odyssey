@@ -9,15 +9,15 @@ function drawStar(e){
 
 function updateBackStars(e){
     if(getScreenPositionX(e[0]) < 0){
-        e[0] = W + cam[0];
+        e[0] = W + cam[0] + random(32, 64);
     }else if(getScreenPositionX(e[0]) > W){
-        //e[0] = getScreenPositionX(0) - cam[0];
+        e[0] = 0 + cam[0] + random(-64, 0);
     }
 
     if(getScreenPositionY(e[1]) < 0){
-        e[1] = H + cam[1];
-    }else if(getScreenPositionX(e[0]) > W){
-        //e[0] = getScreenPositionX(0) - cam[0];
+        e[1] = H + cam[1] + random(32, 64);
+    }else if(getScreenPositionY(e[1]) > H){
+        e[1] = 0 + cam[1] + random(-64, 0);
     }
 }
 

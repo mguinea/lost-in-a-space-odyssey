@@ -2,7 +2,7 @@ var player = [
     0,      // 0: x
     0,      // 1: y
     64,     // 2: radius
-    45,     // 3: angle
+    -90,     // 3: angle
     0,      // 4: force X
     0,      // 5: force Y
     0,      // 6: Control index for HAL

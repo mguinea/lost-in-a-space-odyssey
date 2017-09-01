@@ -2,13 +2,14 @@
 // Game
 // ------------------
 function init(){
-    //createStars();
+    createStars();
     createEnemies(6);
     createPassengers(1);
     createJumpPoints(1);
     initParticles();
 
     // Create backStars ingame
+    ///*
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
     }
@@ -16,9 +17,11 @@ function init(){
     for(var i = 128; i > 0; --i){
         backStarsMenu.push( [W/2, H/2, 1, random(0, 360).toRad()] );
     }
+    //*/
+    //backStars.push( [W/2 - 64, H/2-64, 5] );
     // Create asteroids
     for(var i = 5; i > 0; --i){
-        asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
+        //asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
     }
     // Call game loop for action!
     gameLoop();
@@ -121,6 +124,13 @@ function draw(){
             // Draw player
             drawPlayer();
             drawHal();
+
+            /*
+            ctx.font="20px Georgia";
+            ctx.fillStyle = '#fff';
+            ctx.fillText("X: " + getScreenPositionX(backStars[0][0]), W/2,64);
+            ctx.fillText("Y: " + getScreenPositionY(backStars[0][1]), W/2,90);
+            //*/
 
             // Draw dialogs
             //showDialog(0);
@@ -267,21 +277,4 @@ function createStars(){
         120,          // 6: rotation velocity
     ];
     stars.push( star );
-
-    // 0: x
-    // 1: y
-    // 2: radius
-    // 3: angle (in degrees)
-    // 4: color
-    // 5: rotation velocity
-
-    var planet = [
-        0,
-        0,
-        256,
-        300,
-        20,
-        8
-    ];
-    planets.push( planet );
 }

@@ -62,7 +62,7 @@ function updateEnemy(e, params, j){
                 cannonPosition[1],
                 12,
                 random(e[3] - 7, e[3] + 7),
-                64,
+                80,
                 t + 2.5,
                 t + 0.05
             ]
