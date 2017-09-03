@@ -115,7 +115,7 @@ function draw(){
             // Draw player
             drawPlayer();
             drawHal();
-
+            drawHALDialog();
             /*
             ctx.font="20px Georgia";
             ctx.fillStyle = '#fff';
@@ -325,8 +325,7 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    enemyWave[0] = t + random(5, 10);
-    enemyWave[1] = 1;
+    // createWaveEnemy();
 
     initParticles();
 }

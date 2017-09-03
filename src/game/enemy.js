@@ -97,8 +97,7 @@ function updateEnemy(e, params, j){
             }
             // If last enemy, creae new enemy Wave timer
             if(enemies.length == 1){
-                enemyWave[0] = t + random(5, 10);
-                enemyWave[1] = 1;
+                createWaveEnemy();
             }
             // Remove
             playerBullets.splice(i--, 1);
