@@ -71,7 +71,7 @@ function updateEnemy(e, params, j){
     }
 
     // If collides with player bullet, destroy
-    /*for( var i = playerBullets.length - 1 ; i >= 0; --i){
+    for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
         if(distanceToPlayerBullet <= 0){
             // Sound
@@ -91,11 +91,20 @@ function updateEnemy(e, params, j){
                     ];
                 spawnParticle(particle);
             }
+            // If rand, spawn powerup
+            if(random(0, 10) > 6){
+                itemsLife.push([e[0], e[1], 16, 0]);
+            }
+            // If last enemy, creae new enemy Wave timer
+            if(enemies.length == 1){
+                enemyWave[0] = t + random(5, 10);
+                enemyWave[1] = 1;
+            }
             // Remove
             playerBullets.splice(i--, 1);
             enemies.splice(j--, 1);
         }
-    }*/
+    }
 }
 
 function drawEnemy(e){

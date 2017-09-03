@@ -27,20 +27,8 @@ function update(){
             camFocus( [W/2, H/2] );
         break;
         case 1:
-            /*if(scale < 0.9995){
-                ctx.scale(1, 1);
-            }else{
-                scale -= .0001 * dt;
-                ctx.scale(scale, scale);
-            }*/
             // Manage input
             inputsInGame();
-            // If there are no enemies, and enemies timer > some time (in seconds), instantiate multiple enemies (random from 2 to 5)
-            /*if( enemies.length <= 0 && enemiesWaveCounter >= 10){
-                enemiesWaveCounter = 0;
-                createEnemies(random(3, 5));
-            }*/
-            enemiesWaveCounter += t;
             // Update groups
             processGroup( backStars, updateBackStars );
             processGroup( stars, updateStar );
@@ -56,8 +44,24 @@ function update(){
             updateHal();
             // Update player
             updatePlayer();
-
-            //console.log(backStars[0][0]);
+            // Spawn enemy wave
+            if(t >= enemyWave[0] && enemyWave[1] == 1){
+                enemyWave[1] = 0;
+                for(var i = random(1, 5) - 1; i >= 0; --i){
+                    var op = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
+                    enemy = [
+                        op[0],
+                        op[1],
+                        24,
+                        0,
+                        0,
+                        0,
+                        t + 5,
+                        100,
+                    ];
+                    enemies.push( enemy );
+                }
+            }
             // Cam focus on player
             camFocus( player );
         break;
@@ -320,24 +324,9 @@ function createScene(s){
     }
     //*/
 
-    //* Create enemy wave
-    /*for(var i = random(1, 5) - 1; i >= 0; --i){
-        var op = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
-        enemy = [
-            op[0],
-            op[1],
-            24,
-            0,
-            0,
-            0,
-            t + 5,
-            100,
-        ];
-        enemies.push( enemy );
-    }*/
-    //*/
-
-    //itemsLife.push([128, 64, 16, 0]);
+    // Create enemy wave
+    enemyWave[0] = t + random(5, 10);
+    enemyWave[1] = 1;
 
     initParticles();
 }

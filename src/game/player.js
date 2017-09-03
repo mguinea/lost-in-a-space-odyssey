@@ -11,7 +11,7 @@ var player = [
     10,     // 9: shooter delay
     0,      // 10: value of current shooter delay
     0.2,    // 11: shooter cadence
-    90,    // 12: Life
+    100,    // 12: Life
 ];
 var lastPositionWithNoCollision = [];
 
@@ -173,7 +173,7 @@ function drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, items, color){
 
 function playerAddLife(amount){
     player[12] += amount;
-    if( amount > 100 ){
+    if( amount > 100){
         player[12] = 100;
     }
 }

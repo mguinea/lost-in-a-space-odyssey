@@ -80,11 +80,4 @@ function drawAsteroid(e){
 	setContextAtrribute(25, 1);
 	ctx.lineWidth = 10;
 	strokePath(e[0], e[1], e[3], scalePath(asteroidPts, e[7]), 26).fill();
-
-    // Draw box collider
-    if(DEBUG == true){
-        setContextAtrribute(22, 0);
-        ctx.lineWidth = 1;
-        strokeRectangle(e[0] - e[2], e[1] - e[2], e[2] * 2, e[2] * 2);
-    }
 }
