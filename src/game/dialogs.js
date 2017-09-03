@@ -12,7 +12,7 @@ var dialogs = [
 		-1
 	],
 	[
-		0.2,
+		2,
 		0,
 		["ENEMIES DETECTED!!!"],
 		-1
@@ -28,6 +28,7 @@ function callDialog(index){
 	showDialog 	= true;
 	if(dialogs[dialog][3] == -1){
 		dialogs[dialog][3] = t;
+		play(Adialog);
 	}
 }
 
@@ -36,11 +37,14 @@ function updateDialog(){
 		// Next text
 		if(t > dialogs[dialog][3] + dialogs[dialog][0] * (dialogs[dialog][1] + 1)){
 			++dialogs[dialog][1];
+			if(dialogs[dialog][1] <= dialogs[dialog][2].length - 1){
+				play(Adialog);
+			}
 		}
 		// Hide message and reset
 		if(dialogs[dialog][1] > dialogs[dialog][2].length - 1){
-			dialogs[dialog][3] = -1;
-			showDialog = false;
+			dialogs[dialog][3] 	= -1;
+			showDialog 			= false;
 		}
 	}
 }
