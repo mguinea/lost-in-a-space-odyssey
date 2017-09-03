@@ -50,6 +50,7 @@ function update(){
             updatePlayer();
             // Spawn enemy wave
             if(t >= enemyWave[0] && enemyWave[1] == 1){
+            	callDialog(1);
                 enemyWave[1] = 0;
                 for(var i = random(1, 5) - 1; i >= 0; --i){
                     var op = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
@@ -328,7 +329,7 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    // createWaveEnemy();
+    createWaveEnemy();
 
     initParticles();
 }

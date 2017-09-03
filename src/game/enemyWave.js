@@ -4,6 +4,6 @@
 var enemyWave = [0, 0];
 
 function createWaveEnemy(){
-	enemyWave[0] = t + random(5, 10);
+	enemyWave[0] = t + random(5, 15);
     enemyWave[1] = 1;
 }

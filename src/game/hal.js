@@ -43,7 +43,7 @@ function drawHal(){
 }
 
 function drawHALDialog(){
-    if(dialog >= 0){
+    if(showDialog == true){
         // Calculate margins
         var mx = W/2 + cam[0] - 256,
             my = H + cam[1] - 128 - 64;
