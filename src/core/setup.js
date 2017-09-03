@@ -82,9 +82,6 @@ var // Core
         [0, 0]
     ],
     enemiesWaveCounter = 0,
-    dialogs = [
-        [0, [0, "Hi captain. My name is HAL", 0.5]], // 0: dialog index, 1: contents // 0: who is talking (0 Hal, 1 Player), 1: Message, 2: time
-    ],
 
     timer           = 0,
     timers          = [],

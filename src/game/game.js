@@ -13,6 +13,8 @@ function init(){
         var angleDirection = angleTo([W/2, H/2], [op[0], op[1]]);
         backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
+    // Select dialog to show at the beginning
+    callDialog(0);
     // Create scene with random seed (first time, not random)
     createScene(1);
     // Call game loop for action!
@@ -42,6 +44,8 @@ function update(){
             processGroup( itemsLife, updateItemLife );
             // Update HAL
             updateHal();
+            // Update dialog logic
+            updateDialog();
             // Update player
             updatePlayer();
             // Spawn enemy wave
@@ -115,7 +119,6 @@ function draw(){
             // Draw player
             drawPlayer();
             drawHal();
-            drawHALDialog();
             /*
             ctx.font="20px Georgia";
             ctx.fillStyle = '#fff';
@@ -124,7 +127,7 @@ function draw(){
             //*/
 
             // Draw dialogs
-            //showDialog(0);
+            drawHALDialog();
         break;
     }
     // Draw shader effects
