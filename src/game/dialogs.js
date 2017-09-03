@@ -14,7 +14,7 @@ var dialogs = [
 	[
 		2,
 		0,
-		["ENEMIES DETECTED!!!"],
+		["ENEMIES DETECTED!!!", "SHIELDS LOW PASSENGERS IN THIS SECTOR X HAL ASSIGNED TO TURRET X MOUSE IS NOW OPERATIVE VELOCITY INCREASED EVACUATE THE SHIP!"],
 		-1
 	]
 ];
@@ -43,6 +43,7 @@ function updateDialog(){
 		}
 		// Hide message and reset
 		if(dialogs[dialog][1] > dialogs[dialog][2].length - 1){
+			dialogs[dialog][1] 	= 0;
 			dialogs[dialog][3] 	= -1;
 			showDialog 			= false;
 		}
