@@ -25,6 +25,7 @@ function updateParticle(e){
 
 function drawParticle(e){
 	if(e[9] == 1){
+		ctx.lineWidth = 1;
 		setContextAtrribute(e[10], 0);
 		setContextAtrribute(e[10], 1);
 		if(e[8] == 0){ strokeCircle(e[0], e[1], e[2]); }

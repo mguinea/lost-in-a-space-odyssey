@@ -38,14 +38,3 @@ function drawJumpPoint(e){
 	ctx.lineWidth = 1;
 	strokeCircle(e[0], e[1], e[2]);
 }
-
-function createJumpPoints(n){
-	for(var i = n - 1; i >= 0; --i){
-		jumpPoints.push([
-			-128,
-			-128,
-			20,
-			random(0, 360)
-		]);
-	}
-}

@@ -2,7 +2,7 @@ var player = [
     0,      // 0: x
     0,      // 1: y
     64,     // 2: radius
-    -90,     // 3: angle
+    -90,    // 3: angle
     0,      // 4: force X
     0,      // 5: force Y
     0,      // 6: Control index for HAL
@@ -11,7 +11,7 @@ var player = [
     10,     // 9: shooter delay
     0,      // 10: value of current shooter delay
     0.2,    // 11: shooter cadence
-    100,    // 12: Life
+    90,    // 12: Life
 ];
 var lastPositionWithNoCollision = [];
 
@@ -19,25 +19,9 @@ function updatePlayer(){
     // Go where forces say
     player[0] += player[4] * dt;
     player[1] += player[5] * dt;
-
-    // Check if collides with any asteroid
-    /*var prev = [];
-    prev[0] = player[0];
-    prev[1] = player[1];
+    //* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
-        var distanceToAsteroid = distanceTo(player, asteroids[i]);
-        // If collides, inverse forces
-        if(distanceToAsteroid <= 0){
-            player[4] -= player[4];
-            player[5] -= player[5];
-
-            player[0] = prev[0];
-            player[1] = prev[1];
-        }
-    }*/
-    for( var i = asteroids.length - 1 ; i >= 0; --i){
-        distanceToAsteroid = distanceTo(player, asteroids[i]);
-        if( distanceToAsteroid <= 0){
+        if( collides(player, asteroids[i]) <= 0){
             var bounciness = 1;
             player[4] = -player[4] * bounciness;
             player[5] = -player[5] * bounciness;
@@ -47,6 +31,42 @@ function updatePlayer(){
         }else{
             lastPositionWithNoCollision[0] = player[0];
             lastPositionWithNoCollision[1] = player[1];
+        }
+    }
+    //*/
+    // Check collisions with passengers
+    for( var i = passengers.length - 1 ; i >= 0; --i){
+        if( collides(player, passengers[i]) <= 0){
+
+        }
+    }
+    // Check collisions with jump points
+    for( var i = jumpPoints.length - 1 ; i >= 0; --i){
+        if( collides(player, jumpPoints[i]) <= 0){
+
+        }
+    }
+    // Check collisions with enemyBullets
+    for( var i = enemyBullets.length - 1 ; i >= 0; --i){
+        // First, check if AABB collides
+        if( collides(player, enemyBullets[i]) <= 0){
+            enemyBullets[i][2] = 24;
+            play(Aexplosion1);
+            enemyBullets.splice(i--, 1);
+            if(player[12] >= 5){
+                player[12] -= 5;
+            }else{
+                player[12] = 0;
+            }
+        }
+    }
+    // Check collisions with items
+    for( var i = itemsLife.length - 1 ; i >= 0; --i){
+        // First, check if AABB collides
+        if( collides(player, itemsLife[i]) <= 0){
+            play(Alife);
+            playerAddLife(10);
+            itemsLife.splice(i--, 1);
         }
     }
 }
@@ -148,5 +168,12 @@ function drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, items, color){
         setContextAtrribute(color, 1);
         setContextAtrribute(color, 0);
         strokePath(orbitPos[0], orbitPos[1], angle, ptsArrow, 1).fill();
+    }
+}
+
+function playerAddLife(amount){
+    player[12] += amount;
+    if( amount > 100 ){
+        player[12] = 100;
     }
 }

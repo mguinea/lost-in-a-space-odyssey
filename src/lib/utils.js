@@ -24,13 +24,17 @@ function AABBCollides(e1, e2){ // x, y, r
             this.x  +   this.width  >   rect.x      &&
             this.y  <   rect.y      +   rect.height &&
             this.y  +   this.height >   rect.y);*/
-    return(
+    /*return(
             e1[0]*scale  <   e2[0]*scale          +   e2[2]*2*scale     &&
             e1[0]*scale  +   e1[2]*2*scale        >   e2[0]*scale       &&
             e1[1]*scale  <   e2[1]                +   e2[2]*2*scale     &&
-            e1[1]*scale  +   e1[2]*2*scale        >   e2[1*scale] );
+            e1[1]*scale  +   e1[2]*2*scale        >   e2[1*scale] );*/
+    return(
+            e1[0]-e1[2]  <   e2[0]-e2[2]    +   e2[2]*2     &&
+            e1[0]-e1[2]  +   e1[2]*2        >   e2[0]-e2[2] &&
+            e1[1]-e1[2]  <   e2[1]-e2[2]    +   e2[2]*2     &&
+            e1[1]-e1[2]  +   e1[2]*2        >   e2[1]-e2[2] );
 }
-
 
 /**
  * distanceTo - Distance between 2 circle
@@ -43,6 +47,12 @@ function distanceTo( e1, e2 ){
     var dx = e1[0] - e2[0],
         dy = e1[1] - e2[1];
     return ( Math.sqrt( dx * dx + dy * dy ) ) - ( e1[2] + e2[2] );
+}
+
+function collides(e1, e2){
+    if(AABBCollides(e1, e2)){
+        return distanceTo(e1, e2);
+    }
 }
 
 function angleTo ( e1, e2 ) {

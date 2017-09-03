@@ -121,12 +121,12 @@ var FONT = [
     [1,1]
   ],
   [// F
-    [2,0],
+    [1,0],
     [0,0],
     [0,2],
     ,
     [0,1],
-    [2,1]
+    [1,1]
   ],
   [// G
     [2,2/3],
@@ -325,14 +325,16 @@ FONT["¢"] = [
 
 // oO ASTEROIDS font with fontSize and align (-1:right, 0:center, 1:left)
 // will side effect some ctx.translate() (that you could benefit to make text follow)
-function font (txt, fontSize, align) { // eslint-disable-line
+function font (txt, fontSize, align, lineWidth) { // eslint-disable-line
+
   var l = fontSize*11*txt.length;
   ctx.translate(align ? (align>0 ? 0 : -l) : -l/2, 0);
   for (var i=0; i<txt.length; i++) {
     path(FONT[txt[i]] && FONT[txt[i]].map(function (o) {
       return o && [4*fontSize*o[0], 5*fontSize*o[1]];
     }), 1);
-    ctx.lineJoin = "round";
+    ctx.lineWidth = lineWidth || 1;
+    ctx.lineJoin = "miter";
     ctx.stroke();
     ctx.translate(fontSize*11, 0);
   }

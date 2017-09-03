@@ -15,14 +15,3 @@ function drawPassenger(e){
 	ctx.lineWidth = 3;
 	strokePath(e[0], e[1], e[3], passengerPts, 3).fill();
 }
-
-function createPassengers(n){
-	for(var i = n - 1; i >= 0; --i){
-		passengers.push([
-			128,
-			128,
-			20,
-			random(0, 360)
-		]);
-	}
-}

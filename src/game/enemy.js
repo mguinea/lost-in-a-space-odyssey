@@ -7,6 +7,7 @@
 // 5: force Y
 // 6: shoot timer
 // 7: Acceleration
+// 8: pool active
 
 function updateEnemy(e, params, j){
     // Update angle to player
@@ -50,7 +51,7 @@ function updateEnemy(e, params, j){
 
 
     // Shoot if timer and distance
-    if(distanceToPlayer < 110 && e[6] < t){
+    if(distanceToPlayer < 110 && e[6] < t && player[12] > 0){
         // SFX
         play(AeShot);
 
@@ -70,7 +71,7 @@ function updateEnemy(e, params, j){
     }
 
     // If collides with player bullet, destroy
-    for( var i = playerBullets.length - 1 ; i >= 0; --i){
+    /*for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
         if(distanceToPlayerBullet <= 0){
             // Sound
@@ -94,7 +95,7 @@ function updateEnemy(e, params, j){
             playerBullets.splice(i--, 1);
             enemies.splice(j--, 1);
         }
-    }
+    }*/
 }
 
 function drawEnemy(e){
@@ -125,21 +126,4 @@ function drawEnemy(e){
     setContextAtrribute(9, 1);
     fillRectangle(e[0] - 3, e[1] + 2, 3, 3);
     fillRectangle(e[0] + 3, e[1] + 2, 3, 3);
-}
-
-function createEnemies( number ){
-    for(var i = number - 1; i >= 0; --i){
-        var randomPosition = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
-        enemy = [
-            randomPosition[0],
-            randomPosition[1],
-            24,
-            0,
-            0,
-            0,
-            t + 5,
-            100,
-        ];
-        enemies.push( enemy );
-    }
 }

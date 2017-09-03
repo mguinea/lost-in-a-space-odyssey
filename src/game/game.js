@@ -2,14 +2,7 @@
 // Game
 // ------------------
 function init(){
-    createStars();
-    createEnemies(6);
-    createPassengers(1);
-    createJumpPoints(1);
-    initParticles();
-
     // Create backStars ingame
-    ///*
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
     }
@@ -20,12 +13,8 @@ function init(){
         var angleDirection = angleTo([W/2, H/2], [op[0], op[1]]);
         backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
-    //*/
-    //backStars.push( [W/2 - 64, H/2-64, 5] );
-    // Create asteroids
-    for(var i = 5; i > 0; --i){
-        asteroids.push( [random(-W/2, W), random(-H/2, H), 100, random(0, 360), 0, 0, 150, 1] );
-    }
+    // Create scene with random seed (first time, not random)
+    createScene(1);
     // Call game loop for action!
     gameLoop();
 }
@@ -62,6 +51,7 @@ function update(){
             processGroup( jumpPoints, updateJumpPoint );
             processGroup( particles, updateParticle );
             processGroup( asteroids, updateAsteroid );
+            processGroup( itemsLife, updateItemLife );
             // Update HAL
             updateHal();
             // Update player
@@ -83,12 +73,12 @@ function draw(){
             processGroup( backStarsMenu, drawBackStarsMenu );
             // Draw title
             ctx.save();
-            var colorIndex = (~~(t * 24) % colors.length);
+            var colorIndex = (~~(t * 24) % colors.length - 1);
             ctx.strokeStyle = colors[colorIndex];
             ctx.globalAlpha = 0.3;
             ctx.globalAlpha = 1;
             ctx.translate(W/2, 140);
-            font("LOST IN A SPACE ODYSSEY", 2.5);
+            font("LOST IN A SPACE ODYSSEY", 2.5, 0, 5);
             ctx.restore();
 
             // Draw press enter to start
@@ -117,6 +107,7 @@ function draw(){
             processGroup( passengers, drawPassenger );
             processGroup( jumpPoints, drawJumpPoint );
             processGroup( particles, drawParticle );
+            processGroup( itemsLife, drawItemLife );
             // Draw player
             drawPlayer();
             drawHal();
@@ -155,7 +146,7 @@ function inputsInGame(){
         player[10] = t + player[11];
 
         // origin, angle, distance
-        var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
+        /*var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
         playerBullets.push([
             player[0] + op[0],
             player[1] + op[1],
@@ -164,6 +155,17 @@ function inputsInGame(){
             200,
             t + 1.5,
             t + 0.05]); // 0 x, 1 y, 2 radius, 3 angle, 4 vel, 5 timer end, 6 timer resize
+        */
+        var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
+        var bullet = [
+            player[0] + op[0],
+            player[1] + op[1],
+            12,
+            random(turretsAngles[player[8]] - 7, turretsAngles[player[8]] + 7),
+            200,
+            t + 1.5,
+            t + 0.05];
+        poolSpawnItem(playerBullets, bullet, 7);
     }
     if(pressing[65]){ // Key A
         if(player[8] == 4){
@@ -263,14 +265,79 @@ function inputsInGame(){
     }
 }
 
-function createStars(){
-    var star = [
-        -512,       // 0: x
-        512,         // 1: y
-        512,        // 2: radius
-        0,          // 3: rotation
-        11,         // 4: color
-        120,          // 6: rotation velocity
-    ];
-    stars.push( star );
+function createScene(s){
+    // Generate random seed for this scene
+    window.seed = s || 0;
+    //* Create passengers
+    for(var i = random(1, 3) - 1; i >= 0; --i){
+        var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
+        passengers.push([
+            op[0],
+            op[1],
+            20,
+            random(0, 360)
+        ]);
+    }
+    //*/
+    //* Create asteroids
+    for(var i = passengers.length - 1; i >= 0; --i){
+        for(var j = random(6, 12) - 1; j >= 0; --j){
+            var op  = getOrbitPosition([passengers[i][0], passengers[i][1]], random(0, 360), random(128, 1024));
+            var asteroid = [
+                op[0],
+                op[1],
+                100,
+                random(0, 360),
+                0, 0, 150, 1];
+            if(!collides(player, asteroid)){
+                asteroids.push(asteroid);
+            }
+        }
+    }
+    //*/
+    //* Create jump points
+    for(var i = random(1, 3) - 1; i >= 0; --i){
+        var op  = getOrbitPosition(player, random(0, 360), random(1024, 1500));
+        jumpPoints.push([
+            op[0],
+            op[1],
+            128,
+            random(0, 360)
+        ]);
+    }
+    //*/
+    /* Create stars
+    for(var i = random(1, 3) - 1; i >= 0; --i){
+        var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
+        var star = [
+            -512,       // 0: x
+            512,        // 1: y
+            512,        // 2: radius
+            0,          // 3: rotation
+            11,         // 4: color
+        ];
+        stars.push( star );
+    }
+    //*/
+
+    //* Create enemy wave
+    /*for(var i = random(1, 5) - 1; i >= 0; --i){
+        var op = getOrbitPosition(player, random(0, 360), random(W, W + 256)),
+        enemy = [
+            op[0],
+            op[1],
+            24,
+            0,
+            0,
+            0,
+            t + 5,
+            100,
+        ];
+        enemies.push( enemy );
+    }*/
+    //*/
+
+    //itemsLife.push([128, 64, 16, 0]);
+
+    initParticles();
 }
