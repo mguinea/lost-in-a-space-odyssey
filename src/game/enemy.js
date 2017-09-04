@@ -8,6 +8,7 @@
 // 6: shoot timer
 // 7: Acceleration
 // 8: pool active
+// 9: life
 
 function updateEnemy(e, params, j){
     // Update angle to player
@@ -72,8 +73,26 @@ function updateEnemy(e, params, j){
 
     // If collides with player bullet, destroy
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
-        var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
-        if(distanceToPlayerBullet <= 0){
+        if( collides(e, playerBullets[i]) <= 0){
+            e[9] -= 25;
+            // Particles when damaged
+            for(var j = 8; j >= 0; --j){
+                var particle = [
+                        e[0],
+                        e[1],
+                        random(2, 4),
+                        random(0, 360),
+                        random(7, 25),
+                        t + random(0.6, 1.0),
+                        1,
+                        [16],
+                        2
+                    ];
+                spawnParticle(particle);
+            }
+            playerBullets.splice(i--, 1);
+        }
+        if(e[9] <= 0){
             // Sound
             play(Aexplosion2);
             // Particles when die
@@ -92,7 +111,7 @@ function updateEnemy(e, params, j){
                 spawnParticle(particle);
             }
             // If rand, spawn powerup
-            if(random(0, 10) > 6){
+            if(random(0, 10) > 8){
                 itemsLife.push([e[0], e[1], 16, 0]);
             }
             // If last enemy, creae new enemy Wave timer
@@ -100,7 +119,6 @@ function updateEnemy(e, params, j){
                 createWaveEnemy();
             }
             // Remove
-            playerBullets.splice(i--, 1);
             enemies.splice(j--, 1);
         }
     }

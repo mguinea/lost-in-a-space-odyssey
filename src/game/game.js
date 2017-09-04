@@ -80,6 +80,8 @@ function update(){
                         0,
                         t + 5,
                         100,
+                        1,
+                        100
                     ];
                     enemies.push( enemy );
                 }
