@@ -70,6 +70,8 @@ function update(){
                     enemies.push( enemy );
                 }
             }
+            // Cam focus on player
+            camFocus( player );
         break;
     }
 }
@@ -208,7 +210,7 @@ function inputsInGame(){
     }
     if(pressing[87]){ // Key W
         player[8] = 4;
-        var maxVel = 25;
+        var maxVel = 128;
         var forceX = player[4];
         var forceY = player[5];
         if(Math.abs(forceX) <= maxVel){

@@ -10,7 +10,11 @@ Math.random = function(){
     var x = Math.sin(window.seed++) * 10000;
     return x - Math.floor(x);
 }
-
+/*
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}*/
+/*
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
     if (w < 2 * r) r = w / 2;
     if (h < 2 * r) r = h / 2;
@@ -22,4 +26,4 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
     this.arcTo(x,   y,   x+w, y,   r);
     this.closePath();
     return this;
-}
+}*/

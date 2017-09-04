@@ -37,7 +37,23 @@ function updatePlayer(){
     // Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
-
+            callDialog(2, [passengers.length]);
+            play(Apassenger);
+            for(var j = 7; j >= 0; --j){
+                var particle = [
+                        passengers[i][0],
+                        passengers[i][1],
+                        random(12, 24),
+                        random(0, 360),
+                        24,
+                        t + random(0.6, 1.0),
+                        0.8,
+                        [4],
+                        2
+                    ];
+                spawnParticle(particle);
+            }
+            passengers.splice(i--, 1);
         }
     }
     // Check collisions with jump points
