@@ -300,7 +300,7 @@ function inputsInGame(){
 function createScene(s){
     // Generate random seed for this scene
     window.seed = s || 0;
-    /* Create passengers
+    //* Create passengers
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
         passengers.push([
@@ -311,7 +311,7 @@ function createScene(s){
         ]);
     }
     //*/
-    /* Create asteroids
+    //* Create asteroids
     for(var i = passengers.length - 1; i >= 0; --i){
         for(var j = random(6, 12) - 1; j >= 0; --j){
             var op  = getOrbitPosition([passengers[i][0], passengers[i][1]], random(0, 360), random(128, 1024));
@@ -338,12 +338,14 @@ function createScene(s){
         ]);
     }
 
+    /* TEST
     jumpPoints.push([
         64,
         64,
         128,
         random(0, 360)
     ]);
+    //*/
     //*/
     /* Create stars
     for(var i = random(1, 3) - 1; i >= 0; --i){
@@ -360,7 +362,7 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    // createWaveEnemy();
+    createWaveEnemy();
 
     initParticles();
 }
