@@ -12,6 +12,7 @@ var player = [
     0,      // 10: value of current shooter delay
     0.2,    // 11: shooter cadence
     100,    // 12: Life
+    false,  // 13: hyperjump enabled
 ];
 var lastPositionWithNoCollision = [];
 
@@ -58,8 +59,14 @@ function updatePlayer(){
     }
     // Check collisions with jump points
     for( var i = jumpPoints.length - 1 ; i >= 0; --i){
-        if( collides(player, jumpPoints[i]) <= 0){
-
+        if( collides(player, jumpPoints[i])){
+            if(passengers.length > 0){
+                player[13] = false;
+                callDialog(3);
+            }else{
+                player[13] = true;
+                callDialog(4);
+            }
         }
     }
     // Check collisions with enemyBullets

@@ -27,6 +27,8 @@ var // Core
     itemsLife = [],
 
     // Other
+    hyperSpace = false,
+    hyperSpaceStart = 0,
     itemLifePts = [
         [-16, -16],
         [16, -16],

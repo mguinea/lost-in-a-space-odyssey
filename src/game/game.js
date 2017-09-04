@@ -30,8 +30,22 @@ function update(){
             camFocus( [W/2, H/2] );
         break;
         case 1:
+            if(hyperSpace == true){
+                // Move stars
+                processGroup( backStarsMenu, updateBackStarsMenu );
+                // During some time
+                if(t >= hyperSpaceEnd){
+                    hyperSpace = false;
+                }
+                // Put hyperspace to false
+                // Create new level
+            }
             // Cam focus on player
-            camFocus( player );
+            if(hyperSpace == false){
+                camFocus( player );
+            }else{
+                camFocus( [W/2, H/2] );
+            }
             // Manage input
             inputsInGame();
             // Update groups
@@ -71,7 +85,11 @@ function update(){
                 }
             }
             // Cam focus on player
-            camFocus( player );
+            if(hyperSpace == false){
+                camFocus( player );
+            }else{
+                camFocus( [W/2, H/2] );
+            }
         break;
     }
 }
@@ -107,29 +125,30 @@ function draw(){
             }
         break;
         case 1:
-            setContextAtrribute(27, 1);
-            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
-            // Draw groups
-            processGroup( backStars, drawBackStar );
-            processGroup( stars, drawStar );
-            processGroup( asteroids, drawAsteroid );
-            processGroup( enemies, drawEnemy );
-            processGroup( playerBullets, drawPlayerBullet );
-            processGroup( enemyBullets, drawEnemyBullet );
-            processGroup( passengers, drawPassenger );
-            processGroup( jumpPoints, drawJumpPoint );
-            processGroup( particles, drawParticle );
-            processGroup( itemsLife, drawItemLife );
+            if(hyperSpace == true){
+                setContextAtrribute(28, 1);
+                ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+
+                processGroup( backStarsMenu, drawBackStarsMenu );
+            }else{
+                setContextAtrribute(27, 1);
+                ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+
+                processGroup( backStars, drawBackStar );
+                processGroup( stars, drawStar );
+                processGroup( asteroids, drawAsteroid );
+                processGroup( enemies, drawEnemy );
+                processGroup( playerBullets, drawPlayerBullet );
+                processGroup( enemyBullets, drawEnemyBullet );
+                processGroup( passengers, drawPassenger );
+                processGroup( jumpPoints, drawJumpPoint );
+                processGroup( particles, drawParticle );
+                processGroup( itemsLife, drawItemLife );
+            }
+
             // Draw player
             drawPlayer();
-            drawHal();
-            /*
-            ctx.font="20px Georgia";
-            ctx.fillStyle = '#fff';
-            ctx.fillText("X: " + getScreenPositionX(backStars[0][0]), W/2,64);
-            ctx.fillText("Y: " + getScreenPositionY(backStars[0][1]), W/2,90);
-            //*/
-
+            //drawHal();
             // Draw dialogs
             drawHALDialog();
         break;
@@ -147,9 +166,11 @@ function inputsInMenu(){
 }
 
 function inputsInGame(){
-    /*if(pressing[90]){ // Key Z
-        scale = 2;
-    }*/
+    if(pressing[72] && player[13] == true){ // Key H
+        hyperSpace = true;
+        hyperSpaceEnd = t + 1;
+    }
+
     if(pressing[32] && t > player[10] && player[8] != 4){ // Key SPACE
         // SFX
         play(ApShot);
@@ -210,7 +231,7 @@ function inputsInGame(){
     }
     if(pressing[87]){ // Key W
         player[8] = 4;
-        var maxVel = 128;
+        var maxVel = 36;
         var forceX = player[4];
         var forceY = player[5];
         if(Math.abs(forceX) <= maxVel){
@@ -279,7 +300,7 @@ function inputsInGame(){
 function createScene(s){
     // Generate random seed for this scene
     window.seed = s || 0;
-    //* Create passengers
+    /* Create passengers
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
         passengers.push([
@@ -316,6 +337,13 @@ function createScene(s){
             random(0, 360)
         ]);
     }
+
+    jumpPoints.push([
+        64,
+        64,
+        128,
+        random(0, 360)
+    ]);
     //*/
     /* Create stars
     for(var i = random(1, 3) - 1; i >= 0; --i){

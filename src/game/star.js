@@ -33,10 +33,13 @@ function updateBackStarsMenu(e){
     if(e[4] > t){
         return;
     }
-    var angle = e[3];
-
-    e[0] += 100 * Math.cos(angle * Math.PI) * dt;
-    e[1] += 100 * Math.sin(angle * Math.PI) * dt;
+    var angle = e[3],
+        vel = 100;
+    if(hyperSpace == true){
+        vel = 512;
+    }
+    e[0] += vel * Math.cos(angle * Math.PI) * dt;
+    e[1] += vel * Math.sin(angle * Math.PI) * dt;
     // Resize stars
     e[2] = Math.abs((W / 2 - e[0]) * 0.01);
     // Recycle stars

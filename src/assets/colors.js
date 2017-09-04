@@ -27,5 +27,6 @@ var colors = [
 '#924B00',	// 25 Brown 2
 '#000000',	// 26 Black
 'rgba(16,16,16,1.0)', // 27 Normal screen cleaner
+'rgba(16,16,16,0.1)', // 28 screen cleaner hyperspace
 
 ];
