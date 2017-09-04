@@ -30,6 +30,8 @@ function update(){
             camFocus( [W/2, H/2] );
         break;
         case 1:
+            // Cam focus on player
+            camFocus( player );
             // Manage input
             inputsInGame();
             // Update groups
@@ -68,8 +70,6 @@ function update(){
                     enemies.push( enemy );
                 }
             }
-            // Cam focus on player
-            camFocus( player );
         break;
     }
 }
