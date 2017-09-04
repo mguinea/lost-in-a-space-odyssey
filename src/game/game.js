@@ -2,21 +2,21 @@
 // Game
 // ------------------
 function init(){
+    // Create scene with random seed (first time, not random)
+    createScene(1);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
     }
     // Create backStars menu
-    for(var i = 64; i > 0; --i){
-        var angle   = random(0, 360);
-        var op      = getOrbitPosition([W/2, H/2], angle, W);
-        var angleDirection = angleTo([W/2, H/2], [op[0], op[1]]);
+    for(var i = 128; i >= 0; --i){
+        var angle           = random(0, 360);
+        var op              = getOrbitPosition([W/2, H/2], angle, W);
+        var angleDirection  = angleTo([W/2, H/2], [op[0], op[1]]);
         backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
     // Select dialog to show at the beginning
     callDialog(0);
-    // Create scene with random seed (first time, not random)
-    createScene(1);
     // Call game loop for action!
     gameLoop();
 }
@@ -136,7 +136,7 @@ function draw(){
 }
 
 function inputsInMenu(){
-    if(pressing[13]){ // S
+    if(pressing[13]){ // Enter
         gameState = 1;
         // Reset game timer
         t = 0;
@@ -287,7 +287,7 @@ function createScene(s){
         ]);
     }
     //*/
-    //* Create asteroids
+    /* Create asteroids
     for(var i = passengers.length - 1; i >= 0; --i){
         for(var j = random(6, 12) - 1; j >= 0; --j){
             var op  = getOrbitPosition([passengers[i][0], passengers[i][1]], random(0, 360), random(128, 1024));
@@ -329,7 +329,7 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    createWaveEnemy();
+    // createWaveEnemy();
 
     initParticles();
 }

@@ -27,6 +27,7 @@ function drawBackStar(e){
 }
 
 function updateBackStarsMenu(e){
+    return;
     // Update if timer
     if(e[4] > t){
         return;
@@ -47,31 +48,6 @@ function updateBackStarsMenu(e){
         e[2] = 0;
         e[3] = angleDirection;
     }
-    /*if(e[0] > W || e[0] < 0){
-        e[0] = W / 2;
-        e[1] = H / 2;
-        e[2] = 1;
-    }
-    if(e[1] > H || e[1] < 0){
-        e[0] = W / 2;
-        e[1] = H / 2;
-        e[2] = 1;
-    }*/
-    /*if(getScreenPositionX(e[0]) < 0){
-        e[0] = W/2;
-        e[2] = 1;
-    }else if(getScreenPositionX(e[0]) > W){
-        e[0] = W/2;
-        e[2] = 1;
-    }
-
-    if(getScreenPositionY(e[1]) < 0){
-        e[1] = H/2;
-        e[2] = 1;
-    }else if(getScreenPositionY(e[1]) > H){
-        e[1] = H/2;
-        e[2] = 1;
-    }*/
 }
 
 function drawBackStarsMenu(e){
