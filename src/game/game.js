@@ -6,7 +6,8 @@ function init(){
     createScene(1);
     // Create backStars ingame
     for(var i = 128; i > 0; --i){
-        backStars.push( [random(-W/2, W), random(-H/2, H), random(1, 3)] );
+        backStars.push( [random(-W/2, W/2), random(-H/2, H/2), random(1, 3)] );
+        //backStars.push( [0, 64, 10] );
     }
     // Create backStars menu
     for(var i = 128; i >= 0; --i){
