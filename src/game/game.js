@@ -4,11 +4,6 @@
 function init(){
     // Create scene with random seed (first time, not random)
     createScene(1);
-    // Create backStars ingame
-    for(var i = 128; i > 0; --i){
-        backStars.push( [random(-W/2, W/2), random(-H/2, H/2), random(1, 3)] );
-        //backStars.push( [0, 64, 10] );
-    }
     // Create backStars menu
     for(var i = 128; i >= 0; --i){
         var angle           = random(0, 360);
@@ -30,22 +25,7 @@ function update(){
             camFocus( [W/2, H/2] );
         break;
         case 1:
-            if(hyperSpace == true){
-                // Move stars
-                processGroup( backStarsMenu, updateBackStarsMenu );
-                // During some time
-                if(t >= hyperSpaceEnd){
-                    hyperSpace = false;
-                }
-                // Put hyperspace to false
-                // Create new level
-            }
-            // Cam focus on player
-            if(hyperSpace == false){
-                camFocus( player );
-            }else{
-                camFocus( [W/2, H/2] );
-            }
+            camFocus( player );
             // Manage input
             inputsInGame();
             // Update groups
@@ -87,10 +67,27 @@ function update(){
                 }
             }
             // Cam focus on player
-            if(hyperSpace == false){
-                camFocus( player );
-            }else{
-                camFocus( [W/2, H/2] );
+            camFocus( player );
+        break;
+        case 2:
+            // Cam focus center screen
+            camFocus( [W/2, H/2] );
+            // Manage input
+            inputsInGame();
+            // Update player
+            updatePlayer();
+            // Move stars
+            processGroup( backStarsMenu, updateBackStarsMenu );
+            // During some time
+            if(t >= hyperSpaceEnd){
+                hyperSpace  = false;
+                gameState   = 1;
+                // Drop current scene configs and call a new onedrive
+                destroyScene();
+                createScene(random(2, 1000));
+                player[0] = 0;
+                player[1] = 0;
+                player[13] = false;
             }
         break;
     }
@@ -127,32 +124,33 @@ function draw(){
             }
         break;
         case 1:
-            if(hyperSpace == true){
-                setContextAtrribute(28, 1);
-                ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+            setContextAtrribute(27, 1);
+            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
 
-                processGroup( backStarsMenu, drawBackStarsMenu );
-            }else{
-                setContextAtrribute(27, 1);
-                ctx.fillRect(0, 0, W + W * scale, H + H * scale);
-
-                processGroup( backStars, drawBackStar );
-                processGroup( stars, drawStar );
-                processGroup( asteroids, drawAsteroid );
-                processGroup( enemies, drawEnemy );
-                processGroup( playerBullets, drawPlayerBullet );
-                processGroup( enemyBullets, drawEnemyBullet );
-                processGroup( passengers, drawPassenger );
-                processGroup( jumpPoints, drawJumpPoint );
-                processGroup( particles, drawParticle );
-                processGroup( itemsLife, drawItemLife );
-            }
+            processGroup( backStars, drawBackStar );
+            processGroup( stars, drawStar );
+            processGroup( asteroids, drawAsteroid );
+            processGroup( enemies, drawEnemy );
+            processGroup( playerBullets, drawPlayerBullet );
+            processGroup( enemyBullets, drawEnemyBullet );
+            processGroup( passengers, drawPassenger );
+            processGroup( jumpPoints, drawJumpPoint );
+            processGroup( particles, drawParticle );
+            processGroup( itemsLife, drawItemLife );
 
             // Draw player
             drawPlayer();
             //drawHal();
             // Draw dialogs
             drawHALDialog();
+        break;
+        case 2:
+            setContextAtrribute(28, 1);
+            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+
+            processGroup( backStarsMenu, drawBackStarsMenu );
+            // Draw player
+            drawPlayer();
         break;
     }
     // Draw shader effects
@@ -168,9 +166,13 @@ function inputsInMenu(){
 }
 
 function inputsInGame(){
-    if(pressing[72] && player[13] == true){ // Key H
+    if(pressing[72] && player[13] == true && gameState == 1){ // Key H
+        play(Ahyperspace);
+        gameState = 2;
         hyperSpace = true;
-        hyperSpaceEnd = t + 1;
+        hyperSpaceEnd = t + 3.5;
+        player[0] = W/2;
+        player[1] = H/2;
     }
 
     if(pressing[32] && t > player[10] && player[8] != 4){ // Key SPACE
@@ -299,6 +301,14 @@ function inputsInGame(){
     }
 }
 
+function destroyScene(){
+    passengers = [];
+    asteroids = [];
+    jumpPoints = [];
+    backStars = [];
+    enemies = [];
+}
+
 function createScene(s){
     // Generate random seed for this scene
     window.seed = s || 0;
@@ -367,4 +377,12 @@ function createScene(s){
     createWaveEnemy();
 
     initParticles();
+
+    createBackStars();
+}
+
+function createBackStars(){
+    for(var i = 128; i > 0; --i){
+        backStars.push( [random(-W/2, W/2), random(-H/2, H/2), random(1, 3)] );
+    }
 }

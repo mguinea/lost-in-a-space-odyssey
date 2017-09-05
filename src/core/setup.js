@@ -7,7 +7,7 @@ var // Core
     cam             = [],
     scale           = 1,
     t               = 0,    // Acummulate time
-    gameState       = 1,    // 0: main menu 1: game play 2: pause 3: game over
+    gameState       = 1,    // 0: main menu 1: game play 2: hyperspace 3: game over
     DEBUG           = true,
     lastPress       = null,
     pressing        = [],
