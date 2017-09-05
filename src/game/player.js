@@ -17,6 +17,10 @@ var player = [
 var lastPositionWithNoCollision = [];
 
 function updatePlayer(){
+    // Player dead
+    if(player[12] <= 0){
+        gameState = 3;
+    }
     // Go where forces say
     player[0] += player[4] * dt;
     player[1] += player[5] * dt;
@@ -196,7 +200,7 @@ function drawMiniArrow(mmapx, mmapy, mmapr, ptsArrow, items, color){
 
 function playerAddLife(amount){
     player[12] += amount;
-    if( amount > 100){
+    if( player[12] > 100){
         player[12] = 100;
     }
 }

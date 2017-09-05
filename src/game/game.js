@@ -90,6 +90,10 @@ function update(){
                 player[13] = false;
             }
         break;
+        case 3:
+            // Cam focus on player
+            camFocus( player );
+        break;
     }
 }
 
@@ -151,6 +155,12 @@ function draw(){
             processGroup( backStarsMenu, drawBackStarsMenu );
             // Draw player
             drawPlayer();
+        break;
+        case 3:
+            setContextAtrribute(0, 1);
+            ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+            drawPlayer();
+
         break;
     }
     // Draw shader effects
