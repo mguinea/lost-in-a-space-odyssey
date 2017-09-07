@@ -42,7 +42,7 @@ function updatePlayer(){
     // Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
-            callDialog(2, [passengers.length - 1]);
+            callDialog(2);
             play(Apassenger);
             for(var j = 7; j >= 0; --j){
                 var particle = [
@@ -54,7 +54,7 @@ function updatePlayer(){
                         t + random(0.6, 1.0),
                         0.8,
                         [4],
-                        2
+                        0
                     ];
                 spawnParticle(particle);
             }

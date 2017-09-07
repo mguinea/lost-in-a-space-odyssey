@@ -7,7 +7,7 @@ var // Core
     cam             = [],
     scale           = 1,
     t               = 0,    // Acummulate time
-    gameState       = 1,    // 0: main menu 1: game play 2: hyperspace 3: game over
+    gameState       = 0,    // 0: main menu 1: game play 2: hyperspace 3: game over
     DEBUG           = true,
     lastPress       = null,
     pressing        = [],
@@ -113,12 +113,7 @@ var gl = c.getContext('webgl',glprops) || c.getContext('experimental-webgl', glp
   H = FH - 2 * GAME_Y_MARGIN,
   borderLength = 2*(W+H+2*GAME_INC_PADDING),
   storage = localStorage,
-  shakeScreen=[0,0],
-  glitchTime = 0,
-  frame=0,
-  godMode = false,
-  godModeAvailable = !!storage.getItem('agar3sjs13k-gm'),
-  startFromGodMode = false;
+  shakeScreen=[0,0];
   // DOM setup
   d.style.webkitTransformOrigin = d.style.transformOrigin = "0 0";
 

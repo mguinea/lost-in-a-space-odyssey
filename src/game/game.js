@@ -126,6 +126,13 @@ function draw(){
                 font("PRESS ENTER", 1);
                 ctx.restore();
             }
+
+            // Draw credits
+            ctx.save();
+            setContextAtrribute(17, 0);
+            ctx.translate(W/2, H - 64);
+            font("MADE BY MARC GUINEA FOR JS13K GAMES 2017", 0.8, 0, 1);
+            ctx.restore();
         break;
         case 1:
             setContextAtrribute(27, 1);

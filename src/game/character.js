@@ -16,4 +16,15 @@ function drawCharacter(){
 	setContextAtrribute(17, 1);
 	fillRectangle(chx + 3, chy  - 6 + bounceY, 3, 3);
 	fillRectangle(chx + 7, chy  - 6 + bounceY, 3, 3);
+	// Emblem
+	//setContextAtrribute(11, 0);
+	var cindex = (~~(t * 8) % colors.length);
+	setContextAtrribute(cindex, 1);
+	var ptsArrow = [
+        [0, 0],
+        [-7, -3],
+        [-7, 3],
+        [0, 0]
+    ];
+	strokePath(chx + 7, chy + 9 + bounceY , 90, ptsArrow, 1).fill();
 }
