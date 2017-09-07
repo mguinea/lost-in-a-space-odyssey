@@ -16,37 +16,111 @@ var player = [
 ];
 var lastPositionWithNoCollision = [];
 
+var turrets = [
+    [
+        -90,        // 0: initial angles
+        -90,        // 1: current angles
+        [0, -64],   // 2: positions
+        0           // 3: active
+    ], // UP
+    [
+        90,         // 0: initial angles
+        90,         // 1: current angles
+        [0, 64],    // 2: positions
+        0           // 3: active
+    ], // DOWN
+    [
+        180,        // 0: initial angles
+        180,        // 1: current angles
+        [-64, 0],   // 2: positions
+        0           // 3: active
+    ], // LEFT
+    [
+        0,          // 0: initial angles
+        0,          // 1: current angles
+        [64, 0],    // 2: positions
+        0           // 3: active
+    ] // RIGHT
+]; // turrets index: 0 up, 1 down, 2 left, 3 right
+
 function updatePlayer(){
-    // Player dead
+    //* Player dead
     if(player[12] <= 0){
         gameState = 3;
+        return;
     }
-    // Go where forces say
+    //*/
+    //* Go where forces say
     player[0] += player[4] * dt;
     player[1] += player[5] * dt;
-    // Update turrets using mouse
-    var mp              = getMousePosition();
-    for(var i = turretsPositions.length - 1; i >= 0; --i){
-        var newAngle        = angleTo([player[0] + turretsPositions[i][0], player[1] + turretsPositions[i][1]], mp).toDeg();
-        if(newAngle < turretsAnglesInitial[i] + 80 && newAngle > turretsAnglesInitial[i] - 90){
-            turretsAngles[i] = newAngle;
+    //*/
+    var mpInScreen  = getMousePositionInScreen(),
+        mpInWorld   = getMousePositionInWorld();
+    //* Activate / deactivate turrets
+    turrets[0][3] = (mpInScreen[1] < 0) ? 1 : 0;
+    turrets[1][3] = (mpInScreen[1] > 0) ? 1 : 0;
+    turrets[2][3] = (mpInScreen[0] < 0) ? 1 : 0;
+    turrets[3][3] = (mpInScreen[0] > 0) ? 1 : 0;
+    //*/
+    //* Update turrets angles
+    for(var i = turrets.length - 1; i >= 0; --i){
+        if(turrets[i][3] === 1){
+            turrets[i][1] = angleTo([player[0] + turrets[i][2][0], player[1] + turrets[i][2][1]], mpInWorld).toDeg();
         }
     }
-    // Shot if click
+    //*/
+    //* Move propeller and go
+    if(pressing[65]){ // Key A
+        player[3] += 64 * dt;
+    }else if(pressing[68]){ // Key D
+        player[3] -= 64 * dt;
+    }
+    if(pressing[87]){ // Key W
+        var maxVel = 36;
+        var forceX = player[4];
+        var forceY = player[5];
+        if(Math.abs(forceX) <= maxVel){
+            player[4] += player[7] * Math.cos(player[3] * Math.PI / 180) * dt;
+        }
+        if(Math.abs(forceY) <= maxVel){
+            player[5] += player[7] * Math.sin(player[3] * Math.PI / 180) * dt;
+        }
+        // Add particles
+        // (~~(elapsedTime * framesPerSecond) % totalFrames)
+        if((~~(t * 60) % 10) == 0){
+            var propellerPos = getOrbitPosition(player, player[3] + 180, player[2]+12),
+                particle = [
+                    propellerPos[0],
+                    propellerPos[1],
+                    random(5, 9),
+                    player[3] + 180 + random(-7, 7),
+                    12,
+                    t + random(0.6, 1.0),
+                    0.8,
+                    [15, 16, 11, 12],
+                    0
+                ];
+            spawnParticle(particle);
+        }
+
+        // Max forces correction
+        if(player[4] > maxVel){
+            player[4] = maxVel;
+        }else if(player[4] < -maxVel){
+            player[4] = -maxVel;
+        }
+        if(player[5] > maxVel){
+            player[5] = maxVel;
+        }else if(player[5] < -maxVel){
+            player[5] = -maxVel;
+        }
+    }
+    //*/
+    //* Shot if click
     if(mouse[3] == 1 && t > player[10]){
-        if(mp[1] < 0){
-            playerShot(0);
-        }
-        if(mp[1] > 0){
-            playerShot(1);
-        }
-        if(mp[0] < 0){
-            playerShot(2);
-        }
-        if(mp[0] > 0){
-            playerShot(3);
-        }
+        playerShot();
     }
+    //*/
     /* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
@@ -62,7 +136,7 @@ function updatePlayer(){
         }
     }
     //*/
-    /* Check collisions with passengers
+    //* Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
             callDialog(2);
@@ -123,63 +197,81 @@ function updatePlayer(){
 }
 
 function drawPlayer(){
-    // Draw propeller
+    //* Draw propeller
     setContextAtrribute(12, 0);
     setContextAtrribute(12, 1);
     var op = getOrbitPosition(player, player[3] + 180, player[2] + 2);
     ctx.lineWidth = 2;
 	strokePath(op[0], op[1], player[3] + 180 + 90, propellerPts, 5).fill();
-    // Draw turret selection by player
-    setContextAtrribute(17, 1);
-    if(player[8] < 4){
-        fillCircle( player[0] + turretsPositions[player[8]][0],   player[1] + turretsPositions[player[8]][1], 10);
+    //*/
+    //* Draw turrets
+    for(var i = turrets.length - 1; i >= 0; --i){
+        // if active, draw selection
+        if(turrets[i][3] === 1){
+            setContextAtrribute(17, 1);
+            fillCircle( player[0]+ turrets[i][2][0], player[1] + turrets[i][2][1], 10);
+        }
+        // Draw red turret
+        setContextAtrribute(16, 1);
+        setContextAtrribute(16, 0);
+        fillCircle( player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], 8);
+        drawLine(   player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], turrets[i][1], 12, 6);
     }
-    // Draw turrets
-    setContextAtrribute(16, 1);
-    setContextAtrribute(16, 0);
-    fillCircle( player[0],   player[1] - player[2], 8);
-    drawLine(   player[0],   player[1] - player[2], turretsAngles[0], 12, 6);
-    fillCircle( player[0],   player[1] + player[2], 8);
-    drawLine(   player[0],   player[1] + player[2], turretsAngles[1], 12, 6);
-    fillCircle( player[0] - player[2], player[1], 8);
-    drawLine(   player[0] - player[2], player[1], turretsAngles[2], 12, 6);
-    fillCircle( player[0] + player[2], player[1], 8);
-    drawLine(   player[0] + player[2], player[1], turretsAngles[3], 12, 6);
-    // Draw body
+    //*/
+    // Draw ship
     setContextAtrribute(8, 1);
     fillCircle(player[0], player[1], player[2]);
     // Draw room
-    setContextAtrribute(14, 1);
+    setContextAtrribute(20, 1);
     fillRectangle(player[0] - 50, player[1] - 8, 100, 38);
+    // Draw Character
+    drawCharacter();
+    //* Draw rudder
+    setContextAtrribute(10, 0);
+    ctx.lineWidth = 2;
+    strokeCircle(player[0] - 12, player[1] + 28, 8)
+    for(var i = 8; i >= 0; --i){
+        drawLine(player[0] - 12, player[1] + 28, (i * 45 + player[3] * 10), 12, 2);
+    }
+    //*/
+    //* Draw Player / Rudder overlap
+    setContextAtrribute(8, 1);
+    fillCircle(player[0], player[1] - 8, player[2], 0.8, 0.2);
     // Draw life UI
     setContextAtrribute(16, 1);
     fillRectangle(player[0] - 35, player[1] + 36, 70, 6);
     setContextAtrribute(4, 1);
     fillRectangle(player[0] - 35, player[1] + 36, player[12] / 100 * 70, 6);
-    // Draw rudder
-    setContextAtrribute(10, 0);
-    ctx.lineWidth = 2;
-    strokeCircle(player[0], player[1] + 12, 8)
-    for(var i = 8; i >= 0; --i){
-        drawLine(player[0], player[1] + 12, (i * 45 + player[3] * 10), 12, 2);
-    }
+    //*/
     // Draw control selection by player
-    setContextAtrribute(17, 1);
+    /*setContextAtrribute(17, 1);
     if(player[8] < 4){
         fillCircle( player[0] + shipPositions[player[8]][0], player[1], 7 );
+    }*/
+    /* Draw controls
+    for(var i = turrets.length - 1; i >= 0; --i){
+        // if active, draw selection
+        if(turrets[i][3] === 1){
+            setContextAtrribute(17, 1);
+            fillCircle( player[0]+ turrets[i][2][0], player[1] + turrets[i][2][1], 10);
+        }
+        // Draw red turret
+        setContextAtrribute(16, 1);
+        setContextAtrribute(16, 0);
+        fillCircle( player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], 8);
+        drawLine(   player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], turrets[i][1], 12, 6);
     }
-    // Draw controls
+    //*/
+    /* Draw controls
     for(var i = turretsAngles.length - 1; i >= 0; --i){
         drawControl(player[0] + shipPositions[i][0], player[1], turretsAngles[i]);
     }
+    //*/
     // Draw some external lines
     setContextAtrribute(17, 0);
     ctx.lineWidth = 1;
     strokeCircle(player[0], player[1], player[2] - 2);
     strokeCircle(player[0], player[1], player[2] - 5);
-    // Draw Character
-    drawCharacter();
-    // Draw HAL
     // Draw minimap
     drawMinimap();
 }
@@ -229,19 +321,25 @@ function playerAddLife(amount){
     }
 }
 
-function playerShot(turretIndex){
+function playerShot(){
     // SFX
     play(ApShot);
-    // Update shooter timer
-    player[10] = t + player[11];
-    var op = getOrbitPosition([turretsPositions[turretIndex][0], turretsPositions[turretIndex][1]], turretsAngles[turretIndex], 18);
-    var bullet = [
-        player[0] + op[0],
-        player[1] + op[1],
-        12,
-        random(turretsAngles[turretIndex] - 7, turretsAngles[turretIndex] + 7),
-        200,
-        t + 1.5,
-        t + 0.05];
-    poolSpawnItem(playerBullets, bullet, 7);
+    // Spawn bullet on active turrets
+    for(var i = turrets.length -1; i >= 0; --i){
+        if(turrets[i][3] === 1){
+            // Update shooter timer
+            player[10] = t + player[11];
+            var op = getOrbitPosition([turrets[i][2][0], turrets[i][2][1]], turrets[i][1], 18);
+            var bullet = [
+                player[0] + op[0],
+                player[1] + op[1],
+                12,
+                /*random(turrets[i][1] - 7, turrets[i][1] + 7),*/
+                turrets[i][1],
+                200,
+                t + 1.5,
+                t + 0.05];
+            poolSpawnItem(playerBullets, bullet, 7);
+        }
+    }
 }

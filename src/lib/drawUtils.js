@@ -42,12 +42,26 @@ function strokeRectangle(x, y, w, h, r, p){ // x, y, width, height, rotation, pi
 	ctx.strokeRect(_pivot(p)[0], _pivot(p)[1], w, h);
 	ctx.restore();
 }
-
-function fillCircle(x, y, r){
+/*
+function fillCircle(x, y, r, ini, end){
+	var ini = ini || 0,
+		end = end || 2;
 	ctx.save();
 	ctx.beginPath();
 	ctx.translate(x-cam[0], y-cam[1]);
-	ctx.arc(0, 0, r, 0, Math.PI * 2, true);
+	ctx.arc(0, 0, r, Math.PI * (ini).toRad(), Math.PI * (end).toRad(), true);
+	ctx.fill();
+	ctx.closePath();
+	ctx.restore();
+}*/
+
+function fillCircle(x, y, r, ini, end){
+	var ini = ini || 0,
+		end = end || 2;
+	ctx.save();
+	ctx.beginPath();
+	ctx.translate(x-cam[0], y-cam[1]);
+	ctx.arc(0, 0, r, Math.PI * ini, Math.PI * end, true);
 	ctx.fill();
 	ctx.closePath();
 	ctx.restore();

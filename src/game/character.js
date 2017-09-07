@@ -1,30 +1,24 @@
 function drawCharacter(){
-	var bounceY = Math.sin(t * 4);
-
-
-	setContextAtrribute(26, 1);
-	var chx = player[0] + shipPositions[player[8]][0] - 6;
-	var chy = player[1] + 14;
-	// Legs
-	fillRectangle(chx + 2, chy + 10, 3, 6);
-	fillRectangle(chx + 7, chy + 10, 3, 6);
-	// Body
-	fillRectangle(chx, chy + bounceY, 12, 12);
+	var bounceY = Math.sin(t * 4),
+		chx = player[0],
+		chy = player[1] + 14;
 	// Head
-	fillRectangle(chx + 2, chy - 7 + bounceY, 9, 8);
-	// Eyes
+	setContextAtrribute(14, 1);
+	fillCircle(chx, chy + bounceY, 18);
+	// Ears
+	fillCircle(chx - 14, chy + bounceY, 6);
+	fillCircle(chx + 14, chy + bounceY, 6);
+	// Eyes (white)
 	setContextAtrribute(17, 1);
-	fillRectangle(chx + 3, chy  - 6 + bounceY, 3, 3);
-	fillRectangle(chx + 7, chy  - 6 + bounceY, 3, 3);
-	// Emblem
-	//setContextAtrribute(11, 0);
-	var cindex = (~~(t * 8) % colors.length);
-	setContextAtrribute(cindex, 1);
-	var ptsArrow = [
-        [0, 0],
-        [-7, -3],
-        [-7, 3],
-        [0, 0]
-    ];
-	strokePath(chx + 7, chy + 9 + bounceY , 90, ptsArrow, 1).fill();
+	fillCircle(chx - 6, chy + bounceY, 8);
+	fillCircle(chx + 6, chy + bounceY, 8);
+	// Eyes (black)
+	setContextAtrribute(26, 1);
+	if((~~(t * 12) % 12) == 1){
+		fillRectangle(chx - 9, chy + bounceY, 6, 2);
+		fillRectangle(chx + 3, chy + bounceY, 6, 2);
+	}else{
+		fillCircle(chx - 6, chy + bounceY, 3);
+		fillCircle(chx + 6, chy + bounceY, 3);
+	}
 }

@@ -39,8 +39,6 @@ function update(){
             processGroup( particles, updateParticle );
             processGroup( asteroids, updateAsteroid );
             processGroup( itemsLife, updateItemLife );
-            // Update HAL
-            updateHal();
             // Update dialog logic
             updateDialog();
             // Update player
@@ -162,8 +160,8 @@ function draw(){
             ctx.save();
             setContextAtrribute(17, 0);
             setContextAtrribute(17, 1);
-            ctx.translate(W/2, H - 64);
-            ctx.fillText("ANGLE" + turretsAngles[0], 0, 0);
+            ctx.translate(128, H - 64);
+            ctx.fillText("player bullets pool: " + playerBullets.length, 0, 0);
             ctx.restore();
         break;
         case 2:
@@ -202,131 +200,6 @@ function inputsInGame(){
         player[0] = W/2;
         player[1] = H/2;
     }
-
-    if(pressing[32] && t > player[10] && player[8] != 4){ // Key SPACE
-        // SFX
-        play(ApShot);
-        // Update shooter timer
-        player[10] = t + player[11];
-
-        // origin, angle, distance
-        /*var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
-        playerBullets.push([
-            player[0] + op[0],
-            player[1] + op[1],
-            12,
-            random(turretsAngles[player[8]] - 7, turretsAngles[player[8]] + 7),
-            200,
-            t + 1.5,
-            t + 0.05]); // 0 x, 1 y, 2 radius, 3 angle, 4 vel, 5 timer end, 6 timer resize
-        */
-        var op = getOrbitPosition([turretsPositions[player[8]][0], turretsPositions[player[8]][1]], turretsAngles[player[8]], 18);
-        var bullet = [
-            player[0] + op[0],
-            player[1] + op[1],
-            12,
-            random(turretsAngles[player[8]] - 7, turretsAngles[player[8]] + 7),
-            200,
-            t + 1.5,
-            t + 0.05];
-        poolSpawnItem(playerBullets, bullet, 7);
-    }
-    if(pressing[65]){ // Key A
-        if(player[8] == 4){
-            player[3] += 64 * dt;
-        }else{
-            if(player[8] == 0 || player[8] == 3 || player[8] == 2){
-                if(turretsAngles[player[8]] > turretsAnglesInitial[player[8]] - 65){
-                    turretsAngles[player[8]] -= 100 * dt;
-                }
-            }else if(player[8] == 1){
-                if(turretsAngles[player[8]] < turretsAnglesInitial[player[8]] + 65){
-                    turretsAngles[player[8]] += 100 * dt;
-                }
-            }
-        }
-    } else
-    if(pressing[68]){ // Key D
-        if(player[8] == 4){
-            player[3] -= 64 * dt;
-        }else{
-            if(player[8] == 0 || player[8] == 3 || player[8] == 2){
-                if(turretsAngles[player[8]] < turretsAnglesInitial[player[8]] + 65){
-                    turretsAngles[player[8]] += 100 * dt;
-                }
-            }else if(player[8] == 1){
-                if(turretsAngles[player[8]] > turretsAnglesInitial[player[8]] - 65){
-                    turretsAngles[player[8]] -= 100 * dt;
-                }
-            }
-        }
-    }
-    if(pressing[87]){ // Key W
-        player[8] = 4;
-        var maxVel = 36;
-        var forceX = player[4];
-        var forceY = player[5];
-        if(Math.abs(forceX) <= maxVel){
-            player[4] += player[7] * Math.cos(player[3] * Math.PI / 180) * dt;
-        }
-        if(Math.abs(forceY) <= maxVel){
-            player[5] += player[7] * Math.sin(player[3] * Math.PI / 180) * dt;
-        }
-        // Add particles
-        // (~~(elapsedTime * framesPerSecond) % totalFrames)
-        if((~~(t * 60) % 10) == 0){
-            var propellerPos = getOrbitPosition(player, player[3] + 180, player[2]+12),
-                particle = [
-                    propellerPos[0],
-                    propellerPos[1],
-                    random(5, 9),
-                    player[3] + 180 + random(-7, 7),
-                    12,
-                    t + random(0.6, 1.0),
-                    0.8,
-                    [15, 16, 11, 12],
-                    0
-                ];
-            spawnParticle(particle);
-        }
-
-        // Max forces correction
-        if(player[4] > maxVel){
-            player[4] = maxVel;
-        }else if(player[4] < -maxVel){
-            player[4] = -maxVel;
-        }
-        if(player[5] > maxVel){
-            player[5] = maxVel;
-        }else if(player[5] < -maxVel){
-            player[5] = -maxVel;
-        }
-    }
-
-    // Move player controls
-    if(pressing[38]){ // Up arrow
-        player[8] = 0;
-    }else
-    if(pressing[40]){ // Down arrow
-        player[8] = 1;
-    }else
-    if(pressing[37]){ // Left arrow
-        player[8] = 2;
-    }else
-    if(pressing[39]){ // Right arrow
-        player[8] = 3;
-    }
-
-    // HAL Actions
-    if(pressing[97] || pressing[49]){ // Num pad 1 || number 1
-        hal[5] = 0;  // Go to UP torret
-    }else if(pressing[98] || pressing[50]){
-        hal[5] = 1;  // Go to DOWN torret
-    }else if(pressing[99] || pressing[51]){
-        hal[5] = 2;  // Go to LEFT torret
-    }else if(pressing[100] || pressing[52]){
-        hal[5] = 3;  // Go to RIGHT torret
-    }
 }
 
 function destroyScene(){
@@ -340,7 +213,7 @@ function destroyScene(){
 function createScene(s){
     // Generate random seed for this scene
     window.seed = s || 0;
-    /* Create passengers
+    //* Create passengers
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
         passengers.push([
@@ -351,7 +224,7 @@ function createScene(s){
         ]);
     }
     //*/
-    /* Create asteroids
+    //* Create asteroids
     for(var i = passengers.length - 1; i >= 0; --i){
         for(var j = random(6, 12) - 1; j >= 0; --j){
             var op  = getOrbitPosition([passengers[i][0], passengers[i][1]], random(0, 360), random(128, 1024));
@@ -367,7 +240,7 @@ function createScene(s){
         }
     }
     //*/
-    /* Create jump points
+    //* Create jump points
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition(player, random(0, 360), random(1024, 1500));
         jumpPoints.push([
