@@ -67,6 +67,13 @@ function updateAsteroid(e, params, j){
 			}
         }
     }
+    // If laser collides
+    for(var i = playerLasers.length - 1; i >= 0; --i){
+        var laser = playerLasers[i];
+        if(lineCollidesCircle(laser, [e[0], e[1], e[2]])){
+            //console.log("Collides");
+        }
+    }
 }
 
 function drawAsteroid(e){

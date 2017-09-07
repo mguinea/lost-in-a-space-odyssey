@@ -12,7 +12,7 @@ function init(){
         backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
     // Select dialog to show at the beginning
-    // callDialog(0);
+    callDialog(0);
     // Call game loop for action!
     gameLoop();
 }
@@ -155,14 +155,6 @@ function draw(){
             drawMouse();
             // Draw dialogs
             drawHALDialog();
-
-
-            ctx.save();
-            setContextAtrribute(17, 0);
-            setContextAtrribute(17, 1);
-            ctx.translate(128, H - 64);
-            ctx.fillText("player bullets pool: " + playerBullets.length, 0, 0);
-            ctx.restore();
         break;
         case 2:
             setContextAtrribute(28, 1);

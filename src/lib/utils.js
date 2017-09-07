@@ -18,6 +18,12 @@ function drawCircleArm(x, y, angularOffset, length, reverse){
     ctx.stroke();
 }
 
+function lineCollidesCircle(l, c){
+    // Laser (l) = // 0: x, 1: y, 2: rotation, 3: l, 4: w, 5: color
+    // Circle (c) = // 0: x, 1: y, 2: radius
+    return true;
+}
+
 function AABBCollides(e1, e2){ // x, y, r
     /*return(
             this.x  <   rect.x      +   rect.width  &&
@@ -36,13 +42,6 @@ function AABBCollides(e1, e2){ // x, y, r
             e1[1]-e1[2]  +   e1[2]*2        >   e2[1]-e2[2] );
 }
 
-/**
- * distanceTo - Distance between 2 circle
- *
- * @param  {float} e1 description
- * @param  {float} e2 description
- * @return {float}    description
- */
 function distanceTo( e1, e2 ){
     var dx = e1[0] - e2[0],
         dy = e1[1] - e2[1];

@@ -12,7 +12,37 @@ function drawHALDialog(){
         fillRectangle(mx, my, 512, 128);
         ctx.restore();
         // HAL Face
-        var b = (~~(t * 20) % 20);
+        var chx = mx + 64,
+    		chy = my + 64;
+    	// Head
+    	setContextAtrribute(8, 1);
+    	fillCircle(chx, chy, 48);
+    	// Eyes (white)
+    	setContextAtrribute(17, 1);
+    	fillCircle(chx - 6, chy - 8, 21);
+    	fillCircle(chx + 6, chy - 8, 21);
+    	// Eyes (black)
+    	setContextAtrribute(26, 1);
+    	if((~~(t * 24) % 24) == 1){
+    		fillRectangle(chx - 9, chy, 6, 2);
+    		fillRectangle(chx + 3, chy, 6, 2);
+    	}else{
+    		fillCircle(chx - 6, chy, 3);
+    		fillCircle(chx + 6, chy, 3);
+    	}
+        // Mouth
+        if((~~(t * 12) % 12) > 7){
+            setContextAtrribute(26, 1);
+        	fillCircle(chx, chy + 14, 32, 0.9, 0.1);
+        }else{
+            setContextAtrribute(26, 1);
+        	fillCircle(chx, chy + 18, 26, 0.9, 0.1);
+        }
+        setContextAtrribute(16, 1);
+        fillCircle(chx + 8, chy + 37, 6);
+        fillCircle(chx + 4, chy + 37, 6);
+
+        /*var b = (~~(t * 20) % 20);
 
         setContextAtrribute(19, 1);
         fillRectangle(mx + 30, my + 14, 68, 104);
@@ -33,7 +63,7 @@ function drawHALDialog(){
         fillCircle(mx + 64, my + 64 + 16, 26);
 
         setContextAtrribute(11, 1);
-        fillCircle(mx + 64, my + 64 + 16, 3)
+        fillCircle(mx + 64, my + 64 + 16, 3)*/
 
         // Text
         ctx.save();

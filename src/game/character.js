@@ -10,15 +10,15 @@ function drawCharacter(){
 	fillCircle(chx + 14, chy + bounceY, 6);
 	// Eyes (white)
 	setContextAtrribute(17, 1);
-	fillCircle(chx - 6, chy + bounceY, 8);
-	fillCircle(chx + 6, chy + bounceY, 8);
+	fillCircle(chx - 4, chy + bounceY, 8);
+	fillCircle(chx + 4, chy + bounceY, 8);
 	// Eyes (black)
 	setContextAtrribute(26, 1);
 	if((~~(t * 12) % 12) == 1){
-		fillRectangle(chx - 9, chy + bounceY, 6, 2);
-		fillRectangle(chx + 3, chy + bounceY, 6, 2);
+		fillRectangle(chx - 3, chy + bounceY, 3, 2);
+		fillRectangle(chx + 3, chy + bounceY, 3, 2);
 	}else{
-		fillCircle(chx - 6, chy + bounceY, 3);
-		fillCircle(chx + 6, chy + bounceY, 3);
+		fillCircle(chx - 3, chy + bounceY, 2);
+		fillCircle(chx + 3, chy + bounceY, 2);
 	}
 }
