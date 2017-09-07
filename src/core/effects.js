@@ -19,7 +19,7 @@ function setFrameBuffer(buffer, texture, shader, time, colors){
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 }
 
-function drawPostProcessing (time) {
+function drawPostProcessing () {
   glSetTexture(textureGame, g);
   // CRT
   setFrameBuffer(fbo1, textureGame, crtShader);

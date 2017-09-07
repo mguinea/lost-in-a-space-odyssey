@@ -15,82 +15,25 @@ var // Core
     mouse           = [],
 
     // Groups
-    stars   = [],
-    backStars   = [],
+    stars           = [],
+    backStars       = [],
     backStarsMenu   = [],
-    playerBullets = [],
-    enemyBullets = [],
-    enemies = [],
-    passengers = [],
-    jumpPoints = [],
-    particles = [],
-    asteroids = [],
-    itemsLife = [],
+    playerBullets   = [],
+    enemyBullets    = [],
+    enemies         = [],
+    passengers      = [],
+    jumpPoints      = [],
+    particles       = [],
+    asteroids       = [],
+    itemsLife       = [],
 
     // Other
-    hyperSpace = false,
+    hyperSpace      = false,
     hyperSpaceStart = 0,
-    itemLifePts = [
-        [-16, -16],
-        [16, -16],
-        [16, 16],
-        [-16, 16],
-        [-16, -16],
-    ],
-    passengerPts = [
-		[0, 0],
-		[-2, 2],
-		[-1, 3],
-		[0, 2],
-		[0, 7],
-		[1, 7],
-		[1, 4],
-		[2, 4],
-		[2, 7],
-		[3, 7],
-		[3, 2],
-		[4, 3],
-		[5, 2],
-		[3, 0],
-		[2, 0],
-		[2,-1],
-		[3,-1],
-		[3,-4],
-		[0,-4],
-		[0,-1],
-		[1,-1],
-		[1, 0],
-		[0, 0]
-	],
-    asteroidPts = [
-        [-4, 0],
-        [-2,-3],
-        [1,-4],
-        [4,-2],
-        [3,0],
-        [3,0],
-        [4,1],
-        [4,2],
-        [2,4],
-        [-1,4],
-        [-2,4],
-        [-4, 0]
-    ],
-    propellerPts = [
-        [0, 0],
-        [-1,0],
-        [-3,-3],
-        [3,-3],
-        [1,0],
-        [0, 0]
-    ],
-    enemiesWaveCounter = 0,
-
-    timer           = 0,
-    timers          = [],
-    clearColor      = '#000',
-    lastPress       = null,
-    pressing        = [];
+    enemiesWaveCounter = 0;
+    //timer           = 0,
+    //timers          = [],
+    //clearColor      = '#000',
 
 if(DEBUG){
     var _fps_ = new Stats();
@@ -103,28 +46,26 @@ if(DEBUG){
 var glprops = {preserveDrawingBuffer: true};
 var gl = c.getContext('webgl',glprops) || c.getContext('experimental-webgl', glprops),
   ctx = g.getContext('2d'),
-  FW = 800,
-  FH = 640,
   W = 800,
-  H = 640,
-  GAME_MARGIN = 0,
-  GAME_Y_MARGIN = GAME_MARGIN,
-  GAME_INC_PADDING = 80,
-  W = FW - 2 * GAME_MARGIN,
-  H = FH - 2 * GAME_Y_MARGIN,
-  borderLength = 2*(W+H+2*GAME_INC_PADDING),
-  storage = localStorage,
-  shakeScreen=[0,0];
+  H = 640;
+  //GAME_MARGIN = 0,
+  //GAME_Y_MARGIN = GAME_MARGIN,
+  //GAME_INC_PADDING = 80,
+  //W = FW - 2 * GAME_MARGIN,
+  //H = FH - 2 * GAME_Y_MARGIN,
+  //borderLength = 2*(W+H+2*GAME_INC_PADDING),
+  //storage = localStorage,
+  //shakeScreen=[0,0];
   // DOM setup
   d.style.webkitTransformOrigin = d.style.transformOrigin = "0 0";
 
-  g.width = c.width = W;
-  g.height = c.height = H;
-  c.style.top = GAME_Y_MARGIN + "px";
-  c.style.left = GAME_MARGIN + "px";
-  document.oncontextmenu = function (e) {
+  g.width   = c.width   = W;
+  g.height  = c.height  = H;
+  //c.style.top = GAME_Y_MARGIN + "px";
+  //c.style.left = GAME_MARGIN + "px";
+document.oncontextmenu = function (e) {
     e.preventDefault();
-  };
+};
 
 
 document.getElementById('f').onclick=toggleFullscreen;

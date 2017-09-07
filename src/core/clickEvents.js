@@ -1,14 +1,10 @@
 c.onmousedown = function(e){
-  //coords[2] = e.which==3?0:1;
-  //coords[3] = e.which==3?1:0;
-  mouse[3] = 1;
+  mouse[3] = e.buttons;
   e.preventDefault();
 }
 
 c.onmouseup = function(e){
-  //coords[2] = 0;
-  //coords[3] = 0;
-  mouse[3] = 0;
+  mouse[3] = e.buttons;
   e.preventDefault();
 }
 

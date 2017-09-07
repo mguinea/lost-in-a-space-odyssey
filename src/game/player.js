@@ -43,6 +43,11 @@ var turrets = [
     ] // RIGHT
 ]; // turrets index: 0 up, 1 down, 2 left, 3 right
 
+var playerLasers = [
+    [0, 0, 0, 128, 1, 1],  // 0: x, 1: y, 2: r, 3: l, 4: w, 5: color
+    [0, 0, 0, 128, 1, 1]
+];
+
 function updatePlayer(){
     //* Player dead
     if(player[12] <= 0){
@@ -67,6 +72,16 @@ function updatePlayer(){
         if(turrets[i][3] === 1){
             turrets[i][1] = angleTo([player[0] + turrets[i][2][0], player[1] + turrets[i][2][1]], mpInWorld).toDeg();
         }
+    }
+    //*/
+    //* Shot if click
+    if(mouse[3] == 1 && t > player[10]){
+        playerShot();
+    }
+    //*/
+    //* Laser if right click
+    if(mouse[3] == 2){
+        playerLaserUpdate();
     }
     //*/
     //* Move propeller and go
@@ -102,7 +117,6 @@ function updatePlayer(){
                 ];
             spawnParticle(particle);
         }
-
         // Max forces correction
         if(player[4] > maxVel){
             player[4] = maxVel;
@@ -116,12 +130,7 @@ function updatePlayer(){
         }
     }
     //*/
-    //* Shot if click
-    if(mouse[3] == 1 && t > player[10]){
-        playerShot();
-    }
-    //*/
-    /* Check collisions with asteroids
+    //* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
             var bounciness = 1;
@@ -243,46 +252,40 @@ function drawPlayer(){
     setContextAtrribute(4, 1);
     fillRectangle(player[0] - 35, player[1] + 36, player[12] / 100 * 70, 6);
     //*/
-    // Draw control selection by player
-    /*setContextAtrribute(17, 1);
-    if(player[8] < 4){
-        fillCircle( player[0] + shipPositions[player[8]][0], player[1], 7 );
-    }*/
-    /* Draw controls
-    for(var i = turrets.length - 1; i >= 0; --i){
-        // if active, draw selection
-        if(turrets[i][3] === 1){
-            setContextAtrribute(17, 1);
-            fillCircle( player[0]+ turrets[i][2][0], player[1] + turrets[i][2][1], 10);
-        }
-        // Draw red turret
-        setContextAtrribute(16, 1);
-        setContextAtrribute(16, 0);
-        fillCircle( player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], 8);
-        drawLine(   player[0] + turrets[i][2][0], player[1] + turrets[i][2][1], turrets[i][1], 12, 6);
-    }
+    //* Draw controls
+    setContextAtrribute(17, 1);
+    if(turrets[0][3] === 1){ fillCircle( player[0] - 42, player[1] + 30, 7 ); }
+    if(turrets[1][3] === 1){ fillCircle( player[0] - 30, player[1] + 30, 7 ); }
+    if(turrets[2][3] === 1){ fillCircle( player[0] + 30, player[1] + 30, 7 ); }
+    if(turrets[3][3] === 1){ fillCircle( player[0] + 42, player[1] + 30, 7 ); }
+    drawControl(player[0] - 42, player[1] + 30, turrets[0][1]);
+    drawControl(player[0] - 30, player[1] + 30, turrets[1][1]);
+    drawControl(player[0] + 30, player[1] + 30, turrets[2][1]);
+    drawControl(player[0] + 42, player[1] + 30, turrets[3][1]);
     //*/
-    /* Draw controls
-    for(var i = turretsAngles.length - 1; i >= 0; --i){
-        drawControl(player[0] + shipPositions[i][0], player[1], turretsAngles[i]);
-    }
     //*/
     // Draw some external lines
     setContextAtrribute(17, 0);
     ctx.lineWidth = 1;
     strokeCircle(player[0], player[1], player[2] - 2);
     strokeCircle(player[0], player[1], player[2] - 5);
-    // Draw minimap
+    //* Draw minimap
     drawMinimap();
+    //*/
+    //* Laser if right click
+    if(mouse[3] == 2){
+        playerLaserDraw();
+    }
+    //*/
 }
 
-function drawControl(x, y, a){
+function drawControl(x, y, r){
 	ctx.lineWidth = "2";
     setContextAtrribute(9, 1);
     fillCircle(x, y, 6);
     setContextAtrribute(16, 0);
     for(var i = 4; i >= 0; --i){
-        drawLine(x, y, a + i * 90, 4, 2);
+        drawLine(x, y, r + i * 90, 4, 2);
     }
 }
 
@@ -341,5 +344,31 @@ function playerShot(){
                 t + 0.05];
             poolSpawnItem(playerBullets, bullet, 7);
         }
+    }
+}
+
+function playerLaserUpdate(){
+    var mpInWorld           = getMousePositionInWorld(),
+        laserIndex          = 0;
+    for(var i = turrets.length - 1; i >= 0; --i){
+        if(turrets[i][3] === 1){
+            var op  = getOrbitPosition([player[0] + turrets[i][2][0], player[1] + turrets[i][2][1]], turrets[i][1], 12),
+                r   = angleTo([op[0], op[1]], mpInWorld).toDeg();
+            playerLasers[laserIndex][0] = op[0];
+            playerLasers[laserIndex][1] = op[1];
+            playerLasers[laserIndex][2] = r;
+            playerLasers[laserIndex][3] = 500;
+            playerLasers[laserIndex][5] = 1;
+            ++laserIndex;
+        }
+    }
+}
+
+function playerLaserDraw(){
+    for(var i = playerLasers.length - 1; i >= 0; --i){
+        // 0: x, 1: y, 2: r, 3: l, 4: w, 5: color
+        setContextAtrribute(playerLasers[i][5], 1);
+        setContextAtrribute(playerLasers[i][5], 0);
+        drawLine(playerLasers[i][0], playerLasers[i][1], playerLasers[i][2], playerLasers[i][3], playerLasers[i][4]);
     }
 }

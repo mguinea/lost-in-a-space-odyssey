@@ -1,6 +1,4 @@
-/* global jsfxr */
-
-var audioCtx, audioDest, audio, play; // eslint-disable-line
+var audioCtx, audioDest, audio, play;
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 

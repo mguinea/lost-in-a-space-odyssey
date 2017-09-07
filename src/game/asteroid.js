@@ -7,19 +7,13 @@
 // 5: force Y
 // 6: life
 // 7: scale
+
 function updateAsteroid(e, params, j){
-	// Move orbit
-	/*
-    var op = getOrbitPosition(stars[0], e[3], stars[0][2] + e[2] + 128); // origin, angle, distance
-    e[0] = op[0];
-    e[1] = op[1];
-	//*/
 	// Go where forces say
     e[0] += e[4] * dt;
     e[1] += e[5] * dt;
-
+    // Rotate
 	e[3]+= 10 * dt;
-
 	// If collides with player bullet, destroy
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
