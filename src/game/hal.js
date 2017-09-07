@@ -4,7 +4,7 @@ function drawHALDialog(){
         var mx = W/2 + cam[0] - 256,
             my = H + cam[1] - 128 - 64;
         // Container
-        setContextAtrribute(6, 1);
+        setContextAtrribute(6, 0);
         strokeRectangle(mx, my, 512, 128);
         ctx.save();
         ctx.globalAlpha = 0.1;

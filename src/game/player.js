@@ -142,8 +142,9 @@ function updatePlayer(){
     //* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
+            // Player life
             player[12] -= 5;
-            
+            // Collision
             var bounciness = 1;
             player[4] = -player[4] * bounciness;
             player[5] = -player[5] * bounciness;

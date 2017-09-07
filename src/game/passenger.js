@@ -13,5 +13,5 @@ function drawPassenger(e){
 	setContextAtrribute(4, 1);
 	setContextAtrribute(17, 0);
 	ctx.lineWidth = 3;
-	strokePath(e[0], e[1], e[3], passengerPts, 3).fill();
+	strokePath(e[0], e[1], e[3], passengerPts, 5).fill();
 }
