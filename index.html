@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <style>
         body {background:#000;margin:0;padding:0;}
-        canvas {display:none;}
+        canvas {display:none;cursor:none;}
         #c{height:100vh;margin:auto;display:block;}
         .button { background-color: #2c3e50;border: none;padding: 12px 18px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px; }
         .button:hover{ background-color:#ecf0f1; }
@@ -94,8 +94,9 @@
     <!-- Core 'engine' -->
     <script src="src/core/pool.js"></script>
     <script src="src/core/particles.js"></script>
-    <script src="src/core/keyEvents.js"></script>
     <script src="src/core/setup.js"></script>
+    <script src="src/core/clickEvents.js"></script>
+    <script src="src/core/keyEvents.js"></script>
     <script src="src/core/effects.js"></script>
 
     <!-- Game assets -->
@@ -103,6 +104,7 @@
     <script src="src/assets/colors.js"></script>
     <script src="src/assets/font.js"></script>
     <!-- Game scripts -->
+    <script src="src/game/mouse.js"></script>
     <script src="src/game/dialogs.js"></script>
     <script src="src/game/enemyWave.js"></script>
     <script src="src/game/itemLife.js"></script>

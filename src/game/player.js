@@ -10,7 +10,7 @@ var player = [
     0,      // 8: turret position up, down, left, right, 4 = direction
     10,     // 9: shooter delay
     0,      // 10: value of current shooter delay
-    0.2,    // 11: shooter cadence
+    0.5,    // 11: shooter cadence
     100,    // 12: Life
     false,  // 13: hyperjump enabled
 ];
@@ -24,7 +24,30 @@ function updatePlayer(){
     // Go where forces say
     player[0] += player[4] * dt;
     player[1] += player[5] * dt;
-    //* Check collisions with asteroids
+    // Update turrets using mouse
+    var mp              = getMousePosition();
+    for(var i = turretsPositions.length - 1; i >= 0; --i){
+        var newAngle        = angleTo([player[0] + turretsPositions[i][0], player[1] + turretsPositions[i][1]], mp).toDeg();
+        if(newAngle < turretsAnglesInitial[i] + 80 && newAngle > turretsAnglesInitial[i] - 90){
+            turretsAngles[i] = newAngle;
+        }
+    }
+    // Shot if click
+    if(mouse[3] == 1 && t > player[10]){
+        if(mp[1] < 0){
+            playerShot(0);
+        }
+        if(mp[1] > 0){
+            playerShot(1);
+        }
+        if(mp[0] < 0){
+            playerShot(2);
+        }
+        if(mp[0] > 0){
+            playerShot(3);
+        }
+    }
+    /* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
             var bounciness = 1;
@@ -39,7 +62,7 @@ function updatePlayer(){
         }
     }
     //*/
-    // Check collisions with passengers
+    /* Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
             callDialog(2);
@@ -96,6 +119,7 @@ function updatePlayer(){
             itemsLife.splice(i--, 1);
         }
     }
+    //*/
 }
 
 function drawPlayer(){
@@ -203,4 +227,21 @@ function playerAddLife(amount){
     if( player[12] > 100){
         player[12] = 100;
     }
+}
+
+function playerShot(turretIndex){
+    // SFX
+    play(ApShot);
+    // Update shooter timer
+    player[10] = t + player[11];
+    var op = getOrbitPosition([turretsPositions[turretIndex][0], turretsPositions[turretIndex][1]], turretsAngles[turretIndex], 18);
+    var bullet = [
+        player[0] + op[0],
+        player[1] + op[1],
+        12,
+        random(turretsAngles[turretIndex] - 7, turretsAngles[turretIndex] + 7),
+        200,
+        t + 1.5,
+        t + 0.05];
+    poolSpawnItem(playerBullets, bullet, 7);
 }

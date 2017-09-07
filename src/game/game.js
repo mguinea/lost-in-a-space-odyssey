@@ -12,7 +12,7 @@ function init(){
         backStarsMenu.push( [op[0], op[1], 0, angleDirection, t + random(0.1, 1.5)] );
     }
     // Select dialog to show at the beginning
-    callDialog(0);
+    // callDialog(0);
     // Call game loop for action!
     gameLoop();
 }
@@ -65,7 +65,7 @@ function update(){
                     ];
                     enemies.push( enemy );
                 }
-            }
+            };
             // Cam focus on player
             camFocus( player );
         break;
@@ -89,6 +89,7 @@ function update(){
                 player[1] = 0;
                 player[13] = false;
             }
+
         break;
         case 3:
             // Cam focus on player
@@ -149,11 +150,21 @@ function draw(){
             processGroup( particles, drawParticle );
             processGroup( itemsLife, drawItemLife );
 
+
             // Draw player
             drawPlayer();
-            //drawHal();
+            // Draw mouse
+            drawMouse();
             // Draw dialogs
             drawHALDialog();
+
+
+            ctx.save();
+            setContextAtrribute(17, 0);
+            setContextAtrribute(17, 1);
+            ctx.translate(W/2, H - 64);
+            ctx.fillText("ANGLE" + turretsAngles[0], 0, 0);
+            ctx.restore();
         break;
         case 2:
             setContextAtrribute(28, 1);
@@ -329,7 +340,7 @@ function destroyScene(){
 function createScene(s){
     // Generate random seed for this scene
     window.seed = s || 0;
-    //* Create passengers
+    /* Create passengers
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
         passengers.push([
@@ -340,7 +351,7 @@ function createScene(s){
         ]);
     }
     //*/
-    //* Create asteroids
+    /* Create asteroids
     for(var i = passengers.length - 1; i >= 0; --i){
         for(var j = random(6, 12) - 1; j >= 0; --j){
             var op  = getOrbitPosition([passengers[i][0], passengers[i][1]], random(0, 360), random(128, 1024));
@@ -356,7 +367,7 @@ function createScene(s){
         }
     }
     //*/
-    //* Create jump points
+    /* Create jump points
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition(player, random(0, 360), random(1024, 1500));
         jumpPoints.push([
@@ -391,11 +402,11 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    createWaveEnemy();
+    //createWaveEnemy();
 
     initParticles();
 
-    createBackStars();
+    //createBackStars();
 }
 
 function createBackStars(){

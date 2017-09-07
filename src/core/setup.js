@@ -7,11 +7,12 @@ var // Core
     cam             = [],
     scale           = 1,
     t               = 0,    // Acummulate time
-    gameState       = 0,    // 0: main menu 1: game play 2: hyperspace 3: game over
+    gameState       = 1,    // 0: main menu 1: game play 2: hyperspace 3: game over
     DEBUG           = true,
     lastPress       = null,
     pressing        = [],
     fullscreen      = false,
+    mouse           = [],
 
     // Groups
     stars   = [],
