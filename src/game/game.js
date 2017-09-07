@@ -243,15 +243,6 @@ function createScene(s){
         ]);
     }
 
-    /* TEST
-    jumpPoints.push([
-        64,
-        64,
-        128,
-        random(0, 360)
-    ]);
-    //*/
-    //*/
     /* Create stars
     for(var i = random(1, 3) - 1; i >= 0; --i){
         var op  = getOrbitPosition([0, 0], random(0, 360), random(512, 1024));
@@ -271,11 +262,9 @@ function createScene(s){
 
     initParticles();
 
-    //createBackStars();
-}
-
-function createBackStars(){
+    //* Create backstars
     for(var i = 128; i > 0; --i){
         backStars.push( [random(-W/2, W/2), random(-H/2, H/2), random(1, 3)] );
     }
+    //*/
 }
