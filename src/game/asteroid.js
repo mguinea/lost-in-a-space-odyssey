@@ -14,65 +14,48 @@ function updateAsteroid(e, params, j){
     e[1] += e[5] * dt;
     // Rotate
 	e[3]+= 10 * dt;
-	// If collides with player bullet, destroy
+	// If collides with player bullet, destroy bullet
     for( var i = playerBullets.length - 1 ; i >= 0; --i){
         var distanceToPlayerBullet = distanceTo(e, playerBullets[i]);
         if(distanceToPlayerBullet <= 0){
-			// Life
-			e[6] -= 50;
-			// Particles when collides
-			for(var k = 3; k >= 0; --k){
-				var particle = [
-						playerBullets[i][0],
-						playerBullets[i][1],
-						random(e[2] /  8, e[2] / 4),
-						random(0, 360),
-						random(7, 25),
-						t + random(0.6, 1.0),
-						1,
-						[14],
-						2
-					];
-				spawnParticle(particle);
-			}
-			// Remove bullet
+            // Remove bullet
 			playerBullets.splice(i--, 1);
-			// Life
-			if(e[6]<= 0){
-				// Sound
-	            play(Aexplosion2);
-	            // Particles when die
-	            for(var k = 3; k >= 0; --k){
-	                var particle = [
-	                        e[0],
-	                        e[1],
-	                        random(e[2] / 2, e[2]),
-	                        random(0, 360),
-	                        random(7, 25),
-	                        t + random(0.6, 1.0),
-	                        1,
-	                        [14],
-	                        2
-	                    ];
-	                spawnParticle(particle);
-	            }
-				// Add new asteroids
-				var scale = e[7] / 2; // change scale
-				if(scale >= 0.5){
-					asteroids.push( [e[0] + random(e[2] * scale, e[2]), e[1] + random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
-					asteroids.push( [e[0] - random(e[2] * scale, e[2]), e[1] - random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
-				}
-	            // Remove
-	            asteroids.splice(j--, 1);
-			}
         }
     }
-    // If laser collides
-    for(var i = playerLasers.length - 1; i >= 0; --i){
-        var laser = playerLasers[i];
-        if(lineCollidesCircle(laser, [e[0], e[1], e[2]])){
-            //console.log("Collides");
+    // If laser insersection collides
+    var mpInWorld = getMousePositionInWorld();
+    if(mouse[3] === 2 && collides([mpInWorld[0], mpInWorld[1], 2], e) && player[14] > 0){
+        // Decrease player laser energy
+        player[14] -= 20 * dt;
+        // Decrease asteroid life
+        e[6] -= 100 * dt;
+        // Particles when damaged
+        var particle = [
+                mpInWorld[0],
+                mpInWorld[1],
+                random(6, 12),
+                random(0, 360),
+                random(25, 25),
+                t + random(0.6, 1.0),
+                1,
+                [14],
+                2
+            ];
+        spawnParticle(particle);
+    }
+
+    // Dead
+    if(e[6]<= 0){
+        // Sound
+        play(Aexplosion2);
+        // Add new asteroids
+        var scale = e[7] / 2; // change scale
+        if(scale >= 0.5){
+            asteroids.push( [e[0] + random(e[2] * scale, e[2]), e[1] + random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
+            asteroids.push( [e[0] - random(e[2] * scale, e[2]), e[1] - random(e[2] * scale, e[2]), e[2] * scale, random(0, 360), 0, 0, 150, scale] );
         }
+        // Remove
+        asteroids.splice(j--, 1);
     }
 }
 

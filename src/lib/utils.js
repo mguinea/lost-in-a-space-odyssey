@@ -18,12 +18,6 @@ function drawCircleArm(x, y, angularOffset, length, reverse){
     ctx.stroke();
 }
 
-function lineCollidesCircle(l, c){
-    // Laser (l) = // 0: x, 1: y, 2: rotation, 3: l, 4: w, 5: color
-    // Circle (c) = // 0: x, 1: y, 2: radius
-    return true;
-}
-
 function AABBCollides(e1, e2){ // x, y, r
     /*return(
             this.x  <   rect.x      +   rect.width  &&

@@ -13,6 +13,7 @@ var player = [
     0.5,    // 11: shooter cadence
     100,    // 12: Life
     false,  // 13: hyperjump enabled
+    100,    // 14: laser energy
 ];
 var lastPositionWithNoCollision = [];
 
@@ -84,6 +85,14 @@ function updatePlayer(){
         playerLaserUpdate();
     }
     //*/
+    //* Regulate laser temp
+    if(player[14] <= 100 && mouse[3] != 2){
+        player[14] += 7 * dt;
+    }
+    if(player[14] > 100){
+        player[14] = 100;
+    }
+    //*/
     //* Move propeller and go
     if(pressing[65]){ // Key A
         player[3] += 64 * dt;
@@ -133,6 +142,8 @@ function updatePlayer(){
     //* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
+            player[12] -= 5;
+            
             var bounciness = 1;
             player[4] = -player[4] * bounciness;
             player[5] = -player[5] * bounciness;
@@ -248,9 +259,15 @@ function drawPlayer(){
     fillCircle(player[0], player[1] - 8, player[2], 0.8, 0.2);
     // Draw life UI
     setContextAtrribute(16, 1);
-    fillRectangle(player[0] - 35, player[1] + 36, 70, 6);
+    fillRectangle(player[0] - 35, player[1] + 38, 70, 6);
     setContextAtrribute(4, 1);
-    fillRectangle(player[0] - 35, player[1] + 36, player[12] / 100 * 70, 6);
+    fillRectangle(player[0] - 35, player[1] + 38, player[12] / 100 * 70, 6);
+    //*/
+    //* Draw laser energy UI
+    setContextAtrribute(16, 1);
+    fillRectangle(player[0] - 35, player[1] - 42, 3, 32);
+    setContextAtrribute(6, 1);
+    fillRectangle(player[0] - 35, player[1] - 42, 3, player[14] / 100 * 32);
     //*/
     //* Draw controls
     setContextAtrribute(17, 1);
