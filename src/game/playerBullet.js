@@ -26,6 +26,7 @@ function updatePlayerBullet(e, params, i){
 
 function drawPlayerBullet(e){
     if(e[7] == 0) return;
-    setContextAtrribute(21, 1);
-    fillCircle(e[0], e[1], e[2]);
+    setContextAtrribute(21, 0);
+    drawLine(e[0], e[1], e[3], 12, 4);
+    //fillCircle(e[0], e[1], e[2]);
 }

@@ -165,6 +165,7 @@ function updatePlayer(){
     //* Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
+            ++passengersSaved;
             // score
             score += 150;
             callDialog(2);
@@ -279,14 +280,14 @@ function drawPlayer(){
     //*/
     //* Draw controls
     setContextAtrribute(17, 1);
-    if(turrets[0][3] === 1){ fillCircle( player[0] - 42, player[1] + 30, 7 ); }
-    if(turrets[1][3] === 1){ fillCircle( player[0] - 30, player[1] + 30, 7 ); }
-    if(turrets[2][3] === 1){ fillCircle( player[0] + 30, player[1] + 30, 7 ); }
-    if(turrets[3][3] === 1){ fillCircle( player[0] + 42, player[1] + 30, 7 ); }
-    drawControl(player[0] - 42, player[1] + 30, turrets[0][1]);
-    drawControl(player[0] - 30, player[1] + 30, turrets[1][1]);
-    drawControl(player[0] + 30, player[1] + 30, turrets[2][1]);
-    drawControl(player[0] + 42, player[1] + 30, turrets[3][1]);
+    if(turrets[0][3] === 1){ fillCircle( player[0] - 42, player[1], 7 ); }
+    if(turrets[1][3] === 1){ fillCircle( player[0] - 30, player[1], 7 ); }
+    if(turrets[2][3] === 1){ fillCircle( player[0] + 30, player[1], 7 ); }
+    if(turrets[3][3] === 1){ fillCircle( player[0] + 42, player[1], 7 ); }
+    drawControl(player[0] - 42, player[1], turrets[0][1]);
+    drawControl(player[0] - 30, player[1], turrets[1][1]);
+    drawControl(player[0] + 30, player[1], turrets[2][1]);
+    drawControl(player[0] + 42, player[1], turrets[3][1]);
     //*/
     //*/
     // Draw some external lines
