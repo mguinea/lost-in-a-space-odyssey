@@ -160,6 +160,8 @@ function updatePlayer(){
     //* Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
+            // score
+            score += 150;
             callDialog(2);
             play(Apassenger);
             for(var j = 7; j >= 0; --j){
@@ -366,6 +368,9 @@ function playerShot(){
 }
 
 function playerLaserUpdate(){
+    // Decrease player laser energy
+    player[14] -= 20 * dt;
+
     var mpInWorld           = getMousePositionInWorld(),
         laserIndex          = 0;
     for(var i = turrets.length - 1; i >= 0; --i){
@@ -383,6 +388,7 @@ function playerLaserUpdate(){
 }
 
 function playerLaserDraw(){
+    if(player[14] < 0) return;
     for(var i = playerLasers.length - 1; i >= 0; --i){
         // 0: x, 1: y, 2: r, 3: l, 4: w, 5: color
         setContextAtrribute(playerLasers[i][5], 1);

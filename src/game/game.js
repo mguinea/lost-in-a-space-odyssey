@@ -56,7 +56,7 @@ function update(){
                         0,
                         0,
                         0,
-                        t + 5,
+                        t + 3,
                         100,
                         1,
                         100
@@ -159,7 +159,7 @@ function draw(){
             ctx.save();
             ctx.strokeStyle = '#ecf0f1';
             ctx.translate(W - 128, 64);
-            font("SCORE: 9999", 1, -1, 1);
+            font("SCORE: " + score, 1, -1, 1);
             ctx.restore();
         break;
         case 2:
@@ -264,7 +264,7 @@ function createScene(s){
     //*/
 
     // Create enemy wave
-    //createWaveEnemy();
+    createWaveEnemy();
 
     initParticles();
 

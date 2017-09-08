@@ -25,8 +25,6 @@ function updateAsteroid(e, params, j){
     // If laser insersection collides
     var mpInWorld = getMousePositionInWorld();
     if(mouse[3] === 2 && collides([mpInWorld[0], mpInWorld[1], 2], e) && player[14] > 0){
-        // Decrease player laser energy
-        player[14] -= 20 * dt;
         // Decrease asteroid life
         e[6] -= 100 * dt;
         // Particles when damaged

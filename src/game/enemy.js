@@ -15,7 +15,7 @@ function updateEnemy(e, params, j){
     e[3] = angleTo(e, player).toDeg();
     // Set forces depending on distance to player
     var distanceToPlayer = distanceTo(e, player),
-        maxVel = 36;
+        maxVel = 64;
     // If too far... accelerate to ship
     if(distanceToPlayer > 100){
         if(Math.abs(e[4]) <= maxVel){
@@ -93,6 +93,8 @@ function updateEnemy(e, params, j){
             playerBullets.splice(i--, 1);
         }
         if(e[9] <= 0){
+            // score
+            score += 10;
             // Sound
             play(Aexplosion2);
             // Particles when die

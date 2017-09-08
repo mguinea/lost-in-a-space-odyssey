@@ -28,6 +28,7 @@ var // Core
     itemsLife       = [],
 
     // Other
+    score           = 0,
     hyperSpace      = false,
     hyperSpaceStart = 0,
     enemiesWaveCounter = 0;
