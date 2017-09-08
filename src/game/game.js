@@ -155,6 +155,12 @@ function draw(){
             drawMouse();
             // Draw dialogs
             drawHALDialog();
+            // Draw score
+            ctx.save();
+            ctx.strokeStyle = '#ecf0f1';
+            ctx.translate(W - 128, 64);
+            font("SCORE: 9999", 1, -1, 1);
+            ctx.restore();
         break;
         case 2:
             setContextAtrribute(28, 1);
