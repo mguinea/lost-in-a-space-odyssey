@@ -159,7 +159,13 @@ function draw(){
             ctx.save();
             ctx.strokeStyle = '#ecf0f1';
             ctx.translate(W - 128, 64);
-            font("SCORE: " + score, 1, -1, 1);
+            font("     SCORE: " + score, 1, -1, 1);
+            ctx.restore();
+
+            ctx.save();
+            ctx.strokeStyle = '#ecf0f1';
+            ctx.translate(W - 128, 80);
+            font("BEST SCORE: " + scores[0], 1, -1, 1);
             ctx.restore();
         break;
         case 2:

@@ -29,12 +29,11 @@ var // Core
 
     // Other
     score           = 0,
+    scores          = [],
+    localStorageId  = 'js13k2017-liaso',
     hyperSpace      = false,
     hyperSpaceStart = 0,
     enemiesWaveCounter = 0;
-    //timer           = 0,
-    //timers          = [],
-    //clearColor      = '#000',
 
 if(DEBUG){
     var _fps_ = new Stats();
@@ -49,21 +48,12 @@ var gl = c.getContext('webgl',glprops) || c.getContext('experimental-webgl', glp
   ctx = g.getContext('2d'),
   W = 800,
   H = 640;
-  //GAME_MARGIN = 0,
-  //GAME_Y_MARGIN = GAME_MARGIN,
-  //GAME_INC_PADDING = 80,
-  //W = FW - 2 * GAME_MARGIN,
-  //H = FH - 2 * GAME_Y_MARGIN,
-  //borderLength = 2*(W+H+2*GAME_INC_PADDING),
-  //storage = localStorage,
-  //shakeScreen=[0,0];
+
   // DOM setup
   d.style.webkitTransformOrigin = d.style.transformOrigin = "0 0";
 
   g.width   = c.width   = W;
   g.height  = c.height  = H;
-  //c.style.top = GAME_Y_MARGIN + "px";
-  //c.style.left = GAME_MARGIN + "px";
 document.oncontextmenu = function (e) {
     e.preventDefault();
 };
@@ -106,3 +96,18 @@ var fbo1 = glCreateFBO();
 var fbo2 = glCreateFBO();
 
 var textureGame = glCreateTexture();
+
+// Load scores
+// localStorage.removeItem(localStorageId);
+scores = localStorage.getItem(localStorageId);
+if(!scores){
+    localStorage.setItem(localStorageId, JSON.stringify([]));
+}
+scores = JSON.parse(localStorage.getItem(localStorageId));
+// put scores in order
+scores.sort();
+scores.reverse();
+/*
+localStorage.setItem("savedData", JSON.stringify([object1, object2));
+object1 = JSON.parse(localStorage.getItem("savedData"))[0];
+object2 = JSON.parse(localStorage.getItem("savedData"))[1];*/
