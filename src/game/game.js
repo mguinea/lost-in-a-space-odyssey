@@ -39,6 +39,7 @@ function update(){
             processGroup( particles, updateParticle );
             processGroup( asteroids, updateAsteroid );
             processGroup( itemsLife, updateItemLife );
+            processGroup( itemsScore, updateItemScore );
             // Update dialog logic
             updateDialog();
             // Update player
@@ -147,6 +148,7 @@ function draw(){
             processGroup( jumpPoints, drawJumpPoint );
             processGroup( particles, drawParticle );
             processGroup( itemsLife, drawItemLife );
+            processGroup( itemsScore, drawItemScore );
 
 
             // Draw player

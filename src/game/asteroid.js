@@ -44,6 +44,11 @@ function updateAsteroid(e, params, j){
 
     // Dead
     if(e[6]<= 0){
+        // Spawn item score
+        // If rand, spawn powerup
+        if(random(0, 10) > 9){
+            itemsScore.push([e[0], e[1], 16, 0]);
+        }
         // Sound
         play(Aexplosion2);
         // Add new asteroids

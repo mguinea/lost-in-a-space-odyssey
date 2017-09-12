@@ -10,7 +10,7 @@ var fs = require('fs'),
     unzip = require('gulp-unzip'),
     zip = require('gulp-zip'),
     gulpUtil = require('gulp-util'),
-    exclude_min = ['src/lib/stats.min.js'],
+    exclude_min = ['src/lib/stats.min.js', 'src/lib/jsfxr.min.js'],
     ignore  = ['src/lib/stats.min.js'],
     config = { js: [] };
 

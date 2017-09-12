@@ -97,6 +97,9 @@ function updatePlayer(){
     if(player[14] > 100){
         player[14] = 100;
     }
+    if(player[14] < 0){
+        player[14] = 0;
+    }
     //*/
     //* Move propeller and go
     if(pressing[65]){ // Key A
@@ -220,6 +223,14 @@ function updatePlayer(){
             play(Alife);
             playerAddLife(10);
             itemsLife.splice(i--, 1);
+        }
+    }
+    for( var i = itemsScore.length - 1 ; i >= 0; --i){
+        // First, check if AABB collides
+        if( collides(player, itemsScore[i]) <= 0){
+            play(Alife);
+            score += 200;
+            itemsScore.splice(i--, 1);
         }
     }
     //*/
@@ -376,7 +387,6 @@ function playerShot(){
 function playerLaserUpdate(){
     // Decrease player laser energy
     player[14] -= 20 * dt;
-
     var mpInWorld           = getMousePositionInWorld(),
         laserIndex          = 0;
     for(var i = turrets.length - 1; i >= 0; --i){
@@ -394,7 +404,7 @@ function playerLaserUpdate(){
 }
 
 function playerLaserDraw(){
-    if(player[14] < 0) return;
+    if(player[14] <= 0) return;
     for(var i = playerLasers.length - 1; i >= 0; --i){
         // 0: x, 1: y, 2: r, 3: l, 4: w, 5: color
         setContextAtrribute(playerLasers[i][5], 1);
