@@ -91,6 +91,10 @@ function update(){
 
         break;
         case 3:
+            if(pressing[82] && reload === 0){
+                location.reload();
+                reload = 1;
+            }
             // Cam focus on player
             camFocus( player );
         break;
@@ -161,7 +165,7 @@ function draw(){
             ctx.save();
             ctx.strokeStyle = '#ecf0f1';
             ctx.translate(W - 128, 64);
-            font("     SCORE: " + score, 1, -1, 1);
+            font("SCORE: " + score, 1, -1, 1);
             ctx.restore();
 
             ctx.save();
@@ -181,7 +185,36 @@ function draw(){
         case 3:
             setContextAtrribute(0, 1);
             ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+            // Draw player
             drawPlayer();
+            // Draw game over and score
+			var bestScore = (scores[0] < score) ? score : scores[0];
+            ctx.save();
+            ctx.strokeStyle = colors[17];
+            ctx.translate(W / 2, H / 2 - 160);
+            font("YOUR SCORE: " + score, 2, 0, 1);
+            ctx.restore();
+
+            ctx.save();
+            ctx.strokeStyle = colors[17];
+            ctx.translate(W / 2, H / 2 - 128);
+            font("BEST SCORE: " + bestScore, 1, 0, 1);
+            ctx.restore();
+			// Show new record message
+			if(scores[0] <= score){
+                ctx.save();
+                ctx.translate(W / 2, H / 2 - 96);
+                var colorIndex = (~~(t * 24) % colors.length - 1);
+                ctx.strokeStyle = colors[colorIndex];
+                font("NEW RECORD!!!", 1, 0, 1);
+                ctx.restore();
+			}
+
+            ctx.save();
+            ctx.strokeStyle = colors[17];
+            ctx.translate(W / 2, H / 2 + 85);
+            font("PRESS R TO RETRY", 1, 0, 1);
+            ctx.restore();
 
         break;
     }

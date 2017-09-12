@@ -8,7 +8,7 @@ var // Core
     scale           = 1,
     t               = 0,    // Acummulate time
     gameState       = 0,    // 0: main menu 1: game play 2: hyperspace 3: game over
-    DEBUG           = true,
+    DEBUG           = false,
     lastPress       = null,
     pressing        = [],
     fullscreen      = false,
@@ -35,8 +35,9 @@ var // Core
     passengersSaved = 0,
     hyperSpace      = false,
     hyperSpaceStart = 0,
-    enemiesWaveCounter = 0;
-
+    enemiesWaveCounter = 0,
+    reload          = 0;
+    // localStorage.removeItem(localStorageId);
 if(DEBUG){
     var _fps_ = new Stats();
     _fps_.dom.style.left = '0px';

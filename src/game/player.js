@@ -54,10 +54,14 @@ function updatePlayer(){
     if(player[12] <= 0){
         gameState = 3;
         // Store score
-        scoreStored = JSON.parse(localStorage.getItem(localStorageId));
-        scoreStored.push(score);
+        scores = JSON.parse(localStorage.getItem(localStorageId));
+        scores.push(score);
         localStorage.removeItem(localStorageId);
-        localStorage.setItem(localStorageId, JSON.stringify(scoreStored));
+        localStorage.setItem(localStorageId, JSON.stringify(scores));
+
+        scores.sort();
+        scores.reverse();
+
         return;
     }
     //*/
