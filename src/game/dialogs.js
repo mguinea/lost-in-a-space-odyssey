@@ -34,6 +34,12 @@ var dialogs = [
 		0,
 		["PRESS H KEY FOR HYPERSPACE JUMP"],
 		-1
+	],
+	[
+		3,
+		0,
+		["NO MORE PASSENGERS IN THIS SECTOR","GO TO ANY BLUE JUMP POINT"],
+		-1
 	]
 ];
 

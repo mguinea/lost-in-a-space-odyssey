@@ -238,6 +238,8 @@ function inputsInGame(){
         hyperSpaceEnd = t + 3.5;
         player[0] = W/2;
         player[1] = H/2;
+        itemsLife = [];
+        itemsScore = [];
     }
 }
 

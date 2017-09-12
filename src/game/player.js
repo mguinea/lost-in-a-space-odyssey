@@ -172,10 +172,14 @@ function updatePlayer(){
     //* Check collisions with passengers
     for( var i = passengers.length - 1 ; i >= 0; --i){
         if( collides(player, passengers[i]) <= 0){
+            if(passengers.length > 1){
+                callDialog(2);
+            }else if(passengers.length <= 1){
+                callDialog(5);
+            }
             ++passengersSaved;
             // score
             score += 150;
-            callDialog(2);
             play(Apassenger);
             for(var j = 7; j >= 0; --j){
                 var particle = [
