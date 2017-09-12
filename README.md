@@ -2,8 +2,16 @@
 ---
 ![](https://img.shields.io/badge/js13kGames-2017-b12a34.svg) ![](https://img.shields.io/badge/version-%23desktop-yellow.svg)
 ## Synopsis
-## Context
-### Inspiration
+This is a madness!!! lots of passengers have been lost in the space, and you are the only one that can rescue them!
+
+Be the commander of the ultimate spaceship from our stellar fleet and go with the A.I. through the deep space to save as passengers as you can before bad aliens attack you.
+
+Controls
+- W for acceleration, A and D to rotate the propeller of the bubble engine.
+- Left click for laser (against enemies).
+- Right click for anti-asteroid intersection laser.
+- H to jump to hyperspace when all passengers of a sector are rescued and you are close enough to a jump point.
+
 # The Game
 
 ## Data Structures
