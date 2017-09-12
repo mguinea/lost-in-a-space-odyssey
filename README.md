@@ -9,7 +9,7 @@ Be the commander of the ultimate spaceship from our stellar fleet and go with th
 Controls
 - W for acceleration, A and D to rotate the propeller of the bubble engine.
 - Left click for laser (against enemies).
-- Right click for anti-asteroid intersection laser.
+- Right click for anti-asteroid intersection laser (it takes time to cool down after much use).
 - H to jump to hyperspace when all passengers of a sector are rescued and you are close enough to a jump point.
 
 # The Game

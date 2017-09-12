@@ -84,10 +84,10 @@ function update(){
                 gameState   = 1;
                 // Drop current scene configs and call a new onedrive
                 destroyScene();
-                createScene(random(2, 1000));
                 player[0] = 0;
                 player[1] = 0;
                 player[13] = false;
+                createScene(random(2, 1000));
             }
 
         break;
@@ -257,6 +257,7 @@ function destroyScene(){
 }
 
 function createScene(s){
+    asteroids = [];
     // Generate random seed for this scene
     window.seed = s || 0;
     //* Create passengers
