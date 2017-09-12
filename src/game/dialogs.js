@@ -6,7 +6,7 @@
 
 var dialogs = [
 	[
-		1.5,
+		0.15,
 		0,
 		["GREETINGS COMMANDER", "I AM THE AI OF THIS SHIP", "OUR MISSION:", "TO RESCUE ALL PASSENGERS.", "SOME INSTRUCTIONS:", "GREEN ARROWS POINT TO PASSENGERS", "RED ARROWS TO ENEMIES", "AND BLUE ARROWS TO JUMP POINTS", "GOOD LUCK!"],
 		-1
@@ -63,7 +63,7 @@ function callDialog(index, params){
         }
         //*/
 
-		play(Adialog);
+		// play(Adialog);
 	}
 }
 
@@ -73,7 +73,7 @@ function updateDialog(){
 		if(t > dialogs[dialog][3] + dialogs[dialog][0] * (dialogs[dialog][1] + 1)){
 			++dialogs[dialog][1];
 			if(dialogs[dialog][1] <= dialogs[dialog][2].length - 1){
-				play(Adialog);
+				// play(Adialog);
 			}
 		}
 		// Hide message and reset

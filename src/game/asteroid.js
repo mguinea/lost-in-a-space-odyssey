@@ -50,7 +50,7 @@ function updateAsteroid(e, params, j){
             itemsScore.push([e[0], e[1], 16, 0]);
         }
         // Sound
-        play(Aexplosion2);
+        play(Aexplosion3);
         // Add new asteroids
         var scale = e[7] / 2; // change scale
         if(scale >= 0.5){

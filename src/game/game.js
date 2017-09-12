@@ -46,6 +46,7 @@ function update(){
             updatePlayer();
             // Spawn enemy wave
             if(t >= enemyWave[0] && enemyWave[1] == 1){
+                play(ApAlarm);
             	callDialog(1);
                 enemyWave[1] = 0;
                 for(var i = random(1, 5) - 1; i >= 0; --i){
@@ -185,6 +186,10 @@ function draw(){
         case 3:
             setContextAtrribute(0, 1);
             ctx.fillRect(0, 0, W + W * scale, H + H * scale);
+            processGroup( backStars, drawBackStar );
+            processGroup( stars, drawStar );
+            processGroup( asteroids, drawAsteroid );
+            processGroup( enemies, drawEnemy );
             // Draw player
             drawPlayer();
             // Draw game over and score

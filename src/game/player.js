@@ -154,6 +154,7 @@ function updatePlayer(){
     //* Check collisions with asteroids
     for( var i = asteroids.length - 1 ; i >= 0; --i){
         if( collides(player, asteroids[i]) <= 0){
+            play(ApHurt);
             // Player life
             player[12] -= 5;
             // Collision
@@ -214,8 +215,8 @@ function updatePlayer(){
     for( var i = enemyBullets.length - 1 ; i >= 0; --i){
         // First, check if AABB collides
         if( collides(player, enemyBullets[i]) <= 0){
+            play(ApHurt);
             enemyBullets[i][2] = 24;
-            play(Aexplosion1);
             enemyBullets.splice(i--, 1);
             if(player[12] >= 5){
                 player[12] -= 5;
@@ -393,6 +394,9 @@ function playerShot(){
 }
 
 function playerLaserUpdate(){
+    if(player[14] > 5){
+        play(ApShot);
+    }
     // Decrease player laser energy
     player[14] -= 20 * dt;
     var mpInWorld           = getMousePositionInWorld(),
